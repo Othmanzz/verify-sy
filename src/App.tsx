@@ -267,7 +267,7 @@ function App() {
   // Enhanced Verdict Card Component
   const VerdictCard: React.FC<{ factCheck: FactCheck; onClick: () => void; featured?: boolean }> = ({ factCheck, onClick, featured = false }) => (
     <article 
-      className={`bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md hover:shadow-gray-200/30 transition-all duration-300 cursor-pointer group ${
+      className={`bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-sm transition-all duration-300 cursor-pointer group ${
         featured ? 'ring-1 ring-primary-100 border-primary-200' : 'border-gray-100 hover:border-gray-200'
       } hover:transform hover:scale-[1.01]`}
       onClick={onClick}
@@ -469,12 +469,29 @@ function App() {
         <div className="flex items-center justify-between h-16">
           {/* Logo - Right side in RTL */}
           <div className="flex items-center gap-3 order-1">
-            <div className="w-12 h-12 bg-gradient-to-br from-primary-600 to-primary-700 rounded-xl flex items-center justify-center shadow-lg">
-              <Shield className="w-7 h-7 text-white" />
+            <div className="w-12 h-12 border-2 border-primary-900 rounded-xl flex items-center justify-center bg-white hover:bg-primary-50 transition-colors p-1">
+              <svg 
+                viewBox="0 0 100 100" 
+                className="w-full h-full" 
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g transform="translate(50,50)">
+                  {/* Simplified geometric elements for small size */}
+                  <g opacity="0.7">
+                    <path d="M-15,-10 L-5,0 L10,-15" stroke="#002055" strokeWidth="2" fill="none" strokeLinecap="round"/>
+                    <circle cx="12" cy="-12" r="2" fill="#002055"/>
+                    <rect x="-18" y="2" width="12" height="6" fill="#002055" rx="1"/>
+                    <rect x="5" y="-2" width="4" height="12" fill="#002055" rx="1"/>
+                  </g>
+                  <text x="0" y="20" fontSize="12" fontWeight="900" textAnchor="middle" fill="#002055" fontFamily="serif">
+                    تأكد
+                  </text>
+                </g>
+              </svg>
             </div>
             <div>
-              <span className="text-xl font-bold text-gray-900 font-arabic">تحقق</span>
-              <div className="text-xs text-gray-500 font-arabic">منصة التحقق من المعلومات</div>
+              <span className="text-xl font-bold text-gray-900 font-arabic">تأكد</span>
+              <div className="text-xs text-gray-500 font-arabic">منصة مستقلة للتحقق من الأخبار</div>
             </div>
           </div>
 
@@ -686,139 +703,169 @@ function App() {
   // Professional Enhanced Homepage Component
   const Homepage = () => (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-primary-50/30" dir="rtl">
-      {/* Enhanced Hero Section */}
-      <section className="bg-gradient-to-br from-slate-900 via-primary-900 to-teal-800 text-white relative overflow-hidden">
-        {/* Dynamic Background Elements */}
-        <div className="absolute inset-0">
-          {/* Floating Geometric Shapes */}
-          <div className="absolute top-20 right-10 w-72 h-72 bg-gradient-to-br from-white/10 to-teal-300/20 rounded-[3rem] rotate-45 animate-pulse"></div>
-          <div className="absolute bottom-32 left-16 w-96 h-96 bg-gradient-to-br from-primary-400/20 to-white/10 rounded-[4rem] rotate-12 animate-pulse delay-1000"></div>
-          <div className="absolute top-1/2 right-1/3 w-48 h-48 bg-gradient-to-br from-teal-300/30 to-primary-300/20 rounded-[2rem] -rotate-12 animate-pulse delay-500"></div>
+      {/* Modern Compact Hero Section */}
+      <section className="bg-white py-12 lg:py-20 relative overflow-hidden">
+        {/* Modern Background Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          {/* Soft gradient orbs */}
+          <div className="absolute top-16 right-16 w-80 h-80 bg-gradient-to-br from-primary-100/20 to-accent-100/30 rounded-full blur-3xl opacity-40 animate-pulse"></div>
+          <div className="absolute bottom-16 left-16 w-96 h-96 bg-gradient-to-br from-accent-100/15 to-primary-200/25 rounded-full blur-3xl opacity-30 animate-pulse delay-2000"></div>
           
-          {/* Creative Border Radius Elements */}
-          <div className="absolute -top-24 -right-24 w-96 h-96 bg-white/5 rounded-[6rem] border border-white/10 backdrop-blur-sm"></div>
-          <div className="absolute -bottom-32 -left-32 w-[40rem] h-[40rem] bg-teal-400/5 rounded-[8rem] border border-teal-300/10"></div>
+          {/* Elegant accent lines */}
+          <div className="absolute top-1/3 left-0 w-24 h-px bg-gradient-to-r from-transparent via-accent-200/30 to-transparent"></div>
+          <div className="absolute top-2/3 right-0 w-32 h-px bg-gradient-to-l from-transparent via-primary-200/25 to-transparent"></div>
+          
+          {/* Minimal floating elements */}
+          <div className="absolute top-24 left-1/3 w-1.5 h-1.5 bg-accent-300/40 rounded-full animate-pulse opacity-50"></div>
+          <div className="absolute bottom-24 right-1/3 w-1 h-1 bg-primary-300/30 rounded-full animate-ping opacity-40"></div>
         </div>
 
-        {/* Geometric Pattern Overlay */}
-        <div className="absolute inset-0 opacity-10">
-          <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
-                <path d="M 60 0 L 0 0 0 60" fill="none" stroke="currentColor" strokeWidth="1"/>
-              </pattern>
-            </defs>
-            <rect width="100%" height="100%" fill="url(#grid)" />
-          </svg>
-        </div>
-
-        {/* Full-Width Content with Creative Box Layout */}
-        <div className="py-16 relative z-10">
-          {/* Creative Hero Box Container */}
-          <div className="mx-6 lg:mx-12 xl:mx-20">
-            <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-[3rem] lg:rounded-[4rem] p-8 lg:p-16 xl:p-20 shadow-2xl relative overflow-hidden">
-              {/* Inner Decorative Elements */}
-              <div className="absolute top-8 right-8 w-32 h-32 bg-gradient-to-br from-teal-400/20 to-primary-400/20 rounded-[2rem] rotate-12 animate-pulse"></div>
-              <div className="absolute bottom-8 left-8 w-24 h-24 bg-gradient-to-br from-white/10 to-teal-300/20 rounded-[1.5rem] -rotate-12 animate-pulse delay-1000"></div>
+        {/* Modern Creative Hero Layout */}
+        <div className="container mx-auto px-4 relative z-10">
+          {/* Creative Blue Hero Box Container */}
+          <div className="relative">
+            {/* Modern Floating Elements */}
+            <div className="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-br from-accent-400/30 to-accent-600/50 rounded-full blur-sm opacity-60 animate-float"></div>
+            <div className="absolute -bottom-3 -left-3 w-6 h-6 bg-gradient-to-br from-primary-600/40 to-primary-700/60 rounded-full blur-sm opacity-50 animate-float-delayed"></div>
+            <div className="absolute top-1/3 -right-2 w-4 h-4 bg-accent-300/40 rounded-full blur-sm opacity-40 animate-pulse"></div>
+            <div className="absolute bottom-1/4 -left-2 w-3 h-3 bg-primary-400/50 rounded-full blur-sm opacity-30 animate-ping"></div>
+            
+            {/* Main Hero Container */}
+            <div className="bg-gradient-to-br from-primary-900 via-primary-800 to-primary-950 backdrop-blur-2xl border-2 border-primary-700/30 rounded-[2.5rem] lg:rounded-[3rem] p-8 lg:p-12 shadow-2xl relative overflow-hidden text-white transform hover:scale-[1.01] transition-all duration-500 hover:shadow-3xl">
+              {/* Subtle Inner Decorative Elements */}
+              <div className="absolute top-8 right-8 w-16 h-16 bg-gradient-to-br from-accent-400/10 to-white/5 rounded-[1.5rem] rotate-12 opacity-60 animate-float"></div>
+              <div className="absolute bottom-8 left-8 w-12 h-12 bg-gradient-to-br from-white/5 to-accent-300/8 rounded-[1rem] -rotate-12 opacity-50 animate-float-delayed"></div>
+              
+              {/* Floating orbs */}
+              <div className="absolute top-1/4 right-1/5 w-2 h-2 bg-accent-300/30 rounded-full animate-pulse opacity-40"></div>
+              <div className="absolute bottom-1/4 left-1/4 w-1.5 h-1.5 bg-white/20 rounded-full animate-pulse delay-1000 opacity-30"></div>
+              <div className="absolute top-2/3 right-1/3 w-1 h-1 bg-accent-200/40 rounded-full animate-ping opacity-25"></div>
+              
+              {/* Subtle Pattern Overlay */}
+              <div className="absolute inset-0 opacity-3">
+                <div className="w-full h-full" style={{
+                  backgroundImage: 'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.2) 0.5px, transparent 0)',
+                  backgroundSize: '60px 60px'
+                }}></div>
+              </div>
               
               <div className="relative z-10">
-                {/* Floating Trust Badge */}
-                <div className="text-center mb-12">
-                  <div className="inline-flex items-center gap-4 bg-white/15 backdrop-blur-md px-8 py-4 rounded-[2rem] border border-white/30 shadow-xl">
-                    <div className="w-10 h-10 bg-gradient-to-br from-success-400 to-success-600 rounded-2xl flex items-center justify-center shadow-lg">
-                      <Shield className="w-6 h-6 text-white" />
+                {/* Modern Logo with Image */}
+                <div className="text-center mb-6">
+                  <div className="relative inline-block">
+                    <div className="inline-flex items-center justify-center w-24 h-24 border-2 border-white/60 rounded-2xl mb-4 backdrop-blur-sm bg-white/10 hover:bg-white/15 transition-all duration-300 transform hover:scale-110 hover:rotate-1 p-3">
+                      <svg 
+                        viewBox="0 0 200 200" 
+                        className="w-full h-full" 
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        {/* Geometric logo design based on the provided image */}
+                        <g transform="translate(100,100)">
+                          {/* Background geometric shapes */}
+                          <g opacity="0.8">
+                            {/* Checkmark-like element */}
+                            <path d="M-30,-20 L-10,0 L20,-30" stroke="white" strokeWidth="4" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                            
+                            {/* Circular elements */}
+                            <circle cx="25" cy="-25" r="3" fill="white"/>
+                            <circle cx="30" cy="-15" r="5" fill="white"/>
+                            
+                            {/* Arabic-style geometric elements */}
+                            <rect x="-35" y="5" width="25" height="15" fill="white" rx="2"/>
+                            <rect x="10" y="-5" width="8" height="25" fill="white" rx="1"/>
+                            <rect x="25" y="0" width="15" height="8" fill="white" rx="1"/>
+                          </g>
+                          
+                          {/* Main Arabic text */}
+                          <text x="0" y="40" fontSize="20" fontWeight="900" textAnchor="middle" fill="white" fontFamily="serif">
+                            تأكد
+                          </text>
+                          {/* Tagline */}
+                          <text x="0" y="60" fontSize="10" fontWeight="500" textAnchor="middle" fill="white" fillOpacity="0.8" fontFamily="serif">
+                            لأن الخبر أمانة
+                          </text>
+                        </g>
+                      </svg>
                     </div>
-                    <span className="text-xl font-semibold font-arabic">المنصة الرائدة للتحقق من المعلومات</span>
-                    <div className="w-2 h-2 bg-success-400 rounded-full animate-pulse"></div>
+                    {/* Floating accent dots */}
+                    <div className="absolute -top-1 -right-1 w-3 h-3 bg-accent-400 rounded-full animate-bounce"></div>
+                    <div className="absolute -bottom-1 -left-1 w-2 h-2 bg-accent-300 rounded-full animate-bounce delay-300"></div>
                   </div>
                 </div>
                 
-                {/* Creative Main Headline */}
-                <div className="text-center mb-16">
-                  <div className="relative inline-block mb-8">
-                    <h1 className="text-5xl md:text-7xl lg:text-8xl font-black leading-none font-arabic-heading relative z-10">
-                      <span className="bg-gradient-to-r from-white via-gray-100 to-teal-200 bg-clip-text text-transparent">
-                        منصة تحقق
+                {/* Modern Trust Badge */}
+                <div className="text-center mb-6">
+                  <div className="inline-flex items-center gap-3 bg-white/10 backdrop-blur-md px-8 py-4 rounded-full border border-white/20 shadow-lg hover:bg-white/15 transition-all duration-300 transform hover:scale-105">
+                    <div className="flex items-center gap-2">
+                      <div className="w-2 h-2 bg-success-400 rounded-full animate-pulse"></div>
+                      <span className="text-sm lg:text-base font-medium font-arabic">منصة مستقلة ومحايدة متخصصة في التحقق من الأخبار</span>
+                    </div>
+                    <div className="w-px h-4 bg-white/30"></div>
+                    <div className="text-xs text-accent-200 font-semibold">IFCN</div>
+                  </div>
+                </div>
+                
+                {/* Modern Creative Headline */}
+                <div className="text-center mb-8">
+                  <div className="relative inline-block">
+                    <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-tight font-arabic-heading mb-4 transform hover:scale-105 transition-all duration-300">
+                      <span className="bg-gradient-to-r from-white via-accent-100 to-accent-200 bg-clip-text text-transparent drop-shadow-2xl">
+                        تأكد
                       </span>
                     </h1>
-                    {/* Creative Decorative Elements */}
-                    <div className="absolute -top-4 -right-6 w-12 h-12 lg:w-16 lg:h-16 border-3 lg:border-4 border-teal-300/40 rounded-[1rem] rotate-12"></div>
-                    <div className="absolute -bottom-3 -left-4 w-8 h-8 lg:w-12 lg:h-12 bg-primary-400/30 rounded-[0.8rem] -rotate-12"></div>
+                    {/* Creative underline */}
+                    <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-gradient-to-r from-accent-400 to-accent-600 rounded-full opacity-80"></div>
                   </div>
                   
-                  <div className="max-w-5xl mx-auto">
-                    <p className="text-xl md:text-2xl lg:text-3xl font-light mb-6 leading-relaxed font-arabic text-gray-100">
-                      <span className="font-semibold text-teal-200">نكشف الحقيقة</span> ونحارب المعلومات المضللة
-                      <br />
-                      بأحدث التقنيات والخبرات المتخصصة
+                  <div className="max-w-3xl mx-auto mb-6">
+                    <p className="text-lg md:text-xl font-light leading-relaxed font-arabic text-white/90 mb-3">
+                      <span className="font-semibold text-accent-200">منصة مستقلة ومحايدة</span> متخصصة في التحقق من الأخبار
                     </p>
-                    <p className="text-base lg:text-lg opacity-80 font-arabic">
-                      ✨ أكثر من 50,000 تحقق • 🎯 دقة 98.5% • ⚡ استجابة فورية • 🛡️ حماية مجتمعية
+                    <p className="text-sm md:text-base opacity-75 font-arabic">
+                      معتمدة من الشبكة الدولية لفحص الحقائق (IFCN) • تأسست عام 2016
                     </p>
                   </div>
                 </div>
 
-                {/* Creative CTA Section */}
-                <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 justify-center items-center mb-16 lg:mb-20">
+                {/* Modern Creative CTA Section */}
+                <div className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-8">
                   <button 
                     onClick={() => setCurrentPage('search')}
-                    className="group relative bg-white text-primary-900 px-8 lg:px-12 py-4 lg:py-6 rounded-[2rem] font-bold text-lg lg:text-xl shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-105 font-arabic overflow-hidden w-full lg:w-auto"
+                    className="group relative bg-white text-primary-900 px-10 py-4 rounded-full font-semibold text-sm shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105 font-arabic overflow-hidden"
                   >
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary-50 to-teal-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <div className="relative flex items-center justify-center gap-4">
-                      <Search className="w-6 lg:w-7 h-6 lg:h-7 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
-                      🔍 ابحث في قاعدة البيانات
-                    </div>
+                    <span className="relative z-10">ابحث في قاعدة البيانات</span>
+                    <div className="absolute inset-0 bg-gradient-to-r from-accent-50 to-primary-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </button>
 
                   <button 
                     onClick={() => setIsSubmissionModalOpen(true)}
-                    className="group relative border-2 lg:border-3 border-white/60 text-white px-8 lg:px-12 py-4 lg:py-6 rounded-[2rem] font-bold text-lg lg:text-xl backdrop-blur-sm hover:backdrop-blur-md transition-all duration-500 transform hover:scale-105 font-arabic overflow-hidden w-full lg:w-auto"
+                    className="group relative border-2 border-white/60 text-white px-10 py-4 rounded-full font-semibold text-sm backdrop-blur-sm hover:bg-white/10 transition-all duration-300 transform hover:scale-105 font-arabic overflow-hidden"
                   >
-                    <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
-                    <div className="relative flex items-center justify-center gap-4">
-                      <Plus className="w-6 lg:w-7 h-6 lg:h-7 group-hover:rotate-180 transition-transform duration-500" />
-                      📤 أرسل معلومة للتحقق
-                    </div>
+                    <span className="relative z-10">أرسل معلومة للتحقق</span>
+                    <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </button>
                 </div>
 
-                {/* Creative Stats with Rounded Design */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-                  <div className="group bg-white/10 backdrop-blur-md border border-white/20 rounded-[2rem] p-6 lg:p-8 text-center hover:bg-white/15 transition-all duration-300 transform hover:scale-105">
-                    <div className="w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-primary-400 to-primary-600 rounded-[1.2rem] flex items-center justify-center mx-auto mb-4 shadow-lg">
-                      <FileText className="w-6 h-6 lg:w-8 lg:h-8 text-white" />
-                    </div>
-                    <div className="text-3xl lg:text-5xl font-black mb-2">50K+</div>
-                    <div className="text-white/80 font-arabic font-medium text-sm lg:text-base">تحقق مكتمل</div>
-                    <div className="w-12 lg:w-16 h-1 bg-gradient-to-r from-primary-400 to-teal-400 rounded-full mx-auto mt-3 lg:mt-4 opacity-60"></div>
+                {/* Compact Stats */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                  <div className="text-center">
+                    <div className="text-3xl font-black mb-1 text-accent-200">8+</div>
+                    <div className="text-white/90 font-arabic text-sm">سنوات خبرة</div>
                   </div>
 
-                  <div className="group bg-white/10 backdrop-blur-md border border-white/20 rounded-[2rem] p-6 lg:p-8 text-center hover:bg-white/15 transition-all duration-300 transform hover:scale-105">
-                    <div className="w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-teal-400 to-teal-600 rounded-[1.2rem] flex items-center justify-center mx-auto mb-4 shadow-lg">
-                      <Users className="w-6 h-6 lg:w-8 lg:h-8 text-white" />
-                    </div>
-                    <div className="text-3xl lg:text-5xl font-black mb-2">5M+</div>
-                    <div className="text-white/80 font-arabic font-medium text-sm lg:text-base">مستخدم استفاد</div>
-                    <div className="w-12 lg:w-16 h-1 bg-gradient-to-r from-teal-400 to-primary-400 rounded-full mx-auto mt-3 lg:mt-4 opacity-60"></div>
+                  <div className="text-center">
+                    <div className="text-3xl font-black mb-1 text-accent-200">IFCN</div>
+                    <div className="text-white/90 font-arabic text-sm">عضوية معتمدة</div>
                   </div>
 
-                  <div className="group bg-white/10 backdrop-blur-md border border-white/20 rounded-[2rem] p-6 lg:p-8 text-center hover:bg-white/15 transition-all duration-300 transform hover:scale-105">
-                    <div className="w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-success-400 to-success-600 rounded-[1.2rem] flex items-center justify-center mx-auto mb-4 shadow-lg">
-                      <TrendingUp className="w-6 h-6 lg:w-8 lg:h-8 text-white" />
-                    </div>
-                    <div className="text-3xl lg:text-5xl font-black mb-2">98.5%</div>
-                    <div className="text-white/80 font-arabic font-medium text-sm lg:text-base">دقة التحقق</div>
-                    <div className="w-12 lg:w-16 h-1 bg-gradient-to-r from-success-400 to-teal-400 rounded-full mx-auto mt-3 lg:mt-4 opacity-60"></div>
+                  <div className="text-center">
+                    <div className="text-3xl font-black mb-1 text-accent-200">سوريا</div>
+                    <div className="text-white/90 font-arabic text-sm">والمنطقة</div>
                   </div>
 
-                  <div className="group bg-white/10 backdrop-blur-md border border-white/20 rounded-[2rem] p-6 lg:p-8 text-center hover:bg-white/15 transition-all duration-300 transform hover:scale-105">
-                    <div className="w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-warning-400 to-warning-600 rounded-[1.2rem] flex items-center justify-center mx-auto mb-4 shadow-lg">
-                      <Globe className="w-6 h-6 lg:w-8 lg:h-8 text-white" />
-                    </div>
-                    <div className="text-3xl lg:text-5xl font-black mb-2">24/7</div>
-                    <div className="text-white/80 font-arabic font-medium text-sm lg:text-base">خدمة مستمرة</div>
-                    <div className="w-12 lg:w-16 h-1 bg-gradient-to-r from-warning-400 to-primary-400 rounded-full mx-auto mt-3 lg:mt-4 opacity-60"></div>
+                  <div className="text-center">
+                    <div className="text-3xl font-black mb-1 text-accent-200">محايد</div>
+                    <div className="text-white/90 font-arabic text-sm">ومستقل</div>
                   </div>
                 </div>
               </div>
@@ -841,7 +888,7 @@ function App() {
         {/* Status Cards Grid - Mobile Optimized */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-16">
           {/* True/Correct Status */}
-          <div className="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 border border-success-200 hover:border-success-300 transform hover:scale-105">
+          <div className="group bg-white rounded-3xl p-8 shadow-sm hover:shadow-md transition-all duration-300 border border-success-200 hover:border-success-300 transform hover:scale-105">
             <div className="text-center">
               <div className="w-20 h-20 bg-gradient-to-br from-success-500 to-success-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                 <CheckCircle className="w-10 h-10 text-white" />
@@ -866,7 +913,7 @@ function App() {
           </div>
 
           {/* False/Incorrect Status */}
-          <div className="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 border border-danger-200 hover:border-danger-300 transform hover:scale-105">
+          <div className="group bg-white rounded-3xl p-8 shadow-sm hover:shadow-md transition-all duration-300 border border-danger-200 hover:border-danger-300 transform hover:scale-105">
             <div className="text-center">
               <div className="w-20 h-20 bg-gradient-to-br from-danger-500 to-danger-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                 <XCircle className="w-10 h-10 text-white" />
@@ -891,7 +938,7 @@ function App() {
           </div>
 
           {/* Misleading Status */}
-          <div className="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 border border-warning-200 hover:border-warning-300 transform hover:scale-105">
+          <div className="group bg-white rounded-3xl p-8 shadow-sm hover:shadow-md transition-all duration-300 border border-warning-200 hover:border-warning-300 transform hover:scale-105">
             <div className="text-center">
               <div className="w-20 h-20 bg-gradient-to-br from-warning-500 to-warning-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                 <AlertCircle className="w-10 h-10 text-white" />
@@ -916,7 +963,7 @@ function App() {
           </div>
 
           {/* Unproven Status */}
-          <div className="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 border border-gray-300 hover:border-gray-400 transform hover:scale-105">
+          <div className="group bg-white rounded-3xl p-8 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-300 hover:border-gray-400 transform hover:scale-105">
             <div className="text-center">
               <div className="w-20 h-20 bg-gradient-to-br from-gray-500 to-gray-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
                 <HelpCircle className="w-10 h-10 text-white" />
@@ -1007,7 +1054,7 @@ function App() {
               ))}
               <button
                 onClick={() => setIsFilterPanelOpen(true)}
-                className="bg-gradient-to-r from-primary-600 to-teal-600 text-white px-6 py-3 rounded-xl hover:from-primary-700 hover:to-teal-700 transition-all duration-300 flex items-center gap-2 font-medium font-arabic shadow-lg transform hover:scale-105"
+                className="bg-gradient-to-r from-primary-600 to-primary-600 text-white px-6 py-3 rounded-xl hover:from-primary-700 hover:to-primary-700 transition-all duration-300 flex items-center gap-2 font-medium font-arabic shadow-lg transform hover:scale-105"
               >
                 <Filter className="w-5 h-5" />
                 المزيد
@@ -1108,7 +1155,7 @@ function App() {
                     setSelectedArticle(mockFactChecks.find(fc => fc.featured)!);
                     setCurrentPage('article');
                   }}
-                  className="group w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white px-8 py-4 rounded-2xl hover:from-primary-700 hover:to-primary-800 transition-all duration-300 font-bold text-lg flex items-center justify-center gap-3 shadow-xl hover:shadow-2xl transform hover:scale-105 font-arabic"
+                  className="group w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white px-8 py-4 rounded-2xl hover:from-primary-700 hover:to-primary-800 transition-all duration-300 font-bold text-lg flex items-center justify-center gap-3 shadow-sm hover:shadow-md transform hover:scale-105 font-arabic"
                 >
                   📖 اقرأ التحقق كاملاً
                   <ExternalLink className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -1158,10 +1205,10 @@ function App() {
             <div className="max-w-md mx-auto">
               {/* Animated Search Icon */}
               <div className="relative mb-8">
-                <div className="w-32 h-32 bg-gradient-to-br from-primary-100 to-teal-100 rounded-full flex items-center justify-center mx-auto">
+                <div className="w-32 h-32 bg-gradient-to-br from-primary-100 to-accent-100 rounded-full flex items-center justify-center mx-auto">
                   <Search className="w-16 h-16 text-primary-400" />
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-br from-primary-200 to-teal-200 rounded-full animate-ping opacity-20"></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-primary-200 to-accent-200 rounded-full animate-ping opacity-20"></div>
               </div>
               
               <h3 className="text-3xl font-bold text-gray-900 mb-4 font-arabic-heading">لم نجد نتائج مطابقة</h3>
@@ -1190,12 +1237,34 @@ function App() {
       </section>
 
       {/* Enhanced Trust & Statistics Section */}
-      <section className="bg-gradient-to-br from-slate-50 via-primary-50 to-teal-50 py-20">
+      <section className="bg-gradient-to-br from-slate-50 via-primary-50 to-accent-50 py-20">
         <div className="container mx-auto px-4">
           {/* Trust Indicators Header */}
           <div className="text-center mb-16">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary-600 to-teal-600 rounded-full mb-6 shadow-xl">
-              <Shield className="w-10 h-10 text-white" />
+            <div className="inline-flex items-center justify-center w-20 h-20 border-4 border-primary-900 rounded-2xl bg-white mb-6 shadow-lg p-3">
+              <svg 
+                viewBox="0 0 150 150" 
+                className="w-full h-full" 
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g transform="translate(75,75)">
+                  {/* Medium-sized geometric elements */}
+                  <g opacity="0.8">
+                    <path d="M-25,-15 L-8,0 L15,-25" stroke="#002055" strokeWidth="3" fill="none" strokeLinecap="round"/>
+                    <circle cx="20" cy="-20" r="3" fill="#002055"/>
+                    <circle cx="25" cy="-10" r="4" fill="#002055"/>
+                    <rect x="-30" y="3" width="20" height="10" fill="#002055" rx="2"/>
+                    <rect x="8" y="-3" width="6" height="18" fill="#002055" rx="1"/>
+                    <rect x="20" y="0" width="12" height="6" fill="#002055" rx="1"/>
+                  </g>
+                  <text x="0" y="35" fontSize="16" fontWeight="900" textAnchor="middle" fill="#002055" fontFamily="serif">
+                    تأكد
+                  </text>
+                  <text x="0" y="50" fontSize="8" fontWeight="500" textAnchor="middle" fill="#002055" fillOpacity="0.7" fontFamily="serif">
+                    لأن الخبر أمانة
+                  </text>
+                </g>
+              </svg>
             </div>
             <h2 className="text-4xl font-bold text-gray-900 mb-4 font-arabic-heading">
               🏆 منصة موثوقة ومعتمدة
@@ -1208,7 +1277,7 @@ function App() {
           {/* Trust Statistics Grid - Mobile Optimized */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-16">
             {/* Total Articles */}
-            <div className="bg-white rounded-3xl p-6 md:p-8 text-center shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border border-primary-100">
+            <div className="bg-white rounded-3xl p-6 md:p-8 text-center shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-105 border border-primary-100">
               <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
                 <FileText className="w-7 h-7 md:w-8 md:h-8 text-white" />
               </div>
@@ -1217,8 +1286,8 @@ function App() {
             </div>
 
             {/* Monthly Visitors */}
-            <div className="bg-white rounded-3xl p-6 md:p-8 text-center shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border border-teal-100">
-              <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-teal-500 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
+            <div className="bg-white rounded-3xl p-6 md:p-8 text-center shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-105 border border-accent-100">
+              <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-primary-900 to-primary-600 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
                 <Users className="w-7 h-7 md:w-8 md:h-8 text-white" />
               </div>
               <div className="text-3xl md:text-4xl font-bold text-gray-900 mb-1 md:mb-2">1.2M</div>
@@ -1226,7 +1295,7 @@ function App() {
             </div>
 
             {/* Academy Students */}
-            <div className="bg-white rounded-3xl p-6 md:p-8 text-center shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border border-success-100">
+            <div className="bg-white rounded-3xl p-6 md:p-8 text-center shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-105 border border-success-100">
               <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-success-500 to-success-600 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
                 <GraduationCap className="w-7 h-7 md:w-8 md:h-8 text-white" />
               </div>
@@ -1235,7 +1304,7 @@ function App() {
             </div>
 
             {/* Team Experience */}
-            <div className="bg-white rounded-3xl p-6 md:p-8 text-center shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border border-warning-100">
+            <div className="bg-white rounded-3xl p-6 md:p-8 text-center shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-105 border border-warning-100">
               <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-warning-500 to-warning-600 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
                 <Award className="w-7 h-7 md:w-8 md:h-8 text-white" />
               </div>
@@ -1257,8 +1326,8 @@ function App() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/* International Fact-Checking Network */}
-              <div className="text-center p-6 bg-gradient-to-br from-primary-50 to-teal-50 rounded-2xl">
-                <div className="w-16 h-16 bg-gradient-to-br from-primary-600 to-primary-700 rounded-full flex items-center justify-center mx-auto mb-4">
+              <div className="text-center p-6 bg-gradient-to-br from-primary-50 to-accent-50 rounded-2xl">
+                <div className="w-16 h-16 bg-gradient-to-br from-primary-900 to-primary-800 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Globe className="w-8 h-8 text-white" />
                 </div>
                 <h4 className="text-lg font-bold text-gray-900 mb-2 font-arabic-heading">
@@ -1270,7 +1339,7 @@ function App() {
               </div>
 
               {/* Media Literacy */}
-              <div className="text-center p-6 bg-gradient-to-br from-success-50 to-teal-50 rounded-2xl">
+              <div className="text-center p-6 bg-gradient-to-br from-success-50 to-accent-50 rounded-2xl">
                 <div className="w-16 h-16 bg-gradient-to-br from-success-600 to-success-700 rounded-full flex items-center justify-center mx-auto mb-4">
                   <BookOpen className="w-8 h-8 text-white" />
                 </div>
@@ -1283,7 +1352,7 @@ function App() {
               </div>
 
               {/* Research Collaboration */}
-              <div className="text-center p-6 bg-gradient-to-br from-warning-50 to-teal-50 rounded-2xl">
+              <div className="text-center p-6 bg-gradient-to-br from-warning-50 to-accent-50 rounded-2xl">
                 <div className="w-16 h-16 bg-gradient-to-br from-warning-600 to-warning-700 rounded-full flex items-center justify-center mx-auto mb-4">
                   <TrendingUp className="w-8 h-8 text-white" />
                 </div>
@@ -1300,7 +1369,7 @@ function App() {
       </section>
 
       {/* Academy CTA */}
-      <section className="bg-gradient-to-r from-primary-50 to-teal-50 py-16">
+      <section className="bg-gradient-to-r from-primary-50 to-accent-50 py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
             <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-600 rounded-full mb-6">
@@ -1547,11 +1616,11 @@ function App() {
   const SearchPage = () => (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-primary-50/20" dir="rtl">
       {/* Hero Search Section */}
-      <section className="bg-gradient-to-br from-primary-900 via-primary-800 to-teal-700 text-white py-20 relative overflow-hidden">
+      <section className="bg-gradient-to-br from-primary-900 via-primary-800 to-primary-950 text-white py-20 relative overflow-hidden">
         {/* Animated Background */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-10 right-32 w-72 h-72 bg-white rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
-          <div className="absolute bottom-10 left-32 w-96 h-96 bg-teal-300 rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-500"></div>
+          <div className="absolute bottom-10 left-32 w-96 h-96 bg-accent-300 rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-500"></div>
         </div>
         
         <div className="container mx-auto px-4 relative">
@@ -1654,11 +1723,11 @@ function App() {
                 const categoryColors = [
                   'from-red-500 to-pink-500',
                   'from-green-500 to-emerald-500', 
-                  'from-blue-500 to-cyan-500',
+                  'from-primary-600 to-cyan-500',
                   'from-purple-500 to-violet-500',
-                  'from-indigo-500 to-blue-500',
+                  'from-indigo-500 to-primary-600',
                   'from-yellow-500 to-orange-500',
-                  'from-teal-500 to-green-500',
+                  'from-primary-900 to-success-500',
                   'from-pink-500 to-rose-500'
                 ];
                 
@@ -1788,7 +1857,7 @@ function App() {
 
               {/* Load More */}
               <div className="text-center">
-                <button className="bg-gradient-to-r from-primary-600 to-teal-600 text-white px-12 py-4 rounded-2xl hover:from-primary-700 hover:to-teal-700 transition-all duration-300 font-bold text-lg shadow-lg hover:shadow-2xl transform hover:scale-105 font-arabic">
+                <button className="bg-gradient-to-r from-primary-600 to-primary-600 text-white px-12 py-4 rounded-2xl hover:from-primary-700 hover:to-primary-700 transition-all duration-300 font-bold text-lg shadow-lg hover:shadow-2xl transform hover:scale-105 font-arabic">
                   📥 تحميل المزيد من النتائج
                 </button>
               </div>
@@ -1799,10 +1868,10 @@ function App() {
               <div className="max-w-md mx-auto">
                 {/* Animated Search Icon */}
                 <div className="relative mb-8">
-                  <div className="w-32 h-32 bg-gradient-to-br from-primary-100 to-teal-100 rounded-full flex items-center justify-center mx-auto">
+                  <div className="w-32 h-32 bg-gradient-to-br from-primary-100 to-accent-100 rounded-full flex items-center justify-center mx-auto">
                     <Search className="w-16 h-16 text-primary-400" />
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-br from-primary-200 to-teal-200 rounded-full animate-ping opacity-20"></div>
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary-200 to-accent-200 rounded-full animate-ping opacity-20"></div>
                 </div>
                 
                 <h3 className="text-3xl font-bold text-gray-900 mb-4 font-arabic-heading">لم نجد نتائج مطابقة</h3>
@@ -1859,13 +1928,13 @@ function App() {
 
   // Modern Academy Page Component with Enhanced Design
   const AcademyPage = () => (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50/30" dir="rtl">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-accent-50/30" dir="rtl">
       {/* Enhanced Hero Section */}
-      <section className="bg-gradient-to-br from-primary-900 via-primary-800 to-teal-700 text-white py-24 relative overflow-hidden">
+      <section className="bg-gradient-to-br from-primary-900 via-primary-800 to-primary-950 text-white py-24 relative overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-20 right-20 w-96 h-96 bg-white rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
-          <div className="absolute bottom-20 left-20 w-80 h-80 bg-teal-300 rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-700"></div>
+          <div className="absolute bottom-20 left-20 w-80 h-80 bg-accent-300 rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-700"></div>
         </div>
         
         <div className="container mx-auto px-4 relative">
@@ -2031,7 +2100,7 @@ function App() {
                 </div>
 
                 <div className="text-center p-6">
-                  <div className="w-16 h-16 bg-teal-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                  <div className="w-16 h-16 bg-accent-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
                     <span className="text-2xl">👥</span>
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-3 font-arabic-heading">مجتمع نشط</h3>
@@ -2059,7 +2128,7 @@ function App() {
 
           {/* CTA Section */}
           <section className="text-center">
-            <div className="bg-gradient-to-r from-primary-600 to-teal-600 rounded-3xl p-12 text-white shadow-2xl">
+            <div className="bg-gradient-to-r from-primary-600 to-primary-600 rounded-3xl p-12 text-white shadow-2xl">
               <h3 className="text-3xl font-bold mb-6 font-arabic-heading">
                 🚀 هل أنت مستعد لتصبح خبير تحقق؟
               </h3>
@@ -2102,18 +2171,39 @@ function App() {
   const AboutPage = () => (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-primary-50/20" dir="rtl">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary-900 via-primary-800 to-teal-700 text-white py-20 relative overflow-hidden">
+      <section className="bg-gradient-to-br from-primary-900 via-primary-800 to-primary-950 text-white py-20 relative overflow-hidden">
         {/* Animated Background */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-10 right-32 w-72 h-72 bg-white rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
-          <div className="absolute bottom-10 left-32 w-96 h-96 bg-teal-300 rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-500"></div>
+          <div className="absolute bottom-10 left-32 w-96 h-96 bg-accent-300 rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-500"></div>
         </div>
         
         <div className="container mx-auto px-4 relative">
           <div className="max-w-4xl mx-auto text-center">
             {/* Icon */}
-            <div className="inline-flex items-center justify-center w-24 h-24 bg-white/20 backdrop-blur-sm rounded-3xl mb-8 shadow-2xl">
-              <Shield className="w-12 h-12" />
+            <div className="inline-flex items-center justify-center w-24 h-24 border-4 border-white rounded-3xl mb-8 p-4">
+              <svg 
+                viewBox="0 0 200 200" 
+                className="w-full h-full" 
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g transform="translate(100,100)">
+                  <g opacity="0.8">
+                    <path d="M-30,-20 L-10,0 L20,-30" stroke="white" strokeWidth="4" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
+                    <circle cx="25" cy="-25" r="3" fill="white"/>
+                    <circle cx="30" cy="-15" r="5" fill="white"/>
+                    <rect x="-35" y="5" width="25" height="15" fill="white" rx="2"/>
+                    <rect x="10" y="-5" width="8" height="25" fill="white" rx="1"/>
+                    <rect x="25" y="0" width="15" height="8" fill="white" rx="1"/>
+                  </g>
+                  <text x="0" y="40" fontSize="20" fontWeight="900" textAnchor="middle" fill="white" fontFamily="serif">
+                    تأكد
+                  </text>
+                  <text x="0" y="60" fontSize="10" fontWeight="500" textAnchor="middle" fill="white" fillOpacity="0.8" fontFamily="serif">
+                    لأن الخبر أمانة
+                  </text>
+                </g>
+              </svg>
             </div>
             
             {/* Main Title */}
@@ -2161,12 +2251,12 @@ function App() {
                   <p className="text-success-700 font-arabic">نعمل لخدمة المجتمع العربي وحمايته من المعلومات المضللة والأخبار المزيفة</p>
                 </div>
 
-                <div className="text-center p-6 bg-gradient-to-br from-teal-50 to-teal-100 rounded-2xl">
-                  <div className="w-12 h-12 bg-teal-500 rounded-xl flex items-center justify-center mx-auto mb-4">
+                <div className="text-center p-6 bg-gradient-to-br from-accent-50 to-accent-100 rounded-2xl">
+                  <div className="w-12 h-12 bg-primary-900 rounded-xl flex items-center justify-center mx-auto mb-4">
                     <BookOpen className="w-6 h-6 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-teal-800 mb-3 font-arabic-heading">التعليم والتوعية</h3>
-                  <p className="text-teal-700 font-arabic">نسعى لتعليم الجمهور مهارات التحقق والتفكير النقدي</p>
+                  <h3 className="text-xl font-bold text-primary-900 mb-3 font-arabic-heading">التعليم والتوعية</h3>
+                  <p className="text-primary-800 font-arabic">نسعى لتعليم الجمهور مهارات التحقق والتفكير النقدي</p>
                 </div>
               </div>
             </div>
@@ -2195,7 +2285,7 @@ function App() {
                 </div>
               </div>
               
-              <div className="bg-gradient-to-br from-primary-100 to-teal-100 rounded-3xl p-8">
+              <div className="bg-gradient-to-br from-primary-100 to-accent-100 rounded-3xl p-8">
                 <div className="grid grid-cols-2 gap-6">
                   <div className="bg-white rounded-2xl p-6 text-center shadow-lg">
                     <div className="text-3xl font-bold text-primary-600 mb-2">50K+</div>
@@ -2234,7 +2324,7 @@ function App() {
             
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               <div className="bg-white rounded-3xl p-6 text-center shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
-                <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-20 h-20 bg-gradient-to-br from-primary-600 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-2xl text-white">👨‍💼</span>
                 </div>
                 <h3 className="text-lg font-bold text-gray-900 mb-2 font-arabic-heading">الصحفيون المحققون</h3>
@@ -2242,7 +2332,7 @@ function App() {
               </div>
 
               <div className="bg-white rounded-3xl p-6 text-center shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
-                <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-teal-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-accent-500 rounded-full flex items-center justify-center mx-auto mb-4">
                   <span className="text-2xl text-white">🔬</span>
                 </div>
                 <h3 className="text-lg font-bold text-gray-900 mb-2 font-arabic-heading">الخبراء العلميون</h3>
@@ -2271,7 +2361,7 @@ function App() {
           <section className="mb-20">
             <div className="bg-white rounded-3xl shadow-xl p-12 border">
               <div className="text-center mb-12">
-                <div className="inline-flex items-center justify-center w-16 h-16 bg-teal-100 rounded-2xl mb-6">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-accent-100 rounded-2xl mb-6">
                   <span className="text-3xl">🔍</span>
                 </div>
                 <h2 className="text-4xl font-bold text-gray-900 mb-6 font-arabic-heading">
@@ -2281,7 +2371,7 @@ function App() {
               
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div className="text-center">
-                  <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                  <div className="w-16 h-16 bg-accent-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
                     <span className="text-2xl">1️⃣</span>
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-3 font-arabic-heading">جمع المعلومات</h3>
@@ -2327,9 +2417,27 @@ function App() {
             </div>
             
             <div className="grid md:grid-cols-3 gap-8">
-              <div className="bg-gradient-to-br from-primary-600 to-primary-700 text-white rounded-3xl p-8 text-center transform hover:scale-105 transition-all duration-300">
-                <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                  <Shield className="w-8 h-8" />
+              <div className="bg-gradient-to-br from-primary-900 to-primary-800 text-white rounded-3xl p-8 text-center transform hover:scale-105 transition-all duration-300">
+                <div className="w-16 h-16 border-2 border-white rounded-2xl flex items-center justify-center mx-auto mb-6 p-2">
+                  <svg 
+                    viewBox="0 0 120 120" 
+                    className="w-full h-full" 
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g transform="translate(60,60)">
+                      <g opacity="0.7">
+                        <path d="M-18,-12 L-6,0 L12,-18" stroke="white" strokeWidth="2" fill="none" strokeLinecap="round"/>
+                        <circle cx="15" cy="-15" r="2" fill="white"/>
+                        <circle cx="18" cy="-9" r="3" fill="white"/>
+                        <rect x="-21" y="3" width="15" height="9" fill="white" rx="1"/>
+                        <rect x="6" y="-3" width="5" height="15" fill="white" rx="1"/>
+                        <rect x="15" y="0" width="9" height="5" fill="white" rx="1"/>
+                      </g>
+                      <text x="0" y="25" fontSize="14" fontWeight="900" textAnchor="middle" fill="white" fontFamily="serif">
+                        تأكد
+                      </text>
+                    </g>
+                  </svg>
                 </div>
                 <h3 className="text-2xl font-bold mb-4 font-arabic-heading">النزاهة</h3>
                 <p className="opacity-90 font-arabic">نلتزم بأعلى معايير النزاهة المهنية والأخلاقية في جميع أعمالنا</p>
@@ -2343,7 +2451,7 @@ function App() {
                 <p className="opacity-90 font-arabic">نسعى للتميز في كل ما نقوم به لنقدم أفضل خدمة لجمهورنا</p>
               </div>
 
-              <div className="bg-gradient-to-br from-teal-600 to-teal-700 text-white rounded-3xl p-8 text-center transform hover:scale-105 transition-all duration-300">
+              <div className="bg-gradient-to-br from-primary-600 to-primary-950 text-white rounded-3xl p-8 text-center transform hover:scale-105 transition-all duration-300">
                 <div className="w-16 h-16 bg-white/20 rounded-2xl flex items-center justify-center mx-auto mb-6">
                   <Globe className="w-8 h-8" />
                 </div>
@@ -2421,11 +2529,11 @@ function App() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-primary-50/20" dir="rtl">
         {/* Hero Section */}
-        <section className="bg-gradient-to-br from-primary-900 via-primary-800 to-teal-700 text-white py-20 relative overflow-hidden">
+        <section className="bg-gradient-to-br from-primary-900 via-primary-800 to-primary-950 text-white py-20 relative overflow-hidden">
           {/* Animated Background */}
           <div className="absolute inset-0 opacity-10">
             <div className="absolute top-10 right-32 w-72 h-72 bg-white rounded-full mix-blend-multiply filter blur-xl animate-pulse"></div>
-            <div className="absolute bottom-10 left-32 w-96 h-96 bg-teal-300 rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-500"></div>
+            <div className="absolute bottom-10 left-32 w-96 h-96 bg-accent-300 rounded-full mix-blend-multiply filter blur-xl animate-pulse delay-500"></div>
           </div>
           
           <div className="container mx-auto px-4 relative">
@@ -2454,7 +2562,7 @@ function App() {
             {/* Contact Options */}
             <section className="mb-20">
               <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div className="bg-white rounded-3xl p-8 text-center shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+                <div className="bg-white rounded-3xl p-8 text-center shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-105">
                   <div className="w-16 h-16 bg-primary-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
                     <MessageCircle className="w-8 h-8 text-primary-600" />
                   </div>
@@ -2465,18 +2573,18 @@ function App() {
                   </a>
                 </div>
 
-                <div className="bg-white rounded-3xl p-8 text-center shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
-                  <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                    <Send className="w-8 h-8 text-blue-600" />
+                <div className="bg-white rounded-3xl p-8 text-center shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-105">
+                  <div className="w-16 h-16 bg-accent-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                    <Send className="w-8 h-8 text-accent-600" />
                   </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-3 font-arabic-heading">البريد الإلكتروني</h3>
                   <p className="text-gray-600 mb-4 font-arabic">info@verify-sy.com</p>
-                  <a href="mailto:info@verify-sy.com" className="bg-blue-600 text-white px-6 py-3 rounded-xl hover:bg-blue-700 transition-colors font-medium font-arabic inline-block">
+                  <a href="mailto:info@verify-sy.com" className="bg-accent-600 text-white px-6 py-3 rounded-xl hover:bg-accent-700 transition-colors font-medium font-arabic inline-block">
                     أرسل إيميل
                   </a>
                 </div>
 
-                <div className="bg-white rounded-3xl p-8 text-center shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+                <div className="bg-white rounded-3xl p-8 text-center shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-105">
                   <div className="w-16 h-16 bg-purple-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
                     <Clock className="w-8 h-8 text-purple-600" />
                   </div>
@@ -2485,7 +2593,7 @@ function App() {
                   <p className="text-gray-600 font-arabic">9:00 ص - 6:00 م</p>
                 </div>
 
-                <div className="bg-white rounded-3xl p-8 text-center shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
+                <div className="bg-white rounded-3xl p-8 text-center shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-105">
                   <div className="w-16 h-16 bg-red-100 rounded-2xl flex items-center justify-center mx-auto mb-6">
                     <AlertCircle className="w-8 h-8 text-red-600" />
                   </div>
@@ -2672,35 +2780,35 @@ function App() {
                 </div>
 
                 {/* Quick Tips */}
-                <div className="bg-gradient-to-br from-teal-50 to-teal-100 rounded-3xl p-8 border border-teal-200">
-                  <h2 className="text-2xl font-bold text-teal-800 mb-6 font-arabic-heading">
+                <div className="bg-gradient-to-br from-accent-50 to-accent-100 rounded-3xl p-8 border border-accent-200">
+                  <h2 className="text-2xl font-bold text-primary-900 mb-6 font-arabic-heading">
                     💡 نصائح سريعة
                   </h2>
                   
                   <div className="space-y-4">
                     <div className="flex items-start gap-3">
-                      <div className="w-6 h-6 bg-teal-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <div className="w-6 h-6 bg-primary-900 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                         <span className="text-white text-xs font-bold">1</span>
                       </div>
-                      <p className="text-teal-700 font-arabic">
+                      <p className="text-primary-800 font-arabic">
                         <strong>كن واضحاً:</strong> اذكر تفاصيل دقيقة عن المعلومة المشكوك فيها
                       </p>
                     </div>
                     
                     <div className="flex items-start gap-3">
-                      <div className="w-6 h-6 bg-teal-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <div className="w-6 h-6 bg-primary-900 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                         <span className="text-white text-xs font-bold">2</span>
                       </div>
-                      <p className="text-teal-700 font-arabic">
+                      <p className="text-primary-800 font-arabic">
                         <strong>أرفق المصادر:</strong> شارك الروابط أو الصور المتعلقة بالموضوع
                       </p>
                     </div>
                     
                     <div className="flex items-start gap-3">
-                      <div className="w-6 h-6 bg-teal-500 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <div className="w-6 h-6 bg-primary-900 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                         <span className="text-white text-xs font-bold">3</span>
                       </div>
-                      <p className="text-teal-700 font-arabic">
+                      <p className="text-primary-800 font-arabic">
                         <strong>ابحث أولاً:</strong> تحقق من قاعدة بياناتنا قبل إرسال طلب جديد
                       </p>
                     </div>
