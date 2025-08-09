@@ -9,7 +9,10 @@
       "Bash(npm run dev:*)",
       "Bash(git init:*)",
       "Bash(git add:*)",
-      "WebFetch(domain:www.verify-sy.com)"
+      "WebFetch(domain:www.verify-sy.com)",
+      "Bash(mkdir:*)",
+      "Bash(cp:*)",
+      "Bash(npx tsc:*)"
     ],
     "deny": []
   }
