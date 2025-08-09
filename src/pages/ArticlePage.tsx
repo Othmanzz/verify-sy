@@ -1,5 +1,5 @@
-import React from 'react';
-import { CheckCircle, XCircle, AlertCircle, HelpCircle, User, Calendar, Eye, Clock, Share2, BookmarkPlus, ArrowLeft, Shield, Award, Globe } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { CheckCircle, XCircle, AlertCircle, HelpCircle, User, Calendar, Eye, Clock, Share2, BookmarkPlus, ArrowLeft, Shield, Award, Globe, Play, Pause, Volume2, VolumeX } from 'lucide-react';
 import { FactCheck } from '../types';
 
 interface ArticlePageProps {
@@ -51,6 +51,106 @@ const VerdictBadge: React.FC<{ verdict: string; size?: 'sm' | 'md' | 'lg' }> = (
       <span className="font-black text-xl">{config.icon}</span>
       {config.label}
     </span>
+  );
+};
+
+// Audio Component for Article Description
+const AudioPlayer: React.FC<{ text: string }> = ({ text }) => {
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMuted, setIsMuted] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const audioRef = useRef<HTMLAudioElement>(null);
+  const [speechSupported, setSpeechSupported] = useState(false);
+  const speechRef = useRef<SpeechSynthesisUtterance | null>(null);
+
+  React.useEffect(() => {
+    setSpeechSupported('speechSynthesis' in window);
+  }, []);
+
+  const togglePlayback = () => {
+    if (!speechSupported) return;
+
+    if (isPlaying) {
+      window.speechSynthesis.cancel();
+      setIsPlaying(false);
+    } else {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = 'ar-SA';
+      utterance.rate = 0.8;
+      utterance.pitch = 1;
+      utterance.volume = isMuted ? 0 : 1;
+      
+      utterance.onstart = () => setIsPlaying(true);
+      utterance.onend = () => setIsPlaying(false);
+      utterance.onerror = () => setIsPlaying(false);
+      
+      speechRef.current = utterance;
+      window.speechSynthesis.speak(utterance);
+    }
+  };
+
+  const toggleMute = () => {
+    setIsMuted(!isMuted);
+    if (window.speechSynthesis.speaking) {
+      window.speechSynthesis.cancel();
+      setIsPlaying(false);
+    }
+  };
+
+  return (
+    <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-2xl p-6 border border-blue-200 mb-8">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
+            <button
+              onClick={togglePlayback}
+              disabled={!speechSupported}
+              className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 shadow-lg ${
+                speechSupported
+                  ? 'bg-blue-600 hover:bg-blue-700 text-white hover:scale-105'
+                  : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+              }`}
+            >
+              {isPlaying ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5 mr-0.5" />}
+            </button>
+            <button
+              onClick={toggleMute}
+              disabled={!speechSupported}
+              className={`w-10 h-10 rounded-full flex items-center justify-center transition-all duration-300 ${
+                speechSupported
+                  ? 'bg-blue-100 hover:bg-blue-200 text-blue-600'
+                  : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+              }`}
+            >
+              {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
+            </button>
+          </div>
+          <div>
+            <div className="font-bold text-blue-900 font-arabic">استماع للمقال</div>
+            <div className="text-sm text-blue-600 font-arabic">
+              {speechSupported 
+                ? (isPlaying ? 'جاري التشغيل...' : 'اضغط للاستماع للمحتوى صوتياً') 
+                : 'التشغيل الصوتي غير متاح في هذا المتصفح'
+              }
+            </div>
+          </div>
+        </div>
+        
+        <div className="flex items-center gap-2">
+          <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+          <span className="text-sm text-blue-700 font-arabic font-medium">صوت عربي</span>
+        </div>
+      </div>
+      
+      {isPlaying && (
+        <div className="mt-4">
+          <div className="w-full bg-blue-200 rounded-full h-2 overflow-hidden">
+            <div className="bg-blue-600 h-full rounded-full animate-pulse"></div>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 
@@ -157,39 +257,57 @@ const ArticlePage: React.FC<ArticlePageProps> = ({ selectedArticle, setCurrentPa
                   {article.title}
                 </h1>
 
-                {/* Meta Info */}
+                {/* Enhanced Meta Info */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
-                  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 text-center">
-                    <User className="w-6 h-6 mx-auto mb-2 text-cyan-300" />
-                    <div className="text-sm text-white font-arabic">المحقق</div>
+                  <div className="group bg-white/10 backdrop-blur-sm rounded-2xl p-4 text-center border border-white/20 hover:bg-white/20 transition-all duration-300 transform hover:scale-105">
+                    <div className="w-12 h-12 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:shadow-xl transition-all duration-300">
+                      <User className="w-6 h-6 text-white" />
+                    </div>
+                    <div className="text-sm text-white font-bold font-arabic mb-1">المحقق</div>
                     <div className="text-xs text-cyan-200 font-arabic">{article.author}</div>
                   </div>
-                  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 text-center">
-                    <Calendar className="w-6 h-6 mx-auto mb-2 text-cyan-300" />
-                    <div className="text-sm text-white font-arabic">التاريخ</div>
+                  <div className="group bg-white/10 backdrop-blur-sm rounded-2xl p-4 text-center border border-white/20 hover:bg-white/20 transition-all duration-300 transform hover:scale-105">
+                    <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-pink-500 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:shadow-xl transition-all duration-300">
+                      <Calendar className="w-6 h-6 text-white" />
+                    </div>
+                    <div className="text-sm text-white font-bold font-arabic mb-1">تاريخ النشر</div>
                     <div className="text-xs text-cyan-200 font-arabic">{article.date}</div>
                   </div>
-                  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 text-center">
-                    <Eye className="w-6 h-6 mx-auto mb-2 text-cyan-300" />
-                    <div className="text-sm text-white font-arabic">المشاهدات</div>
-                    <div className="text-xs text-cyan-200">{article.views.toLocaleString()}</div>
+                  <div className="group bg-white/10 backdrop-blur-sm rounded-2xl p-4 text-center border border-white/20 hover:bg-white/20 transition-all duration-300 transform hover:scale-105">
+                    <div className="w-12 h-12 bg-gradient-to-br from-green-400 to-emerald-500 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:shadow-xl transition-all duration-300">
+                      <Eye className="w-6 h-6 text-white" />
+                    </div>
+                    <div className="text-sm text-white font-bold font-arabic mb-1">المشاهدات</div>
+                    <div className="text-xs text-cyan-200 font-bold">{article.views.toLocaleString()}</div>
                   </div>
-                  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-4 text-center">
-                    <Clock className="w-6 h-6 mx-auto mb-2 text-cyan-300" />
-                    <div className="text-sm text-white font-arabic">وقت القراءة</div>
-                    <div className="text-xs text-cyan-200 font-arabic">{article.readTime}</div>
+                  <div className="group bg-white/10 backdrop-blur-sm rounded-2xl p-4 text-center border border-white/20 hover:bg-white/20 transition-all duration-300 transform hover:scale-105">
+                    <div className="w-12 h-12 bg-gradient-to-br from-orange-400 to-red-500 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-lg group-hover:shadow-xl transition-all duration-300">
+                      <Clock className="w-6 h-6 text-white" />
+                    </div>
+                    <div className="text-sm text-white font-bold font-arabic mb-1">وقت القراءة</div>
+                    <div className="text-xs text-cyan-200 font-arabic font-bold">{article.readTime}</div>
                   </div>
                 </div>
 
-                {/* Actions */}
+                {/* Enhanced Action Buttons */}
                 <div className="flex flex-wrap gap-3">
-                  <button className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-3 rounded-xl border border-white/20 text-white hover:bg-white/20 transition-all font-arabic">
-                    <Share2 className="w-4 h-4" />
-                    مشاركة
+                  <button className="group inline-flex items-center gap-3 bg-gradient-to-r from-blue-500 to-cyan-500 px-6 py-3 rounded-2xl text-white hover:from-blue-600 hover:to-cyan-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 font-arabic font-medium">
+                    <div className="w-8 h-8 bg-white/20 rounded-xl flex items-center justify-center group-hover:bg-white/30 transition-all duration-300">
+                      <Share2 className="w-4 h-4" />
+                    </div>
+                    مشاركة المقال
                   </button>
-                  <button className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-3 rounded-xl border border-white/20 text-white hover:bg-white/20 transition-all font-arabic">
-                    <BookmarkPlus className="w-4 h-4" />
-                    حفظ
+                  <button className="group inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-2xl border border-white/20 text-white hover:bg-white/20 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 font-arabic font-medium">
+                    <div className="w-8 h-8 bg-white/20 rounded-xl flex items-center justify-center group-hover:bg-white/30 transition-all duration-300">
+                      <BookmarkPlus className="w-4 h-4" />
+                    </div>
+                    حفظ للمراجعة
+                  </button>
+                  <button className="group inline-flex items-center gap-3 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-2xl border border-white/20 text-white hover:bg-white/20 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105 font-arabic font-medium">
+                    <div className="w-8 h-8 bg-white/20 rounded-xl flex items-center justify-center group-hover:bg-white/30 transition-all duration-300">
+                      <Shield className="w-4 h-4" />
+                    </div>
+                    إبلاغ عن خطأ
                   </button>
                 </div>
               </div>
@@ -257,6 +375,9 @@ const ArticlePage: React.FC<ArticlePageProps> = ({ selectedArticle, setCurrentPa
             <div className="bg-white rounded-3xl shadow-xl p-12 mb-12">
               <div className="prose prose-lg prose-arabic max-w-none">
                 <h2 className="text-3xl font-black mb-8 font-arabic-heading text-gray-900">تفاصيل التحقق</h2>
+                
+                {/* Audio Player for Article Content */}
+                <AudioPlayer text={`${article.title}. ${article.summary}. الادعاء المنتشر: انتشر عبر وسائل التواصل الاجتماعي ادعاء يفيد بأن شرب الماء الدافئ مع الليمون في الصباح يساعد بشكل كبير في إنقاص الوزن وحرق الدهون، وأنه يمكن الاعتماد عليه كحل سحري للتخسيس. الحقائق العلمية: بعد مراجعة الدراسات العلمية المتاحة، تبين أن شرب الماء الدافئ مع الليمون له فوائد صحية محدودة، ولكنه ليس حلاً سحرياً لإنقاص الوزن كما يُدّعى. نتيجة التحقق: الادعاء مضلل جزئياً. رغم وجود بعض الفوائد الصحية لهذا المشروب، إلا أن تأثيره على إنقاص الوزن محدود ولا يمكن الاعتماد عليه وحده للتخسيس.`} />
                 
                 <div className="text-xl leading-relaxed space-y-6 font-arabic text-gray-700">
                   <p>
