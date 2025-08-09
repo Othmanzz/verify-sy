@@ -16,7 +16,7 @@ const Header: React.FC<HeaderProps> = ({
   isHeaderMenuOpen,
   setIsHeaderMenuOpen 
 }) => (
-  <header className="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm" dir="rtl">
+  <header className="bg-white border-b border-gray-200 sticky top-0 z-[10000] shadow-sm" dir="rtl">
     <div className="container mx-auto px-4">
       <div className="flex items-center justify-between py-4">
         {/* Logo - Right side in RTL */}

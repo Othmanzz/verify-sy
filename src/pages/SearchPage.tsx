@@ -429,7 +429,7 @@ const SearchPage: React.FC<SearchPageProps> = ({ setCurrentPage, setSelectedArti
       </section>
 
       {/* Sticky Search Bar */}
-      <div className={`fixed top-20 left-0 right-0 z-40 transition-all duration-300 ${
+      <div className={`fixed top-28 left-0 right-0 z-[9998] transition-all duration-300 ${
         showStickySearch ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
       }`}>
         <div className="bg-white shadow-xl border-b border-gray-200">
