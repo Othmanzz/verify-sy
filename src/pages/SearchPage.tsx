@@ -193,7 +193,7 @@ const SearchPage: React.FC<SearchPageProps> = ({ setCurrentPage, setSelectedArti
           <div className="absolute bottom-0 right-0 w-96 h-96 bg-cyan-400/20 rounded-full blur-3xl"></div>
         </div>
         
-        <div className="container mx-auto px-4 relative z-40">
+        <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-5xl mx-auto text-center">
             {/* Enhanced Search Icon with Animation */}
             <div className="inline-flex items-center justify-center mb-8">
@@ -236,7 +236,7 @@ const SearchPage: React.FC<SearchPageProps> = ({ setCurrentPage, setSelectedArti
             </div>
             
             {/* Enhanced AI Search Bar with Integrated Filters */}
-            <div className="relative max-w-5xl mx-auto mb-12 z-50">
+            <div className="relative max-w-5xl mx-auto mb-12 z-10">
               <div className="bg-white rounded-3xl shadow-2xl border border-gray-200 p-2 relative">
                 {/* Main Search Input */}
                 <div className="relative">
@@ -265,7 +265,7 @@ const SearchPage: React.FC<SearchPageProps> = ({ setCurrentPage, setSelectedArti
                   
                   {/* Enhanced AI Search Suggestions */}
                   {showSearchSuggestions && (
-                    <div className="absolute top-full left-0 right-0 bg-white rounded-2xl shadow-2xl z-[9999] mt-3 border border-gray-100 animate-fadeIn flex flex-col max-h-96">
+                    <div className="absolute top-full left-0 right-0 bg-white rounded-2xl shadow-2xl z-30 mt-3 border border-gray-100 animate-fadeIn flex flex-col max-h-96">
                       {/* Header - Fixed at top */}
                       <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-4 rounded-t-2xl flex-shrink-0 relative z-20">
                         <div className="flex items-center gap-3 text-white">
@@ -429,7 +429,7 @@ const SearchPage: React.FC<SearchPageProps> = ({ setCurrentPage, setSelectedArti
       </section>
 
       {/* Sticky Search Bar */}
-      <div className={`fixed top-28 left-0 right-0 z-[9998] transition-all duration-300 ${
+      <div className={`fixed top-28 left-0 right-0 z-30 transition-all duration-300 ${
         showStickySearch ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
       }`}>
         <div className="bg-white shadow-xl border-b border-gray-200">
