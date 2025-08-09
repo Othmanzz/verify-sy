@@ -77,7 +77,7 @@ const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => (
                 className="text-primary-100 hover:text-white transition-all duration-300 flex items-center gap-3 font-arabic hover:translate-x-2 transform group py-2 px-3 rounded-xl hover:bg-white/10 w-full text-right"
               >
                 <div className="w-2 h-2 bg-blue-400 rounded-full group-hover:scale-150 transition-transform duration-300"></div>
-                حولنا
+                من نحن
               </button>
             </li>
             <li>

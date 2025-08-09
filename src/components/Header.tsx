@@ -81,7 +81,7 @@ const Header: React.FC<HeaderProps> = ({
                 : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50/50'
             }`}
           >
-            حولنا
+            من نحن
           </button>
           
           <button 
@@ -196,7 +196,7 @@ const Header: React.FC<HeaderProps> = ({
                   : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50 hover:shadow-sm'
               }`}
             >
-              حولنا
+              من نحن
             </button>
             
             <button 
