@@ -14,56 +14,13 @@ const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => (
         <div className="space-y-6">
           <div className="flex items-center gap-4">
             <div className="w-20 h-20 rounded-2xl flex items-center justify-center bg-white/15 backdrop-blur-sm border border-white/20 p-3 shadow-xl">
-              <svg 
-                viewBox="0 0 200 150" 
-                className="w-full h-full" 
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                {/* New Verify-sy Logo - Footer Version */}
-                <g transform="translate(100,75)">
-                  <defs>
-                    <linearGradient id="footerLogoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="white" stopOpacity="0.95" />
-                      <stop offset="50%" stopColor="white" stopOpacity="0.85" />
-                      <stop offset="100%" stopColor="white" stopOpacity="0.75" />
-                    </linearGradient>
-                    <linearGradient id="footerCheckGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="white" stopOpacity="0.9" />
-                      <stop offset="100%" stopColor="white" stopOpacity="0.8" />
-                    </linearGradient>
-                  </defs>
-                  
-                  {/* Main logo shape */}
-                  <g opacity="0.95">
-                    {/* Large checkmark */}
-                    <path d="M-45,-20 L-15,15 L45,-30" stroke="url(#footerCheckGradient)" strokeWidth="6" fill="none" strokeLinecap="round" strokeLinejoin="round"/>
-                    
-                    {/* Arabic text elements stylized */}
-                    <g fill="url(#footerLogoGradient)">
-                      {/* أ */}
-                      <path d="M-60,25 L-60,45 M-55,35 L-65,35" strokeWidth="3" stroke="url(#footerLogoGradient)" fill="none" strokeLinecap="round"/>
-                      {/* ن */}
-                      <circle cx="-40" cy="40" r="4" />
-                      <path d="M-50,35 C-45,30 -35,30 -30,35 C-30,40 -30,45 -30,45" strokeWidth="3" stroke="url(#footerLogoGradient)" fill="none" strokeLinecap="round"/>
-                      
-                      {/* الخبر أمانة */}
-                      <g transform="translate(20,35)">
-                        <rect x="-15" y="0" width="30" height="3" rx="1.5" fill="url(#footerLogoGradient)" opacity="0.8"/>
-                        <rect x="-20" y="8" width="20" height="3" rx="1.5" fill="url(#footerLogoGradient)" opacity="0.6"/>
-                        <rect x="5" y="8" width="15" height="3" rx="1.5" fill="url(#footerLogoGradient)" opacity="0.6"/>
-                      </g>
-                    </g>
-                    
-                    {/* Decorative elements */}
-                    <circle cx="55" cy="-25" r="3" fill="url(#footerLogoGradient)" opacity="0.7"/>
-                    <circle cx="-55" cy="-10" r="2" fill="url(#footerCheckGradient)" opacity="0.8"/>
-                    <circle cx="60" cy="5" r="1.5" fill="url(#footerLogoGradient)" opacity="0.6"/>
-                  </g>
-                </g>
-              </svg>
+              <img 
+                src="/logo_ar.png" 
+                alt="تأكد - لأن الخبر أمانة" 
+                className="w-full h-full object-contain filter brightness-0 invert"
+              />
             </div>
             <div>
-              <h3 className="text-3xl font-bold font-arabic text-white">تأكد</h3>
               <p className="text-primary-200 text-base font-arabic font-medium">لأن الخبر أمانة</p>
             </div>
           </div>
