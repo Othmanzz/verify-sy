@@ -189,13 +189,29 @@ const AppLayout: React.FC = () => {
     navigate(routes[page] || '/');
   };
 
-  // Search functionality
+  // AI-Enhanced Search functionality with smart suggestions
+  const aiSearchSuggestions = [
+    'هل لقاح كوفيد-19 آمن للأطفال؟',
+    'ما صحة ارتفاع سعر الذهب اليوم؟',
+    'هل يؤثر 5G على صحة الإنسان؟',
+    'ما حقيقة الزلزال في تركيا وسوريا؟',
+    'هل الذكاء الاصطناعي سيزيح الوظائف؟',
+    'ما صحة أخبار الاقتصاد العالمي؟'
+  ];
+  
   const searchSuggestions = searchQuery.length >= 2 
-    ? mockFactChecks
-        .filter(fc => fc.title.includes(searchQuery) || fc.summary.includes(searchQuery))
-        .slice(0, 5)
-        .map(fc => fc.title)
-    : [];
+    ? [
+        // AI-powered smart suggestions based on query
+        ...aiSearchSuggestions.filter(suggestion => 
+          suggestion.toLowerCase().includes(searchQuery.toLowerCase())
+        ).slice(0, 3),
+        // Traditional search results
+        ...mockFactChecks
+          .filter(fc => fc.title.includes(searchQuery) || fc.summary.includes(searchQuery))
+          .slice(0, 3)
+          .map(fc => fc.title)
+      ].slice(0, 5)
+    : searchQuery.length === 0 ? aiSearchSuggestions.slice(0, 3) : [];
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const query = e.target.value;

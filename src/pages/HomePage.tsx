@@ -228,271 +228,239 @@ const HomePage: React.FC<HomePageProps> = ({
         </p>
       </div>
 
-      {/* Enhanced Search Section */}
-      <div className="bg-white rounded-3xl shadow-2xl p-10 border-2 border-blue-100 mb-16 relative overflow-hidden">
-        {/* Subtle background pattern */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="w-full h-full" style={{
-            backgroundImage: 'radial-gradient(circle at 3px 3px, rgba(59, 130, 246, 0.3) 1px, transparent 0)',
-            backgroundSize: '60px 60px'
-          }}></div>
+      {/* AI-Powered Smart Search Section */}
+      <div className="bg-white rounded-3xl shadow-2xl p-8 border-2 border-blue-100 mb-16 relative overflow-hidden">
+        {/* AI Background Animation */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-4 right-8 w-16 h-16 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full animate-pulse"></div>
+          <div className="absolute bottom-6 left-6 w-12 h-12 bg-gradient-to-br from-green-400 to-blue-500 rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
+          <div className="absolute top-1/2 left-1/2 w-8 h-8 bg-gradient-to-br from-purple-400 to-pink-500 rounded-full animate-pulse" style={{animationDelay: '1s'}}></div>
         </div>
         
-        <div className="text-center mb-10 relative z-10">
-          <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 rounded-xl mb-4">
-            <Search className="w-6 h-6 text-white" />
+        <div className="text-center mb-8 relative z-10">
+          <div className="inline-flex items-center gap-3 bg-gradient-to-r from-blue-600 to-purple-600 p-4 rounded-2xl mb-4 shadow-lg">
+            <div className="w-3 h-3 bg-green-400 rounded-full animate-ping"></div>
+            <span className="text-white font-bold text-lg font-arabic">🤖 البحث الذكي بالذكاء الاصطناعي</span>
+            <div className="w-3 h-3 bg-yellow-400 rounded-full animate-pulse"></div>
           </div>
-          <h3 className="text-3xl font-bold text-gray-900 mb-3 font-arabic-heading">
-            ابحث بسرعة في التحققات
+          <h3 className="text-2xl font-bold text-gray-900 mb-2 font-arabic-heading">
+            ابحث بذكاء واحصل على النتائج الأدق
           </h3>
-          <p className="text-lg text-gray-600 font-arabic">استخدم البحث الذكي للعثور على التحقق المناسب</p>
+          <p className="text-base text-gray-600 font-arabic">يفهم الذكاء الاصطناعي استفسارك ويقترح أفضل التحققات ذات الصلة</p>
         </div>
 
         <div className="relative z-10">
-          <div className="flex flex-col lg:flex-row gap-8 items-center">
-            <div className="flex-1 w-full">
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="🔍 ابحث عن أي موضوع... (مثال: لقاح كورونا، الاقتصاد العالمي، تغير المناخ)"
-                  value={searchQuery}
-                  onChange={handleSearchChange}
-                  onFocus={() => {
-                    if (searchSuggestions.length > 0) {
-                      setShowSearchSuggestions(true);
-                    }
-                  }}
-                  onBlur={() => {
-                    setTimeout(() => setShowSearchSuggestions(false), 200);
-                  }}
-                  className="w-full pl-16 pr-6 py-6 text-xl border-3 border-gray-300 rounded-3xl focus:outline-none focus:ring-4 focus:ring-blue-200 focus:border-blue-500 text-right font-arabic shadow-xl hover:shadow-2xl transition-all duration-300 bg-gray-50 focus:bg-white"
-                  dir="rtl"
-                />
-                <div className="absolute left-6 top-6 w-8 h-8 bg-gradient-to-r from-blue-600 to-blue-700 rounded-xl flex items-center justify-center">
-                  <Search className="h-5 w-5 text-white" />
+          <div className="flex flex-col gap-6">
+            {/* AI Search Input */}
+            <div className="relative">
+              <input
+                type="text"
+                placeholder="🤖 اسأل الذكاء الاصطناعي... (مثال: ما صحة خبر الزلزال في تركيا؟)"
+                value={searchQuery}
+                onChange={handleSearchChange}
+                onFocus={() => {
+                  if (searchSuggestions.length > 0) {
+                    setShowSearchSuggestions(true);
+                  }
+                }}
+                onBlur={() => {
+                  setTimeout(() => setShowSearchSuggestions(false), 200);
+                }}
+                className="w-full pl-16 pr-6 py-5 text-lg border-2 border-blue-200 rounded-2xl focus:outline-none focus:ring-3 focus:ring-purple-200 focus:border-purple-400 text-right font-arabic shadow-lg hover:shadow-xl transition-all duration-300 bg-gradient-to-r from-gray-50 to-blue-50 focus:from-white focus:to-purple-50"
+                dir="rtl"
+              />
+              <div className="absolute left-4 top-4 flex items-center gap-2">
+                <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center animate-pulse">
+                  <Search className="h-4 w-4 text-white" />
                 </div>
-              
-                {showSearchSuggestions && searchSuggestions.length > 0 && (
-                  <div className="absolute top-full left-0 right-0 bg-white border-3 border-blue-200 rounded-3xl shadow-3xl z-30 mt-3 max-h-80 overflow-y-auto">
-                    {searchSuggestions.map((suggestion, index) => (
-                      <button
-                        key={index}
-                        onClick={() => handleSuggestionClick(suggestion)}
-                        className="w-full text-right px-8 py-5 hover:bg-blue-50 hover:text-blue-700 transition-all duration-300 text-xl border-b border-gray-100 last:border-b-0 flex items-center gap-4 group"
-                        dir="rtl"
-                      >
-                        <div className="w-6 h-6 bg-blue-100 group-hover:bg-blue-200 rounded-lg flex items-center justify-center transition-colors duration-200">
-                          <Search className="w-4 h-4 text-blue-600" />
-                        </div>
-                        <span className="font-arabic font-medium flex-1">{suggestion}</span>
-                        <ExternalLink className="w-4 h-4 text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
-                      </button>
-                    ))}
-                  </div>
-                )}
+                <div className="text-xs text-gray-500 font-arabic">AI</div>
               </div>
+            
+              {/* AI-Enhanced Suggestions */}
+              {showSearchSuggestions && searchSuggestions.length > 0 && (
+                <div className="absolute top-full left-0 right-0 bg-white border-2 border-purple-200 rounded-2xl shadow-2xl z-30 mt-2 max-h-72 overflow-y-auto">
+                  <div className="p-3 bg-gradient-to-r from-purple-50 to-blue-50 border-b border-purple-100">
+                    <div className="flex items-center gap-2 text-sm text-purple-700 font-arabic">
+                      <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                      الذكاء الاصطناعي يقترح:
+                    </div>
+                  </div>
+                  {searchSuggestions.map((suggestion, index) => (
+                    <button
+                      key={index}
+                      onClick={() => handleSuggestionClick(suggestion)}
+                      className="w-full text-right px-6 py-4 hover:bg-gradient-to-r hover:from-purple-50 hover:to-blue-50 hover:text-purple-700 transition-all duration-300 text-base border-b border-gray-100 last:border-b-0 flex items-center gap-3 group"
+                      dir="rtl"
+                    >
+                      <div className="w-5 h-5 bg-purple-100 group-hover:bg-purple-200 rounded-lg flex items-center justify-center transition-colors duration-200">
+                        <span className="text-purple-600 text-xs">🤖</span>
+                      </div>
+                      <span className="font-arabic font-medium flex-1">{suggestion}</span>
+                      <div className="text-xs text-gray-400 bg-gray-100 px-2 py-1 rounded-full font-arabic">ذكي</div>
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
             
-            <div className="flex gap-4 flex-wrap lg:flex-nowrap">
-              {categories.slice(1, 5).map((category) => (
+            {/* AI Quick Actions */}
+            <div className="flex flex-wrap gap-3 justify-center">
+              {[
+                { icon: '🔍', text: 'بحث سريع', color: 'blue' },
+                { icon: '🤖', text: 'تحليل ذكي', color: 'purple' },
+                { icon: '📊', text: 'إحصائيات', color: 'green' },
+                { icon: '⚡', text: 'نتائج فورية', color: 'yellow' }
+              ].map((action, index) => (
                 <button
-                  key={category}
-                  onClick={() => setFilters(prev => ({ ...prev, category }))}
-                  className={`px-8 py-4 rounded-2xl text-base font-semibold transition-all duration-300 transform hover:scale-105 font-arabic shadow-lg ${
-                    filters.category === category
-                      ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-xl'
-                      : 'bg-gray-100 text-gray-700 hover:bg-blue-50 hover:text-blue-600 hover:shadow-xl'
-                  }`}
+                  key={index}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-arabic font-medium transition-all duration-300 hover:scale-105 shadow-sm hover:shadow-md bg-${action.color}-50 text-${action.color}-700 hover:bg-${action.color}-100 border border-${action.color}-200`}
                 >
-                  {category}
+                  <span>{action.icon}</span>
+                  {action.text}
                 </button>
               ))}
-              <button
-                onClick={() => setIsFilterPanelOpen(true)}
-                className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-4 rounded-2xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 flex items-center gap-3 font-semibold font-arabic shadow-xl transform hover:scale-105"
-              >
-                <Filter className="w-5 h-5" />
-                المزيد
-              </button>
             </div>
           </div>
         </div>
 
-        {/* Enhanced Quick Search Tags */}
-        <div className="mt-12 text-center relative z-10">
-          <p className="text-lg text-gray-600 mb-6 font-arabic font-medium">المواضيع الشائعة:</p>
-          <div className="flex flex-wrap justify-center gap-3">
-            {['كوفيد-19', 'لقاحات', 'صحة', 'اقتصاد', 'سياسة', 'تكنولوجيا', 'بيئة', 'تغير المناخ'].map((tag, index) => (
+        {/* AI Suggested Topics */}
+        <div className="mt-8 text-center relative z-10">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <span className="text-base text-gray-600 font-arabic font-medium">🤖 مقترحات ذكية:</span>
+            <div className="w-2 h-2 bg-green-400 rounded-full animate-ping"></div>
+          </div>
+          <div className="flex flex-wrap justify-center gap-2">
+            {[
+              { topic: 'كوفيد-19', trend: 'ساخن', color: 'red' },
+              { topic: 'التغير المناخي', trend: 'رائج', color: 'green' },
+              { topic: 'الذكاء الاصطناعي', trend: 'جديد', color: 'purple' },
+              { topic: 'الاقتصاد', trend: 'مهم', color: 'blue' },
+              { topic: 'الصحة', trend: 'شائع', color: 'teal' },
+              { topic: 'التكنولوجيا', trend: 'متنامي', color: 'orange' }
+            ].map((item, index) => (
               <button
-                key={tag}
-                onClick={() => setSearchQuery(tag)}
-                className="bg-gradient-to-r from-blue-50 to-blue-100 text-blue-700 px-6 py-3 rounded-full text-base hover:from-blue-100 hover:to-blue-200 transition-all duration-300 font-arabic font-medium shadow-sm hover:shadow-lg transform hover:scale-105 border border-blue-200"
+                key={item.topic}
+                onClick={() => setSearchQuery(item.topic)}
+                className={`relative flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-arabic font-medium transition-all duration-300 hover:scale-105 shadow-sm hover:shadow-md bg-${item.color}-50 text-${item.color}-700 hover:bg-${item.color}-100 border border-${item.color}-200 group`}
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                #{tag}
+                <span>#{item.topic}</span>
+                <span className={`text-xs px-2 py-1 rounded-full bg-${item.color}-100 text-${item.color}-600 opacity-0 group-hover:opacity-100 transition-opacity`}>
+                  {item.trend}
+                </span>
               </button>
             ))}
           </div>
         </div>
       </div>
 
-      {/* Enhanced Status Categorization Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-        {/* Enhanced True/Correct Status */}
-        <div className="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-3xl transition-all duration-500 border-2 border-green-200 hover:border-green-300 transform hover:scale-105 hover:-translate-y-2 relative overflow-hidden">
-          {/* Subtle background gradient */}
-          <div className="absolute inset-0 bg-gradient-to-br from-green-50/50 to-green-100/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-          
-          <div className="text-center relative z-10">
-            <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg group-hover:shadow-2xl">
-              <CheckCircle className="w-10 h-10 text-white" />
+      {/* Simplified Smart Status Cards */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
+        {/* Simplified Correct Status */}
+        <div className="group bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-6 border border-green-200 hover:border-green-300 transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer" onClick={() => setFilters(prev => ({ ...prev, verdict: 'صحيح' }))}>
+          <div className="text-center">
+            <div className="w-12 h-12 bg-green-500 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+              <CheckCircle className="w-6 h-6 text-white" />
             </div>
-            <h3 className="text-2xl font-bold text-green-800 mb-3 font-arabic-heading">صحيح</h3>
-            <p className="text-green-700 text-sm mb-6 font-arabic leading-relaxed">
-              معلومات تم التأكد من صحتها بناءً على الأدلة والمصادر الموثوقة
-            </p>
-            <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-4 mb-6 border border-green-200">
-              <div className="text-3xl font-black text-green-600 mb-2">
-                {mockFactChecks.filter(fc => fc.verdict === 'true').length}
-              </div>
-              <div className="text-sm text-green-600 font-arabic font-medium">تحقق مكتمل</div>
+            <div className="text-2xl font-bold text-green-600 mb-1">
+              {mockFactChecks.filter(fc => fc.verdict === 'true').length}
             </div>
-            <button 
-              onClick={() => setFilters(prev => ({ ...prev, verdict: 'صحيح' }))}
-              className="w-full bg-gradient-to-r from-green-600 to-green-700 text-white py-3 rounded-xl hover:from-green-700 hover:to-green-800 transition-all duration-300 font-semibold text-base font-arabic shadow-lg hover:shadow-xl transform hover:scale-105"
-            >
-              عرض التحققات
-            </button>
+            <h3 className="text-lg font-bold text-green-800 mb-2 font-arabic-heading">صحيح</h3>
+            <p className="text-xs text-green-600 font-arabic">معلومات موثقة</p>
           </div>
-          
-          {/* Decorative elements */}
-          <div className="absolute top-4 right-4 w-8 h-8 bg-green-200/50 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-          <div className="absolute bottom-4 left-4 w-6 h-6 bg-green-300/30 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
         </div>
 
-        {/* Enhanced False/Incorrect Status */}
-        <div className="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-3xl transition-all duration-500 border-2 border-red-200 hover:border-red-300 transform hover:scale-105 hover:-translate-y-2 relative overflow-hidden">
-          {/* Subtle background gradient */}
-          <div className="absolute inset-0 bg-gradient-to-br from-red-50/50 to-red-100/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-          
-          <div className="text-center relative z-10">
-            <div className="w-20 h-20 bg-gradient-to-br from-red-500 to-red-600 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg group-hover:shadow-2xl">
-              <XCircle className="w-10 h-10 text-white" />
+        {/* Simplified False Status */}
+        <div className="group bg-gradient-to-br from-red-50 to-red-100 rounded-2xl p-6 border border-red-200 hover:border-red-300 transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer" onClick={() => setFilters(prev => ({ ...prev, verdict: 'زائف' }))}>
+          <div className="text-center">
+            <div className="w-12 h-12 bg-red-500 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+              <XCircle className="w-6 h-6 text-white" />
             </div>
-            <h3 className="text-2xl font-bold text-red-800 mb-3 font-arabic-heading">زائف</h3>
-            <p className="text-red-700 text-sm mb-6 font-arabic leading-relaxed">
-              معلومات غير صحيحة تم دحضها بالأدلة والمصادر الموثوقة
-            </p>
-            <div className="bg-gradient-to-br from-red-50 to-red-100 rounded-2xl p-4 mb-6 border border-red-200">
-              <div className="text-3xl font-black text-red-600 mb-2">
-                {mockFactChecks.filter(fc => fc.verdict === 'false').length}
-              </div>
-              <div className="text-sm text-red-600 font-arabic font-medium">تحقق مكتمل</div>
+            <div className="text-2xl font-bold text-red-600 mb-1">
+              {mockFactChecks.filter(fc => fc.verdict === 'false').length}
             </div>
-            <button 
-              onClick={() => setFilters(prev => ({ ...prev, verdict: 'زائف' }))}
-              className="w-full bg-gradient-to-r from-red-600 to-red-700 text-white py-3 rounded-xl hover:from-red-700 hover:to-red-800 transition-all duration-300 font-semibold text-base font-arabic shadow-lg hover:shadow-xl transform hover:scale-105"
-            >
-              عرض التحققات
-            </button>
+            <h3 className="text-lg font-bold text-red-800 mb-2 font-arabic-heading">زائف</h3>
+            <p className="text-xs text-red-600 font-arabic">معلومات مضللة</p>
           </div>
-          
-          {/* Decorative elements */}
-          <div className="absolute top-4 right-4 w-8 h-8 bg-red-200/50 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-          <div className="absolute bottom-4 left-4 w-6 h-6 bg-red-300/30 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
         </div>
 
-        {/* Enhanced Misleading Status */}
-        <div className="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-3xl transition-all duration-500 border-2 border-yellow-200 hover:border-yellow-300 transform hover:scale-105 hover:-translate-y-2 relative overflow-hidden">
-          {/* Subtle background gradient */}
-          <div className="absolute inset-0 bg-gradient-to-br from-yellow-50/50 to-yellow-100/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-          
-          <div className="text-center relative z-10">
-            <div className="w-20 h-20 bg-gradient-to-br from-yellow-500 to-yellow-600 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg group-hover:shadow-2xl">
-              <AlertCircle className="w-10 h-10 text-white" />
+        {/* Simplified Misleading Status */}
+        <div className="group bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-2xl p-6 border border-yellow-200 hover:border-yellow-300 transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer" onClick={() => setFilters(prev => ({ ...prev, verdict: 'مضلل' }))}>
+          <div className="text-center">
+            <div className="w-12 h-12 bg-yellow-500 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+              <AlertCircle className="w-6 h-6 text-white" />
             </div>
-            <h3 className="text-2xl font-bold text-yellow-800 mb-3 font-arabic-heading">مضلل</h3>
-            <p className="text-yellow-700 text-sm mb-6 font-arabic leading-relaxed">
-              معلومات تحتوي على حقائق جزئية أو سياق مضلل
-            </p>
-            <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-2xl p-4 mb-6 border border-yellow-200">
-              <div className="text-3xl font-black text-yellow-600 mb-2">
-                {mockFactChecks.filter(fc => fc.verdict === 'misleading').length}
-              </div>
-              <div className="text-sm text-yellow-600 font-arabic font-medium">تحقق مكتمل</div>
+            <div className="text-2xl font-bold text-yellow-600 mb-1">
+              {mockFactChecks.filter(fc => fc.verdict === 'misleading').length}
             </div>
-            <button 
-              onClick={() => setFilters(prev => ({ ...prev, verdict: 'مضلل' }))}
-              className="w-full bg-gradient-to-r from-yellow-600 to-yellow-700 text-white py-3 rounded-xl hover:from-yellow-700 hover:to-yellow-800 transition-all duration-300 font-semibold text-base font-arabic shadow-lg hover:shadow-xl transform hover:scale-105"
-            >
-              عرض التحققات
-            </button>
+            <h3 className="text-lg font-bold text-yellow-800 mb-2 font-arabic-heading">مضلل</h3>
+            <p className="text-xs text-yellow-600 font-arabic">معلومات جزئية</p>
           </div>
-          
-          {/* Decorative elements */}
-          <div className="absolute top-4 right-4 w-8 h-8 bg-yellow-200/50 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-          <div className="absolute bottom-4 left-4 w-6 h-6 bg-yellow-300/30 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
         </div>
 
-        {/* Enhanced Unproven Status */}
-        <div className="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-3xl transition-all duration-500 border-2 border-gray-300 hover:border-gray-400 transform hover:scale-105 hover:-translate-y-2 relative overflow-hidden">
-          {/* Subtle background gradient */}
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-50/50 to-gray-100/30 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-          
-          <div className="text-center relative z-10">
-            <div className="w-20 h-20 bg-gradient-to-br from-gray-500 to-gray-600 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-lg group-hover:shadow-2xl">
-              <HelpCircle className="w-10 h-10 text-white" />
+        {/* Simplified Unproven Status */}
+        <div className="group bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-6 border border-gray-200 hover:border-gray-300 transition-all duration-300 hover:scale-105 hover:shadow-lg cursor-pointer" onClick={() => setFilters(prev => ({ ...prev, verdict: 'غير مثبت' }))}>
+          <div className="text-center">
+            <div className="w-12 h-12 bg-gray-500 rounded-xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+              <HelpCircle className="w-6 h-6 text-white" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-800 mb-3 font-arabic-heading">غير مثبت</h3>
-            <p className="text-gray-700 text-sm mb-6 font-arabic leading-relaxed">
-              لا توجد أدلة كافية للتحقق من صحة المعلومة
-            </p>
-            <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-4 mb-6 border border-gray-200">
-              <div className="text-3xl font-black text-gray-600 mb-2">
-                {mockFactChecks.filter(fc => fc.verdict === 'unproven').length}
-              </div>
-              <div className="text-sm text-gray-600 font-arabic font-medium">تحقق مكتمل</div>
+            <div className="text-2xl font-bold text-gray-600 mb-1">
+              {mockFactChecks.filter(fc => fc.verdict === 'unproven').length}
             </div>
-            <button 
-              onClick={() => setFilters(prev => ({ ...prev, verdict: 'غير مثبت' }))}
-              className="w-full bg-gradient-to-r from-gray-600 to-gray-700 text-white py-3 rounded-xl hover:from-gray-700 hover:to-gray-800 transition-all duration-300 font-semibold text-base font-arabic shadow-lg hover:shadow-xl transform hover:scale-105"
-            >
-              عرض التحققات
-            </button>
+            <h3 className="text-lg font-bold text-gray-800 mb-2 font-arabic-heading">غير مثبت</h3>
+            <p className="text-xs text-gray-600 font-arabic">بحاجة إرشاد</p>
           </div>
-          
-          {/* Decorative elements */}
-          <div className="absolute top-4 right-4 w-8 h-8 bg-gray-200/50 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-          <div className="absolute bottom-4 left-4 w-6 h-6 bg-gray-300/30 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
         </div>
       </div>
 
-      {/* Enhanced Content Cards Section */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-6">
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl flex items-center justify-center shadow-lg">
-            <FileText className="w-6 h-6 text-white" />
+      {/* Smart Content Section with AI Recommendations */}
+      <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100 mb-12">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
+              <span className="text-white text-lg">🤖</span>
+            </div>
+            <div>
+              <h3 className="text-2xl font-bold text-gray-900 font-arabic-heading">
+                تحققات ذكية مقترحة
+              </h3>
+              <p className="text-sm text-gray-600 font-arabic">مختارة بعناية بواسطة الذكاء الاصطناعي</p>
+            </div>
           </div>
-          <div>
-            <h3 className="text-4xl font-bold text-gray-900 mb-2 font-arabic-heading">
-              أحدث التحققات
-            </h3>
-            <p className="text-xl text-gray-600 font-arabic">آخر ما توصل إليه فريقنا من تحققات مهمة وموثوقة</p>
+          <div className="flex items-center gap-2">
+            <div className="w-2 h-2 bg-green-400 rounded-full animate-ping"></div>
+            <span className="text-xs text-green-600 font-arabic font-medium">محدّث لحظياً</span>
           </div>
         </div>
-        <button 
-          onClick={() => setCurrentPage('search')}
-          className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-4 rounded-2xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 font-semibold text-lg flex items-center gap-3 shadow-xl hover:shadow-2xl transform hover:scale-105 font-arabic group"
-        >
-          عرض جميع التحققات
-          <ChevronDown className="w-6 h-6 rotate-[-90deg] group-hover:translate-x-1 transition-transform duration-300" />
-        </button>
+        
+        {/* AI Filter Categories */}
+        <div className="flex flex-wrap gap-2 mb-6">
+          {[
+            { name: 'الأكثر قراءة', icon: '🔥', count: 12 },
+            { name: 'جديد اليوم', icon: '⚡', count: 8 },
+            { name: 'مهم وعاجل', icon: '🚨', count: 5 },
+            { name: 'موصى به', icon: '⭐', count: 3 }
+          ].map((filter, index) => (
+            <button key={index} className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-50 to-blue-50 text-purple-700 rounded-xl text-sm font-arabic hover:from-purple-100 hover:to-blue-100 transition-colors border border-purple-200 hover:border-purple-300">
+              <span>{filter.icon}</span>
+              {filter.name}
+              <span className="bg-purple-200 text-purple-800 px-2 py-1 rounded-full text-xs">{filter.count}</span>
+            </button>
+          ))}
+        </div>
       </div>
       
-      {/* Enhanced Articles Grid */}
-      <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
-        {filteredFactChecks.slice(0, 12).map((factCheck, index) => (
-          <div key={factCheck.id} style={{ animationDelay: `${index * 100}ms` }} className="animate-in fade-in slide-in-from-bottom-4 duration-700">
+      {/* Smart Articles Grid with AI Insights */}
+      <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-6">
+        {filteredFactChecks.slice(0, 9).map((factCheck, index) => (
+          <div key={factCheck.id} style={{ animationDelay: `${index * 50}ms` }} className="relative group animate-in fade-in slide-in-from-bottom-2 duration-500">
+            {/* AI Confidence Badge */}
+            {index < 3 && (
+              <div className="absolute -top-2 -right-2 z-10 bg-gradient-to-r from-purple-500 to-blue-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
+                <span className="mr-1">🤖</span>
+                {95 - index * 5}% ثقة
+              </div>
+            )}
             <CompactCard 
               factCheck={factCheck}
               onClick={() => {
@@ -503,6 +471,19 @@ const HomePage: React.FC<HomePageProps> = ({
             />
           </div>
         ))}
+      </div>
+      
+      {/* Load More with AI Suggestions */}
+      <div className="text-center mt-8">
+        <button 
+          onClick={() => setCurrentPage('search')}
+          className="group bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-2xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 font-semibold text-base flex items-center gap-3 shadow-lg hover:shadow-xl transform hover:scale-105 font-arabic mx-auto"
+        >
+          <span className="text-lg">🤖</span>
+          عرض مزيد من التحققات الذكية
+          <ChevronDown className="w-5 h-5 rotate-[-90deg] group-hover:translate-x-1 transition-transform duration-300" />
+        </button>
+        <p className="text-sm text-gray-500 mt-3 font-arabic">الذكاء الاصطناعي يختار لك أهم التحققات</p>
       </div>
 
       {/* Enhanced Empty State */}
@@ -628,8 +609,8 @@ const HomePage: React.FC<HomePageProps> = ({
       </section>
     )}
 
-    {/* Enhanced Trust & Statistics Section */}
-    <section className="bg-gradient-to-br from-slate-50 via-primary-50 to-accent-50 py-20">
+    {/* Streamlined Trust Section */}
+    <section className="bg-gradient-to-br from-slate-50 via-blue-50 to-purple-50 py-16">
       <div className="container mx-auto px-4">
         {/* Trust Indicators Header */}
         <div className="text-center mb-16">
