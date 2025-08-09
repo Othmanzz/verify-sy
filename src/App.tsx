@@ -6,6 +6,7 @@ import { Search, Filter, Plus } from 'lucide-react';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ScrollToTop from './components/ScrollToTop';
+import ReportModal from './components/ReportModal';
 import HomePage from './pages/HomePage';
 import SearchPage from './pages/SearchPage';
 import ArticlePage from './pages/ArticlePage';
@@ -366,6 +367,12 @@ const AppLayout: React.FC = () => {
       >
         <Plus className="w-6 h-6" />
       </button>
+
+      {/* Report Modal */}
+      <ReportModal 
+        isOpen={isSubmissionModalOpen} 
+        onClose={() => setIsSubmissionModalOpen(false)} 
+      />
     </div>
   );
 };

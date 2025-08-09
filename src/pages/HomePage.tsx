@@ -46,7 +46,7 @@ const HomePage: React.FC<HomePageProps> = ({
 }) => (
   <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50" dir="rtl">
     {/* Creative Animated Hero Section */}
-    <section className="container mx-auto px-4 pt-1 pb-12">
+    <section className="container mx-auto px-4 pt-8 pb-12">
       <div className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 rounded-3xl p-12 shadow-2xl border border-blue-700/30 overflow-hidden">
         {/* Creative News Animation Background */}
         <div className="absolute inset-0 overflow-hidden">
