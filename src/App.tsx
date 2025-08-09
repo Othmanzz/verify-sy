@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Search, Menu, X, ExternalLink, Calendar, User, BookOpen, MessageCircle, CheckCircle, XCircle, AlertCircle, HelpCircle, ChevronDown, Filter, Plus, TrendingUp, Eye, Clock, Star, Users, Award, Send, Bell, Globe, Shield } from 'lucide-react';
+import { Search, Menu, X, ExternalLink, Calendar, User, BookOpen, MessageCircle, CheckCircle, XCircle, AlertCircle, HelpCircle, ChevronDown, Filter, Plus, TrendingUp, Eye, Clock, Star, Users, Award, Send, Bell, Globe, Shield, GraduationCap, FileText } from 'lucide-react';
 import { FactCheck, Course, FilterOptions, NewsSubmission } from './types';
 import { mockFactChecks, mockCourses, categories, verdictOptions } from './data/mockData';
 import SubmissionModal from './components/SubmissionModal';
@@ -153,7 +153,7 @@ function App() {
   };
 
   // Verdict Component
-  const VerdictBadge: React.FC<{ verdict: FactCheck['verdict']; size?: 'sm' | 'md' | 'lg' }> = ({ verdict, size = 'md' }) => {
+  const VerdictBadge: React.FC<{ verdict: FactCheck['verdict']; size?: 'xs' | 'sm' | 'md' | 'lg' }> = ({ verdict, size = 'md' }) => {
     const getVerdictConfig = (verdict: string) => {
       switch (verdict) {
         case 'true':
@@ -173,12 +173,14 @@ function App() {
     const Icon = config.icon;
     
     const sizeClasses = {
+      xs: 'px-1.5 py-0.5 text-xs',
       sm: 'px-2 py-1 text-xs',
       md: 'px-3 py-1.5 text-sm',
       lg: 'px-4 py-2 text-base'
     };
 
     const iconSizes = {
+      xs: 'w-2.5 h-2.5',
       sm: 'w-3 h-3',
       md: 'w-4 h-4',
       lg: 'w-5 h-5'
@@ -192,69 +194,159 @@ function App() {
     );
   };
 
+  // Compact Card Component - Thmanyah Style
+  const CompactCard: React.FC<{ factCheck: FactCheck; onClick: () => void; featured?: boolean }> = ({ factCheck, onClick, featured = false }) => (
+    <article 
+      className="group bg-white border border-gray-100 hover:border-gray-200 transition-all duration-200 cursor-pointer hover:shadow-sm rounded-lg overflow-hidden"
+      onClick={onClick}
+    >
+      <div className="flex items-start gap-4 p-4">
+        {/* Content Section */}
+        <div className="flex-1 min-w-0">
+          {/* Category and Date */}
+          <div className="flex items-center gap-2 mb-2">
+            <VerdictBadge verdict={factCheck.verdict} size="xs" />
+            <span className="text-xs text-gray-500 font-arabic">
+              {factCheck.category}
+            </span>
+            <span className="text-xs text-gray-400">•</span>
+            <span className="text-xs text-gray-400 font-arabic">
+              {new Date(factCheck.date).toLocaleDateString('ar-SA')}
+            </span>
+            {featured && (
+              <>
+                <span className="text-xs text-gray-400">•</span>
+                <span className="text-xs text-warning-600 font-semibold font-arabic">مميز</span>
+              </>
+            )}
+          </div>
+
+          {/* Title */}
+          <h3 className="text-base font-bold text-gray-900 mb-2 line-clamp-2 leading-tight group-hover:text-primary-600 transition-colors font-arabic-heading">
+            {factCheck.title}
+          </h3>
+
+          {/* Summary */}
+          <p className="text-sm text-gray-600 line-clamp-2 leading-relaxed mb-3 font-arabic">
+            {factCheck.summary}
+          </p>
+
+          {/* Footer */}
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4 text-xs text-gray-500">
+              <div className="flex items-center gap-1">
+                <User className="w-3 h-3" />
+                <span className="font-arabic">{factCheck.author}</span>
+              </div>
+              <div className="flex items-center gap-1">
+                <Eye className="w-3 h-3" />
+                <span>{factCheck.views.toLocaleString()}</span>
+              </div>
+            </div>
+            <div className="flex items-center gap-1 text-xs text-gray-400 bg-gray-50 px-2 py-1 rounded-md">
+              <Clock className="w-3 h-3" />
+              <span className="font-arabic">{factCheck.readTime}</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Image Section */}
+        <div className="flex-shrink-0">
+          <div className="w-24 h-16 bg-gray-100 rounded-lg overflow-hidden">
+            <LazyImage 
+              src={factCheck.image} 
+              alt=""
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            />
+          </div>
+        </div>
+      </div>
+    </article>
+  );
+
   // Enhanced Verdict Card Component
   const VerdictCard: React.FC<{ factCheck: FactCheck; onClick: () => void; featured?: boolean }> = ({ factCheck, onClick, featured = false }) => (
     <article 
-      className={`bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-all duration-300 cursor-pointer group ${
-        featured ? 'ring-2 ring-blue-100' : ''
-      }`}
+      className={`bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md hover:shadow-gray-200/30 transition-all duration-300 cursor-pointer group ${
+        featured ? 'ring-1 ring-primary-100 border-primary-200' : 'border-gray-100 hover:border-gray-200'
+      } hover:transform hover:scale-[1.01]`}
       onClick={onClick}
     >
-      <div className="aspect-video overflow-hidden relative">
+      <div className="aspect-[5/3] overflow-hidden relative bg-gradient-to-br from-gray-50 to-gray-100">
         <LazyImage 
           src={factCheck.image} 
           alt=""
-          className="w-full h-full group-hover:scale-105 transition-transform duration-300"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
         {featured && (
-          <div className="absolute top-3 right-3 bg-primary-600 text-white px-2 py-1 rounded-full text-xs font-medium">
+          <div className="absolute top-3 right-3 bg-gradient-to-r from-warning-500 to-warning-600 text-white px-3 py-1.5 rounded-full text-xs font-semibold shadow-md backdrop-blur-sm border border-warning-300">
+            <Star className="inline w-3 h-3 ml-1 fill-current" />
             مميز
           </div>
         )}
-        <div className="absolute bottom-3 left-3 bg-black bg-opacity-70 text-white px-2 py-1 rounded text-xs">
+        <div className="absolute top-3 left-3">
+          <VerdictBadge verdict={factCheck.verdict} size="sm" />
+        </div>
+        <div className="absolute bottom-3 right-3 bg-black/70 text-white px-3 py-1.5 rounded-xl text-xs font-medium backdrop-blur-sm">
+          <Clock className="inline w-3 h-3 ml-1" />
           {factCheck.readTime}
         </div>
       </div>
       
-      <div className="p-6">
-        <div className="flex justify-between items-start mb-3">
-          <VerdictBadge verdict={factCheck.verdict} />
-          <span className="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded-md">
-            {factCheck.category}
+      <div className="p-5">
+        {/* Enhanced Category Header */}
+        <div className="flex justify-between items-center mb-4">
+          <span className="inline-flex items-center text-xs font-semibold px-3 py-1.5 rounded-full border bg-primary-50/80 text-primary-700 border-primary-100/50 font-arabic">
+            📂 {factCheck.category}
           </span>
+          <div className="flex items-center gap-1.5 text-xs text-gray-500">
+            <Calendar className="w-3.5 h-3.5" />
+            <span className="font-arabic">{new Date(factCheck.date).toLocaleDateString('ar-SA')}</span>
+          </div>
         </div>
         
-        <h3 className="text-lg font-bold text-gray-900 mb-2 line-clamp-2 leading-tight group-hover:text-primary-600 transition-colors">
+        {/* Enhanced Title */}
+        <h3 className="text-lg font-bold text-gray-900 mb-3 line-clamp-2 leading-snug group-hover:text-primary-600 transition-colors font-arabic-heading">
           {factCheck.title}
         </h3>
         
-        <p className="text-gray-600 mb-4 line-clamp-3 text-sm leading-relaxed">
+        {/* Enhanced Summary */}
+        <p className="text-gray-600 mb-4 line-clamp-2 text-sm leading-relaxed font-arabic">
           {factCheck.summary}
         </p>
 
-        {/* Tags */}
-        <div className="flex flex-wrap gap-1 mb-4">
+        {/* Enhanced Tags */}
+        <div className="flex flex-wrap gap-1.5 mb-5">
           {factCheck.tags.slice(0, 3).map((tag, index) => (
-            <span key={index} className="text-xs bg-primary-50 text-primary-600 px-2 py-1 rounded">
-              {tag}
+            <span 
+              key={index} 
+              className="inline-flex items-center text-xs bg-gray-50/80 text-gray-700 px-2.5 py-1 rounded-lg font-medium border border-gray-100/50 font-arabic"
+            >
+              🏷️ {tag}
             </span>
           ))}
+          {factCheck.tags.length > 3 && (
+            <span className="text-xs text-gray-400 px-2 py-1 font-arabic">
+              +{factCheck.tags.length - 3}
+            </span>
+          )}
         </div>
         
-        <div className="flex items-center justify-between text-sm text-gray-500">
-          <div className="flex items-center gap-2">
-            <User className="w-4 h-4" />
-            {factCheck.author}
+        {/* Enhanced Footer with Light Design */}
+        <div className="flex items-center justify-between pt-4 border-t border-gray-50">
+          {/* Author Info */}
+          <div className="flex items-center gap-2.5">
+            <div className="w-7 h-7 bg-primary-50 rounded-full flex items-center justify-center border border-primary-100/50">
+              <User className="w-3.5 h-3.5 text-primary-600" />
+            </div>
+            <span className="text-sm text-gray-700 font-medium font-arabic">{factCheck.author}</span>
           </div>
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-1">
-              <Eye className="w-4 h-4" />
-              {factCheck.views.toLocaleString()}
-            </div>
-            <div className="flex items-center gap-1">
-              <Calendar className="w-4 h-4" />
-              {new Date(factCheck.date).toLocaleDateString('ar-SA')}
-            </div>
+          
+          {/* Views Counter with Light Design */}
+          <div className="flex items-center gap-1.5 text-sm text-gray-500 bg-gray-50/50 px-3 py-1.5 rounded-lg border border-gray-100/50">
+            <Eye className="w-4 h-4" />
+            <span className="font-medium">{factCheck.views.toLocaleString()}</span>
+            <span className="text-xs font-arabic opacity-75">مشاهدة</span>
           </div>
         </div>
       </div>
@@ -591,76 +683,281 @@ function App() {
     </header>
   );
 
-  // Enhanced Homepage Component
+  // Professional Enhanced Homepage Component
   const Homepage = () => (
-    <div className="min-h-screen bg-gray-50" dir="rtl">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-primary-900 via-primary-800 to-teal-700 text-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-black opacity-10"></div>
-        {/* Decorative elements */}
-        <div className="absolute top-20 right-20 w-32 h-32 bg-white opacity-5 rounded-full"></div>
-        <div className="absolute bottom-20 left-20 w-48 h-48 bg-teal-400 opacity-10 rounded-full"></div>
-        <div className="container mx-auto px-4 py-20 relative">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 bg-primary-800 bg-opacity-50 px-4 py-2 rounded-full text-sm mb-6">
-              <TrendingUp className="w-4 h-4" />
-              أكثر من 50,000 تحقق تم إنجازه
-            </div>
-            
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-              منصة تأكد للتحقق من المعلومات
-            </h1>
-            <p className="text-xl md:text-2xl mb-8 opacity-90 leading-relaxed max-w-3xl mx-auto">
-              نساعدك في التمييز بين الحقيقة والأخبار المزيفة من خلال التحقق المهني والشفاف المبني على الأدلة العلمية
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
-              <button 
-                onClick={() => setCurrentPage('search')}
-                className="bg-white text-primary-900 px-8 py-4 rounded-xl font-bold hover:bg-gray-100 transition-all duration-300 text-lg shadow-lg hover:scale-105"
-              >
-                ابحث في قاعدة البيانات
-              </button>
-              <button 
-                onClick={() => setIsSubmissionModalOpen(true)}
-                className="border-2 border-white text-white px-8 py-4 rounded-xl font-bold hover:bg-white hover:text-primary-900 transition-all duration-300 text-lg hover:scale-105"
-              >
-                أبلغ عن معلومة مشكوك فيها
-              </button>
-            </div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-primary-50/30" dir="rtl">
+      {/* Enhanced Hero Section */}
+      <section className="bg-gradient-to-br from-slate-900 via-primary-900 to-teal-800 text-white relative overflow-hidden">
+        {/* Dynamic Background Elements */}
+        <div className="absolute inset-0">
+          {/* Floating Geometric Shapes */}
+          <div className="absolute top-20 right-10 w-72 h-72 bg-gradient-to-br from-white/10 to-teal-300/20 rounded-[3rem] rotate-45 animate-pulse"></div>
+          <div className="absolute bottom-32 left-16 w-96 h-96 bg-gradient-to-br from-primary-400/20 to-white/10 rounded-[4rem] rotate-12 animate-pulse delay-1000"></div>
+          <div className="absolute top-1/2 right-1/3 w-48 h-48 bg-gradient-to-br from-teal-300/30 to-primary-300/20 rounded-[2rem] -rotate-12 animate-pulse delay-500"></div>
+          
+          {/* Creative Border Radius Elements */}
+          <div className="absolute -top-24 -right-24 w-96 h-96 bg-white/5 rounded-[6rem] border border-white/10 backdrop-blur-sm"></div>
+          <div className="absolute -bottom-32 -left-32 w-[40rem] h-[40rem] bg-teal-400/5 rounded-[8rem] border border-teal-300/10"></div>
+        </div>
 
-            {/* Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-2xl mx-auto">
-              <div className="text-center">
-                <div className="text-2xl font-bold">50K+</div>
-                <div className="text-sm opacity-80">تحقق مكتمل</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold">15K+</div>
-                <div className="text-sm opacity-80">مستخدم نشط</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold">98%</div>
-                <div className="text-sm opacity-80">دقة التحقق</div>
-              </div>
-              <div className="text-center">
-                <div className="text-2xl font-bold">24/7</div>
-                <div className="text-sm opacity-80">خدمة مستمرة</div>
+        {/* Geometric Pattern Overlay */}
+        <div className="absolute inset-0 opacity-10">
+          <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+                <path d="M 60 0 L 0 0 0 60" fill="none" stroke="currentColor" strokeWidth="1"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+          </svg>
+        </div>
+
+        {/* Full-Width Content with Creative Box Layout */}
+        <div className="py-16 relative z-10">
+          {/* Creative Hero Box Container */}
+          <div className="mx-6 lg:mx-12 xl:mx-20">
+            <div className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-[3rem] lg:rounded-[4rem] p-8 lg:p-16 xl:p-20 shadow-2xl relative overflow-hidden">
+              {/* Inner Decorative Elements */}
+              <div className="absolute top-8 right-8 w-32 h-32 bg-gradient-to-br from-teal-400/20 to-primary-400/20 rounded-[2rem] rotate-12 animate-pulse"></div>
+              <div className="absolute bottom-8 left-8 w-24 h-24 bg-gradient-to-br from-white/10 to-teal-300/20 rounded-[1.5rem] -rotate-12 animate-pulse delay-1000"></div>
+              
+              <div className="relative z-10">
+                {/* Floating Trust Badge */}
+                <div className="text-center mb-12">
+                  <div className="inline-flex items-center gap-4 bg-white/15 backdrop-blur-md px-8 py-4 rounded-[2rem] border border-white/30 shadow-xl">
+                    <div className="w-10 h-10 bg-gradient-to-br from-success-400 to-success-600 rounded-2xl flex items-center justify-center shadow-lg">
+                      <Shield className="w-6 h-6 text-white" />
+                    </div>
+                    <span className="text-xl font-semibold font-arabic">المنصة الرائدة للتحقق من المعلومات</span>
+                    <div className="w-2 h-2 bg-success-400 rounded-full animate-pulse"></div>
+                  </div>
+                </div>
+                
+                {/* Creative Main Headline */}
+                <div className="text-center mb-16">
+                  <div className="relative inline-block mb-8">
+                    <h1 className="text-5xl md:text-7xl lg:text-8xl font-black leading-none font-arabic-heading relative z-10">
+                      <span className="bg-gradient-to-r from-white via-gray-100 to-teal-200 bg-clip-text text-transparent">
+                        منصة تحقق
+                      </span>
+                    </h1>
+                    {/* Creative Decorative Elements */}
+                    <div className="absolute -top-4 -right-6 w-12 h-12 lg:w-16 lg:h-16 border-3 lg:border-4 border-teal-300/40 rounded-[1rem] rotate-12"></div>
+                    <div className="absolute -bottom-3 -left-4 w-8 h-8 lg:w-12 lg:h-12 bg-primary-400/30 rounded-[0.8rem] -rotate-12"></div>
+                  </div>
+                  
+                  <div className="max-w-5xl mx-auto">
+                    <p className="text-xl md:text-2xl lg:text-3xl font-light mb-6 leading-relaxed font-arabic text-gray-100">
+                      <span className="font-semibold text-teal-200">نكشف الحقيقة</span> ونحارب المعلومات المضللة
+                      <br />
+                      بأحدث التقنيات والخبرات المتخصصة
+                    </p>
+                    <p className="text-base lg:text-lg opacity-80 font-arabic">
+                      ✨ أكثر من 50,000 تحقق • 🎯 دقة 98.5% • ⚡ استجابة فورية • 🛡️ حماية مجتمعية
+                    </p>
+                  </div>
+                </div>
+
+                {/* Creative CTA Section */}
+                <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 justify-center items-center mb-16 lg:mb-20">
+                  <button 
+                    onClick={() => setCurrentPage('search')}
+                    className="group relative bg-white text-primary-900 px-8 lg:px-12 py-4 lg:py-6 rounded-[2rem] font-bold text-lg lg:text-xl shadow-2xl hover:shadow-3xl transition-all duration-500 transform hover:scale-105 font-arabic overflow-hidden w-full lg:w-auto"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary-50 to-teal-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    <div className="relative flex items-center justify-center gap-4">
+                      <Search className="w-6 lg:w-7 h-6 lg:h-7 group-hover:scale-110 group-hover:rotate-12 transition-all duration-300" />
+                      🔍 ابحث في قاعدة البيانات
+                    </div>
+                  </button>
+
+                  <button 
+                    onClick={() => setIsSubmissionModalOpen(true)}
+                    className="group relative border-2 lg:border-3 border-white/60 text-white px-8 lg:px-12 py-4 lg:py-6 rounded-[2rem] font-bold text-lg lg:text-xl backdrop-blur-sm hover:backdrop-blur-md transition-all duration-500 transform hover:scale-105 font-arabic overflow-hidden w-full lg:w-auto"
+                  >
+                    <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity duration-300"></div>
+                    <div className="relative flex items-center justify-center gap-4">
+                      <Plus className="w-6 lg:w-7 h-6 lg:h-7 group-hover:rotate-180 transition-transform duration-500" />
+                      📤 أرسل معلومة للتحقق
+                    </div>
+                  </button>
+                </div>
+
+                {/* Creative Stats with Rounded Design */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
+                  <div className="group bg-white/10 backdrop-blur-md border border-white/20 rounded-[2rem] p-6 lg:p-8 text-center hover:bg-white/15 transition-all duration-300 transform hover:scale-105">
+                    <div className="w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-primary-400 to-primary-600 rounded-[1.2rem] flex items-center justify-center mx-auto mb-4 shadow-lg">
+                      <FileText className="w-6 h-6 lg:w-8 lg:h-8 text-white" />
+                    </div>
+                    <div className="text-3xl lg:text-5xl font-black mb-2">50K+</div>
+                    <div className="text-white/80 font-arabic font-medium text-sm lg:text-base">تحقق مكتمل</div>
+                    <div className="w-12 lg:w-16 h-1 bg-gradient-to-r from-primary-400 to-teal-400 rounded-full mx-auto mt-3 lg:mt-4 opacity-60"></div>
+                  </div>
+
+                  <div className="group bg-white/10 backdrop-blur-md border border-white/20 rounded-[2rem] p-6 lg:p-8 text-center hover:bg-white/15 transition-all duration-300 transform hover:scale-105">
+                    <div className="w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-teal-400 to-teal-600 rounded-[1.2rem] flex items-center justify-center mx-auto mb-4 shadow-lg">
+                      <Users className="w-6 h-6 lg:w-8 lg:h-8 text-white" />
+                    </div>
+                    <div className="text-3xl lg:text-5xl font-black mb-2">5M+</div>
+                    <div className="text-white/80 font-arabic font-medium text-sm lg:text-base">مستخدم استفاد</div>
+                    <div className="w-12 lg:w-16 h-1 bg-gradient-to-r from-teal-400 to-primary-400 rounded-full mx-auto mt-3 lg:mt-4 opacity-60"></div>
+                  </div>
+
+                  <div className="group bg-white/10 backdrop-blur-md border border-white/20 rounded-[2rem] p-6 lg:p-8 text-center hover:bg-white/15 transition-all duration-300 transform hover:scale-105">
+                    <div className="w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-success-400 to-success-600 rounded-[1.2rem] flex items-center justify-center mx-auto mb-4 shadow-lg">
+                      <TrendingUp className="w-6 h-6 lg:w-8 lg:h-8 text-white" />
+                    </div>
+                    <div className="text-3xl lg:text-5xl font-black mb-2">98.5%</div>
+                    <div className="text-white/80 font-arabic font-medium text-sm lg:text-base">دقة التحقق</div>
+                    <div className="w-12 lg:w-16 h-1 bg-gradient-to-r from-success-400 to-teal-400 rounded-full mx-auto mt-3 lg:mt-4 opacity-60"></div>
+                  </div>
+
+                  <div className="group bg-white/10 backdrop-blur-md border border-white/20 rounded-[2rem] p-6 lg:p-8 text-center hover:bg-white/15 transition-all duration-300 transform hover:scale-105">
+                    <div className="w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-warning-400 to-warning-600 rounded-[1.2rem] flex items-center justify-center mx-auto mb-4 shadow-lg">
+                      <Globe className="w-6 h-6 lg:w-8 lg:h-8 text-white" />
+                    </div>
+                    <div className="text-3xl lg:text-5xl font-black mb-2">24/7</div>
+                    <div className="text-white/80 font-arabic font-medium text-sm lg:text-base">خدمة مستمرة</div>
+                    <div className="w-12 lg:w-16 h-1 bg-gradient-to-r from-warning-400 to-primary-400 rounded-full mx-auto mt-3 lg:mt-4 opacity-60"></div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Quick Filters */}
+      {/* Professional Status Categorization Section */}
+      <section className="container mx-auto px-4 py-16">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4 font-arabic-heading">
+            🔍 تصفح التحققات حسب النتيجة
+          </h2>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto font-arabic leading-relaxed">
+            استكشف نتائج التحققات المصنفة بدقة من قبل خبرائنا المتخصصين
+          </p>
+        </div>
+
+        {/* Status Cards Grid - Mobile Optimized */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-16">
+          {/* True/Correct Status */}
+          <div className="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 border border-success-200 hover:border-success-300 transform hover:scale-105">
+            <div className="text-center">
+              <div className="w-20 h-20 bg-gradient-to-br from-success-500 to-success-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                <CheckCircle className="w-10 h-10 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold text-success-800 mb-3 font-arabic-heading">صحيح</h3>
+              <p className="text-success-700 text-sm mb-6 font-arabic leading-relaxed">
+                معلومات تم التأكد من صحتها بناءً على الأدلة والمصادر الموثوقة
+              </p>
+              <div className="bg-success-50 rounded-2xl p-4 mb-6">
+                <div className="text-3xl font-bold text-success-600 mb-1">
+                  {mockFactChecks.filter(fc => fc.verdict === 'true').length}
+                </div>
+                <div className="text-sm text-success-600 font-arabic">تحقق مكتمل</div>
+              </div>
+              <button 
+                onClick={() => setFilters(prev => ({ ...prev, verdict: 'صحيح' }))}
+                className="w-full bg-success-600 text-white py-3 rounded-xl hover:bg-success-700 transition-colors font-medium font-arabic"
+              >
+                عرض التحققات الصحيحة
+              </button>
+            </div>
+          </div>
+
+          {/* False/Incorrect Status */}
+          <div className="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 border border-danger-200 hover:border-danger-300 transform hover:scale-105">
+            <div className="text-center">
+              <div className="w-20 h-20 bg-gradient-to-br from-danger-500 to-danger-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                <XCircle className="w-10 h-10 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold text-danger-800 mb-3 font-arabic-heading">زائف</h3>
+              <p className="text-danger-700 text-sm mb-6 font-arabic leading-relaxed">
+                معلومات غير صحيحة تم دحضها بالأدلة العلمية والمصادر المعتمدة
+              </p>
+              <div className="bg-danger-50 rounded-2xl p-4 mb-6">
+                <div className="text-3xl font-bold text-danger-600 mb-1">
+                  {mockFactChecks.filter(fc => fc.verdict === 'false').length}
+                </div>
+                <div className="text-sm text-danger-600 font-arabic">تحقق مكتمل</div>
+              </div>
+              <button 
+                onClick={() => setFilters(prev => ({ ...prev, verdict: 'زائف' }))}
+                className="w-full bg-danger-600 text-white py-3 rounded-xl hover:bg-danger-700 transition-colors font-medium font-arabic"
+              >
+                عرض التحققات الزائفة
+              </button>
+            </div>
+          </div>
+
+          {/* Misleading Status */}
+          <div className="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 border border-warning-200 hover:border-warning-300 transform hover:scale-105">
+            <div className="text-center">
+              <div className="w-20 h-20 bg-gradient-to-br from-warning-500 to-warning-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                <AlertCircle className="w-10 h-10 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold text-warning-800 mb-3 font-arabic-heading">مضلل</h3>
+              <p className="text-warning-700 text-sm mb-6 font-arabic leading-relaxed">
+                معلومات تحتوي على حقائق جزئية ولكنها مضللة في السياق العام
+              </p>
+              <div className="bg-warning-50 rounded-2xl p-4 mb-6">
+                <div className="text-3xl font-bold text-warning-600 mb-1">
+                  {mockFactChecks.filter(fc => fc.verdict === 'misleading').length}
+                </div>
+                <div className="text-sm text-warning-600 font-arabic">تحقق مكتمل</div>
+              </div>
+              <button 
+                onClick={() => setFilters(prev => ({ ...prev, verdict: 'مضلل' }))}
+                className="w-full bg-warning-600 text-white py-3 rounded-xl hover:bg-warning-700 transition-colors font-medium font-arabic"
+              >
+                عرض التحققات المضللة
+              </button>
+            </div>
+          </div>
+
+          {/* Unproven Status */}
+          <div className="group bg-white rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 border border-gray-300 hover:border-gray-400 transform hover:scale-105">
+            <div className="text-center">
+              <div className="w-20 h-20 bg-gradient-to-br from-gray-500 to-gray-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+                <HelpCircle className="w-10 h-10 text-white" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-800 mb-3 font-arabic-heading">غير مثبت</h3>
+              <p className="text-gray-700 text-sm mb-6 font-arabic leading-relaxed">
+                لا توجد أدلة كافية للتحقق من صحة هذه المعلومة في الوقت الحالي
+              </p>
+              <div className="bg-gray-50 rounded-2xl p-4 mb-6">
+                <div className="text-3xl font-bold text-gray-600 mb-1">
+                  {mockFactChecks.filter(fc => fc.verdict === 'unproven').length}
+                </div>
+                <div className="text-sm text-gray-600 font-arabic">تحقق مكتمل</div>
+              </div>
+              <button 
+                onClick={() => setFilters(prev => ({ ...prev, verdict: 'غير مثبت' }))}
+                className="w-full bg-gray-600 text-white py-3 rounded-xl hover:bg-gray-700 transition-colors font-medium font-arabic"
+              >
+                عرض التحققات غير المثبتة
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Enhanced Quick Search */}
       <section className="container mx-auto px-4 py-8">
-        <div className="bg-white rounded-2xl shadow-sm p-6">
-          <div className="flex flex-col lg:flex-row gap-4 items-center">
-            <div className="flex-1">
+        <div className="bg-white rounded-3xl shadow-xl p-8 border">
+          <div className="text-center mb-8">
+            <h3 className="text-2xl font-bold text-gray-900 mb-2 font-arabic-heading">
+              🔎 ابحث بسرعة في التحققات
+            </h3>
+            <p className="text-gray-600 font-arabic">استخدم البحث الذكي للعثور على التحقق المناسب</p>
+          </div>
+
+          <div className="flex flex-col lg:flex-row gap-6 items-center">
+            <div className="flex-1 w-full">
               <div className="relative">
                 <input
                   type="text"
-                  placeholder="ابحث في التحققات... (جرب: كوفيد، لقاحات، اقتصاد)"
+                  placeholder="🔍 ابحث عن أي موضوع... (مثال: لقاح كورونا، الاقتصاد العالمي، تغير المناخ)"
                   value={searchQuery}
                   onChange={handleSearchChange}
                   onFocus={() => {
@@ -671,22 +968,22 @@ function App() {
                   onBlur={() => {
                     setTimeout(() => setShowSearchSuggestions(false), 200);
                   }}
-                  className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 text-right"
+                  className="w-full pl-14 pr-6 py-4 text-lg border-2 border-gray-300 rounded-2xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 text-right font-arabic shadow-lg"
                   dir="rtl"
                 />
-                <Search className="absolute left-4 top-3.5 h-5 w-5 text-gray-400" />
+                <Search className="absolute left-5 top-5 h-6 w-6 text-primary-500" />
                 
                 {showSearchSuggestions && searchSuggestions.length > 0 && (
-                  <div className="absolute top-full left-0 right-0 bg-white border border-gray-200 rounded-lg shadow-lg z-10 mt-1">
+                  <div className="absolute top-full left-0 right-0 bg-white border-2 border-gray-200 rounded-2xl shadow-2xl z-20 mt-2 max-h-64 overflow-y-auto">
                     {searchSuggestions.map((suggestion, index) => (
                       <button
                         key={index}
                         onClick={() => handleSuggestionClick(suggestion)}
-                        className="w-full text-right px-4 py-2 hover:bg-primary-50 hover:text-primary-600 transition-colors text-sm border-b border-gray-100 last:border-b-0"
+                        className="w-full text-right px-6 py-4 hover:bg-primary-50 hover:text-primary-700 transition-colors text-lg border-b border-gray-100 last:border-b-0 flex items-center gap-4"
                         dir="rtl"
                       >
-                        <Search className="inline w-3 h-3 ml-2" />
-                        {suggestion}
+                        <Search className="w-5 h-5 text-primary-400" />
+                        <span className="font-arabic font-medium">{suggestion}</span>
                       </button>
                     ))}
                   </div>
@@ -694,15 +991,15 @@ function App() {
               </div>
             </div>
             
-            <div className="flex gap-2 flex-wrap">
-              {categories.slice(1, 6).map((category) => (
+            <div className="flex gap-3 flex-wrap lg:flex-nowrap">
+              {categories.slice(1, 5).map((category) => (
                 <button
                   key={category}
                   onClick={() => setFilters(prev => ({ ...prev, category }))}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  className={`px-6 py-3 rounded-xl text-sm font-medium transition-all duration-300 transform hover:scale-105 font-arabic ${
                     filters.category === category
-                      ? 'bg-primary-600 text-white'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      ? 'bg-primary-600 text-white shadow-lg'
+                      : 'bg-gray-100 text-gray-700 hover:bg-primary-50 hover:text-primary-600'
                   }`}
                 >
                   {category}
@@ -710,56 +1007,99 @@ function App() {
               ))}
               <button
                 onClick={() => setIsFilterPanelOpen(true)}
-                className="bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors flex items-center gap-2"
+                className="bg-gradient-to-r from-primary-600 to-teal-600 text-white px-6 py-3 rounded-xl hover:from-primary-700 hover:to-teal-700 transition-all duration-300 flex items-center gap-2 font-medium font-arabic shadow-lg transform hover:scale-105"
               >
-                <Filter className="w-4 h-4" />
+                <Filter className="w-5 h-5" />
                 المزيد
               </button>
+            </div>
+          </div>
+
+          {/* Quick Search Tags */}
+          <div className="mt-8 text-center">
+            <p className="text-sm text-gray-500 mb-4 font-arabic">المواضيع الشائعة:</p>
+            <div className="flex flex-wrap justify-center gap-2">
+              {['كوفيد-19', 'لقاحات', 'صحة', 'اقتصاد', 'سياسة', 'تكنولوجيا', 'بيئة'].map((tag) => (
+                <button
+                  key={tag}
+                  onClick={() => setSearchQuery(tag)}
+                  className="bg-primary-50 text-primary-600 px-4 py-2 rounded-full text-sm hover:bg-primary-100 transition-colors font-arabic"
+                >
+                  #{tag}
+                </button>
+              ))}
             </div>
           </div>
         </div>
       </section>
 
-      {/* Featured Fact Check */}
+      {/* Enhanced Featured Fact Check */}
       {mockFactChecks.find(fc => fc.featured) && (
-        <section className="container mx-auto px-4 py-8">
-          <div className="bg-white rounded-2xl shadow-lg overflow-hidden">
-            <div className="md:flex">
-              <div className="md:w-1/2">
+        <section className="container mx-auto px-4 py-16">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-gray-900 mb-4 font-arabic-heading">
+              ⭐ التحقق المميز
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto font-arabic leading-relaxed">
+              التحقق الأكثر أهمية وتأثيراً، يستحق اهتمامك الخاص
+            </p>
+          </div>
+          
+          <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border-2 border-primary-100">
+            <div className="lg:flex">
+              <div className="lg:w-1/2 relative">
                 <LazyImage 
                   src={mockFactChecks.find(fc => fc.featured)!.image} 
                   alt=""
-                  className="w-full h-64 md:h-full object-cover"
+                  className="w-full h-80 lg:h-full object-cover"
                 />
-              </div>
-              <div className="md:w-1/2 p-8">
-                <div className="flex items-center gap-3 mb-4">
-                  <VerdictBadge verdict={mockFactChecks.find(fc => fc.featured)!.verdict} size="lg" />
-                  <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                {/* Featured Badge Overlay */}
+                <div className="absolute top-6 right-6">
+                  <div className="bg-warning-500 text-white px-4 py-2 rounded-2xl font-bold shadow-lg backdrop-blur-sm">
+                    <Star className="inline w-5 h-5 ml-2 fill-current" />
                     مميز
+                  </div>
+                </div>
+              </div>
+              
+              <div className="lg:w-1/2 p-10">
+                <div className="flex items-center gap-4 mb-6">
+                  <VerdictBadge verdict={mockFactChecks.find(fc => fc.featured)!.verdict} size="lg" />
+                  <span className="bg-primary-100 text-primary-800 px-4 py-2 rounded-2xl text-sm font-medium font-arabic">
+                    {mockFactChecks.find(fc => fc.featured)!.category}
                   </span>
                 </div>
                 
-                <h2 className="text-2xl font-bold text-gray-900 mb-4 leading-tight">
+                <h2 className="text-3xl font-bold text-gray-900 mb-6 leading-tight font-arabic-heading">
                   {mockFactChecks.find(fc => fc.featured)!.title}
                 </h2>
                 
-                <p className="text-gray-600 mb-6 leading-relaxed">
+                <p className="text-lg text-gray-600 mb-8 leading-relaxed font-arabic">
                   {mockFactChecks.find(fc => fc.featured)!.summary}
                 </p>
 
-                <div className="flex items-center gap-4 mb-6 text-sm text-gray-500">
-                  <div className="flex items-center gap-1">
-                    <User className="w-4 h-4" />
-                    {mockFactChecks.find(fc => fc.featured)!.author}
+                {/* Enhanced Metadata */}
+                <div className="grid grid-cols-3 gap-4 mb-8">
+                  <div className="text-center bg-gray-50 rounded-2xl p-4">
+                    <User className="w-5 h-5 text-primary-600 mx-auto mb-2" />
+                    <div className="text-sm font-medium text-gray-900 font-arabic">
+                      {mockFactChecks.find(fc => fc.featured)!.author}
+                    </div>
+                    <div className="text-xs text-gray-500 font-arabic">المحقق</div>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <Eye className="w-4 h-4" />
-                    {mockFactChecks.find(fc => fc.featured)!.views.toLocaleString()}
+                  <div className="text-center bg-gray-50 rounded-2xl p-4">
+                    <Eye className="w-5 h-5 text-success-600 mx-auto mb-2" />
+                    <div className="text-sm font-bold text-gray-900">
+                      {mockFactChecks.find(fc => fc.featured)!.views.toLocaleString()}
+                    </div>
+                    <div className="text-xs text-gray-500 font-arabic">مشاهدة</div>
                   </div>
-                  <div className="flex items-center gap-1">
-                    <Clock className="w-4 h-4" />
-                    {mockFactChecks.find(fc => fc.featured)!.readTime}
+                  <div className="text-center bg-gray-50 rounded-2xl p-4">
+                    <Clock className="w-5 h-5 text-warning-600 mx-auto mb-2" />
+                    <div className="text-sm font-medium text-gray-900 font-arabic">
+                      {mockFactChecks.find(fc => fc.featured)!.readTime}
+                    </div>
+                    <div className="text-xs text-gray-500 font-arabic">للقراءة</div>
                   </div>
                 </div>
                 
@@ -768,10 +1108,10 @@ function App() {
                     setSelectedArticle(mockFactChecks.find(fc => fc.featured)!);
                     setCurrentPage('article');
                   }}
-                  className="bg-primary-600 text-white px-6 py-3 rounded-lg hover:bg-primary-700 transition-colors font-medium flex items-center gap-2"
+                  className="group w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white px-8 py-4 rounded-2xl hover:from-primary-700 hover:to-primary-800 transition-all duration-300 font-bold text-lg flex items-center justify-center gap-3 shadow-xl hover:shadow-2xl transform hover:scale-105 font-arabic"
                 >
-                  اقرأ التحقق كاملاً
-                  <ExternalLink className="w-4 h-4" />
+                  📖 اقرأ التحقق كاملاً
+                  <ExternalLink className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>
             </div>
@@ -779,22 +1119,28 @@ function App() {
         </section>
       )}
 
-      {/* Recent Fact Checks */}
-      <section className="container mx-auto px-4 py-12">
-        <div className="flex justify-between items-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900">أحدث التحققات</h2>
+      {/* Enhanced Recent Fact Checks */}
+      <section className="container mx-auto px-4 py-16">
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 gap-4">
+          <div>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4 font-arabic-heading">
+              📰 أحدث التحققات
+            </h2>
+            <p className="text-xl text-gray-600 font-arabic">آخر ما توصل إليه فريقنا من تحققات مهمة</p>
+          </div>
           <button 
             onClick={() => setCurrentPage('search')}
-            className="text-primary-600 hover:text-primary-700 font-medium flex items-center gap-2"
+            className="bg-primary-600 text-white px-8 py-4 rounded-2xl hover:bg-primary-700 transition-all duration-300 font-medium flex items-center gap-3 shadow-lg hover:shadow-xl transform hover:scale-105 font-arabic"
           >
-            عرض الكل
-            <ChevronDown className="w-4 h-4 rotate-[-90deg]" />
+            عرض جميع التحققات
+            <ChevronDown className="w-5 h-5 rotate-[-90deg]" />
           </button>
         </div>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredFactChecks.slice(0, 6).map((factCheck) => (
-            <VerdictCard 
+        {/* Compact Articles List - Inspired by Thmanyah Style */}
+        <div className="grid md:grid-cols-2 gap-6">
+          {filteredFactChecks.slice(0, 12).map((factCheck) => (
+            <CompactCard 
               key={factCheck.id} 
               factCheck={factCheck}
               onClick={() => {
@@ -806,15 +1152,151 @@ function App() {
           ))}
         </div>
 
+        {/* Enhanced Empty State */}
         {filteredFactChecks.length === 0 && (
-          <div className="text-center py-12">
-            <div className="text-gray-400 mb-4">
-              <Search className="w-16 h-16 mx-auto" />
+          <div className="text-center py-20">
+            <div className="max-w-md mx-auto">
+              {/* Animated Search Icon */}
+              <div className="relative mb-8">
+                <div className="w-32 h-32 bg-gradient-to-br from-primary-100 to-teal-100 rounded-full flex items-center justify-center mx-auto">
+                  <Search className="w-16 h-16 text-primary-400" />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-br from-primary-200 to-teal-200 rounded-full animate-ping opacity-20"></div>
+              </div>
+              
+              <h3 className="text-3xl font-bold text-gray-900 mb-4 font-arabic-heading">لم نجد نتائج مطابقة</h3>
+              <p className="text-gray-600 mb-8 leading-relaxed font-arabic">
+                جرب تغيير كلمات البحث أو استخدام مرشحات مختلفة.
+                <br />يمكنك أيضاً البحث باستخدام مرادفات أو مصطلحات أوسع.
+              </p>
+              
+              <button
+                onClick={() => {
+                  setSearchQuery('');
+                  setFilters({
+                    category: 'جميع الفئات',
+                    verdict: 'جميع التصنيفات',
+                    dateRange: 'جميع التواريخ',
+                    sortBy: 'الأحدث'
+                  });
+                }}
+                className="bg-primary-600 text-white px-8 py-3 rounded-2xl hover:bg-primary-700 transition-all duration-300 font-medium font-arabic shadow-lg hover:shadow-xl transform hover:scale-105"
+              >
+                🔄 مسح جميع المرشحات
+              </button>
             </div>
-            <h3 className="text-xl font-semibold text-gray-600 mb-2">لا توجد نتائج</h3>
-            <p className="text-gray-500">جرب تغيير معايير البحث أو المرشحات</p>
           </div>
         )}
+      </section>
+
+      {/* Enhanced Trust & Statistics Section */}
+      <section className="bg-gradient-to-br from-slate-50 via-primary-50 to-teal-50 py-20">
+        <div className="container mx-auto px-4">
+          {/* Trust Indicators Header */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary-600 to-teal-600 rounded-full mb-6 shadow-xl">
+              <Shield className="w-10 h-10 text-white" />
+            </div>
+            <h2 className="text-4xl font-bold text-gray-900 mb-4 font-arabic-heading">
+              🏆 منصة موثوقة ومعتمدة
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto font-arabic leading-relaxed">
+              نفخر بكوننا المرجع الأول للتحقق من الأخبار والمعلومات في العالم العربي
+            </p>
+          </div>
+
+          {/* Trust Statistics Grid - Mobile Optimized */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-16">
+            {/* Total Articles */}
+            <div className="bg-white rounded-3xl p-6 md:p-8 text-center shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border border-primary-100">
+              <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
+                <FileText className="w-7 h-7 md:w-8 md:h-8 text-white" />
+              </div>
+              <div className="text-3xl md:text-4xl font-bold text-gray-900 mb-1 md:mb-2">+2,847</div>
+              <div className="text-xs md:text-sm font-medium text-gray-600 font-arabic">مقال تحقق</div>
+            </div>
+
+            {/* Monthly Visitors */}
+            <div className="bg-white rounded-3xl p-6 md:p-8 text-center shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border border-teal-100">
+              <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-teal-500 to-teal-600 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
+                <Users className="w-7 h-7 md:w-8 md:h-8 text-white" />
+              </div>
+              <div className="text-3xl md:text-4xl font-bold text-gray-900 mb-1 md:mb-2">1.2M</div>
+              <div className="text-xs md:text-sm font-medium text-gray-600 font-arabic">زائر شهرياً</div>
+            </div>
+
+            {/* Academy Students */}
+            <div className="bg-white rounded-3xl p-6 md:p-8 text-center shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border border-success-100">
+              <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-success-500 to-success-600 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
+                <GraduationCap className="w-7 h-7 md:w-8 md:h-8 text-white" />
+              </div>
+              <div className="text-3xl md:text-4xl font-bold text-gray-900 mb-1 md:mb-2">15,420</div>
+              <div className="text-xs md:text-sm font-medium text-gray-600 font-arabic">طالب متخرج</div>
+            </div>
+
+            {/* Team Experience */}
+            <div className="bg-white rounded-3xl p-6 md:p-8 text-center shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 border border-warning-100">
+              <div className="w-14 h-14 md:w-16 md:h-16 bg-gradient-to-br from-warning-500 to-warning-600 rounded-full flex items-center justify-center mx-auto mb-3 md:mb-4">
+                <Award className="w-7 h-7 md:w-8 md:h-8 text-white" />
+              </div>
+              <div className="text-3xl md:text-4xl font-bold text-gray-900 mb-1 md:mb-2">8+</div>
+              <div className="text-xs md:text-sm font-medium text-gray-600 font-arabic">سنوات خبرة</div>
+            </div>
+          </div>
+
+          {/* Certifications & Partners */}
+          <div className="bg-white rounded-3xl p-12 shadow-2xl border border-gray-100">
+            <div className="text-center mb-12">
+              <h3 className="text-3xl font-bold text-gray-900 mb-4 font-arabic-heading">
+                🤝 شركاؤنا والمنظمات المعتمدة
+              </h3>
+              <p className="text-lg text-gray-600 font-arabic">
+                نعمل بالتعاون مع أهم المنظمات الدولية في مجال مكافحة المعلومات المضللة
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {/* International Fact-Checking Network */}
+              <div className="text-center p-6 bg-gradient-to-br from-primary-50 to-teal-50 rounded-2xl">
+                <div className="w-16 h-16 bg-gradient-to-br from-primary-600 to-primary-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Globe className="w-8 h-8 text-white" />
+                </div>
+                <h4 className="text-lg font-bold text-gray-900 mb-2 font-arabic-heading">
+                  الشبكة الدولية للتحقق
+                </h4>
+                <p className="text-sm text-gray-600 font-arabic">
+                  عضو معتمد في الشبكة الدولية للتحقق من الأخبار (IFCN)
+                </p>
+              </div>
+
+              {/* Media Literacy */}
+              <div className="text-center p-6 bg-gradient-to-br from-success-50 to-teal-50 rounded-2xl">
+                <div className="w-16 h-16 bg-gradient-to-br from-success-600 to-success-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <BookOpen className="w-8 h-8 text-white" />
+                </div>
+                <h4 className="text-lg font-bold text-gray-900 mb-2 font-arabic-heading">
+                  تعليم الإعلام الرقمي
+                </h4>
+                <p className="text-sm text-gray-600 font-arabic">
+                  شريك رسمي في مبادرات محو الأمية الإعلامية الرقمية
+                </p>
+              </div>
+
+              {/* Research Collaboration */}
+              <div className="text-center p-6 bg-gradient-to-br from-warning-50 to-teal-50 rounded-2xl">
+                <div className="w-16 h-16 bg-gradient-to-br from-warning-600 to-warning-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <TrendingUp className="w-8 h-8 text-white" />
+                </div>
+                <h4 className="text-lg font-bold text-gray-900 mb-2 font-arabic-heading">
+                  البحث والتطوير
+                </h4>
+                <p className="text-sm text-gray-600 font-arabic">
+                  تعاون مع الجامعات الرائدة في أبحاث مكافحة المعلومات المضللة
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* Academy CTA */}
@@ -824,27 +1306,27 @@ function App() {
             <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-600 rounded-full mb-6">
               <BookOpen className="w-8 h-8 text-white" />
             </div>
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">
+            <h2 className="text-3xl font-bold text-gray-900 mb-4 font-arabic-heading">
               أكاديمية تأكد للتعليم
             </h2>
-            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+            <p className="text-xl text-gray-600 mb-8 leading-relaxed font-arabic">
               تعلم مهارات التحقق من المعلومات والإعلام الرقمي من خلال دوراتنا المجانية المصممة من قبل خبراء في المجال
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
               <button 
                 onClick={() => setCurrentPage('academy')}
-                className="bg-primary-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-primary-700 transition-colors text-lg"
+                className="bg-primary-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-primary-700 transition-colors text-lg font-arabic"
               >
                 استكشف الدورات
               </button>
               <div className="flex items-center gap-4 text-sm text-gray-600">
                 <div className="flex items-center gap-1">
                   <Users className="w-4 h-4" />
-                  +5000 متدرب
+                  <span className="font-arabic">+15,420 متدرب</span>
                 </div>
                 <div className="flex items-center gap-1">
                   <Award className="w-4 h-4" />
-                  شهادات معتمدة
+                  <span className="font-arabic">شهادات معتمدة</span>
                 </div>
               </div>
             </div>
