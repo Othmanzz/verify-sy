@@ -207,7 +207,7 @@ const SearchPage: React.FC<SearchPageProps> = ({ setCurrentPage, setSelectedArti
             
             {/* Main Title */}
             <h1 className="text-5xl md:text-6xl font-black mb-6 font-arabic-heading">
-              قاعدة بيانات التحققات
+              منصة تأكد - قاعدة بيانات التحققات
             </h1>
             
             {/* Subtitle with badges */}

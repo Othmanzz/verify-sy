@@ -16,7 +16,7 @@ const Header: React.FC<HeaderProps> = ({
   isHeaderMenuOpen,
   setIsHeaderMenuOpen 
 }) => (
-  <header className="bg-white border-b border-gray-200 sticky top-0 z-[10000] shadow-sm" dir="rtl">
+  <header className="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm" dir="rtl">
     <div className="container mx-auto px-4">
       <div className="flex items-center justify-between py-4">
         {/* Logo - Right side in RTL */}
@@ -122,7 +122,7 @@ const Header: React.FC<HeaderProps> = ({
 
           <button 
             onClick={() => setIsSubmissionModalOpen(true)}
-            className="bg-gradient-to-r from-red-600 to-red-700 text-white px-6 py-4 rounded-2xl hover:from-red-700 hover:to-red-800 transition-all duration-300 flex items-center gap-2 font-medium font-arabic hover:scale-105 shadow-lg hover:shadow-xl transform"
+            className="bg-gradient-to-r from-red-600 to-red-700 text-white px-6 py-4 rounded-2xl hover:from-red-700 hover:to-red-800 transition-all duration-300 flex items-center gap-2 font-medium font-arabic hover:scale-105 shadow-lg hover:shadow-xl transform relative z-50"
           >
             <Plus className="w-4 h-4" />
             تقرير كاذب

@@ -125,15 +125,15 @@ const HomePage: React.FC<HomePageProps> = ({
               
           {/* Animated Main Headline */}
           <div className="text-center mb-8">
-            <div className="relative inline-block mb-4">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-black leading-tight font-arabic-heading group">
+            <div className="relative inline-block mb-4 px-4 pt-4">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight font-arabic-heading group whitespace-nowrap">
                 <span className="bg-gradient-to-r from-white via-cyan-100 to-blue-100 bg-clip-text text-transparent drop-shadow-lg group-hover:from-cyan-200 group-hover:via-white group-hover:to-blue-200 transition-all duration-500">
-                  تأكد
+                  منصة تأكد
                 </span>
               </h1>
-              {/* Animated underline */}
-              <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-20 h-1.5 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full opacity-80 animate-pulse"></div>
-              <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-32 h-0.5 bg-gradient-to-r from-transparent via-white/30 to-transparent rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
+              {/* Animated underline - made wider for longer text */}
+              <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-32 h-1.5 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full opacity-80 animate-pulse"></div>
+              <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-40 h-0.5 bg-gradient-to-r from-transparent via-white/30 to-transparent rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
             </div>
             
             <div className="max-w-3xl mx-auto mb-6">
