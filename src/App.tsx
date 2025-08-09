@@ -43,68 +43,94 @@ const VerdictBadge: React.FC<{ verdict: string; size?: 'sm' | 'md' | 'lg' }> = (
   );
 };
 
-// Compact Card Component
-const CompactCard: React.FC<{ factCheck: FactCheck; onClick: () => void; featured?: boolean }> = ({ factCheck, onClick, featured = false }) => (
-  <article 
-    className={`group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-105 border cursor-pointer ${
-      featured ? 'border-warning-200 ring-2 ring-warning-100' : 'border-gray-100 hover:border-primary-200'
-    }`}
-    onClick={onClick}
-  >
-    <div className="relative">
-      <LazyImage 
-        src={factCheck.image} 
-        alt=""
-        className="w-full h-48 object-cover"
-      />
-      {featured && (
-        <div className="absolute top-3 right-3">
-          <div className="bg-warning-500 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg">
-            <Star className="inline w-3 h-3 ml-1 fill-current" />
-            مميز
-          </div>
-        </div>
-      )}
-    </div>
-    
-    <div className="p-6">
-      <div className="flex items-center justify-between mb-4">
-        <VerdictBadge verdict={factCheck.verdict} size="sm" />
-        <span className="text-xs text-gray-500 bg-gray-50 px-3 py-1 rounded-full font-arabic">
-          {factCheck.category}
-        </span>
-      </div>
-      
-      <h3 className="text-lg font-bold text-gray-900 mb-3 leading-tight group-hover:text-primary-600 transition-colors font-arabic-heading line-clamp-2">
-        {factCheck.title}
-      </h3>
-      
-      <p className="text-sm text-gray-600 line-clamp-2 leading-relaxed mb-4 font-arabic">
-        {factCheck.summary}
-      </p>
+// Modern Grid Card Component (matching screenshot design)
+const CompactCard: React.FC<{ factCheck: FactCheck; onClick: () => void; featured?: boolean }> = ({ factCheck, onClick, featured = false }) => {
+  const getVerdictConfig = (verdict: string) => {
+    switch (verdict) {
+      case 'true':
+        return { bg: 'bg-green-100', text: 'text-green-800', dot: 'bg-green-500', label: 'صحيح' };
+      case 'false':
+        return { bg: 'bg-red-100', text: 'text-red-800', dot: 'bg-red-500', label: 'زائف' };
+      case 'misleading':
+        return { bg: 'bg-orange-100', text: 'text-orange-800', dot: 'bg-orange-500', label: 'مضلل' };
+      case 'unproven':
+        return { bg: 'bg-gray-100', text: 'text-gray-800', dot: 'bg-gray-500', label: 'غير مثبت' };
+      default:
+        return { bg: 'bg-gray-100', text: 'text-gray-800', dot: 'bg-gray-500', label: 'غير محدد' };
+    }
+  };
 
-      <div className="flex items-center justify-between pt-4 border-t border-gray-50">
-        <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 bg-primary-50 rounded-full flex items-center justify-center border border-primary-100/50">
-            <User className="w-3.5 h-3.5 text-primary-600" />
+  const verdictConfig = getVerdictConfig(factCheck.verdict);
+
+  return (
+    <article 
+      className="group bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 hover:border-gray-200 cursor-pointer"
+      onClick={onClick}
+    >
+      <div className="flex gap-4">
+        {/* Content Section - Left Side */}
+        <div className="flex-1">
+          {/* Status Badge */}
+          <div className="flex items-center gap-2 mb-3">
+            <div className={`flex items-center gap-2 px-3 py-1 rounded-full ${verdictConfig.bg}`}>
+              <div className={`w-2 h-2 rounded-full ${verdictConfig.dot}`}></div>
+              <span className={`text-sm font-medium font-arabic ${verdictConfig.text}`}>
+                {verdictConfig.label}
+              </span>
+            </div>
+            <span className="text-xs text-gray-500 font-arabic">
+              {factCheck.category}
+            </span>
           </div>
-          <span className="text-sm text-gray-700 font-medium font-arabic">{factCheck.author}</span>
+          
+          {/* Title */}
+          <h3 className="text-lg font-bold text-gray-900 mb-2 leading-tight group-hover:text-blue-600 transition-colors font-arabic-heading line-clamp-2">
+            {factCheck.title}
+          </h3>
+          
+          {/* Summary */}
+          <p className="text-sm text-gray-600 line-clamp-2 leading-relaxed mb-4 font-arabic">
+            {factCheck.summary}
+          </p>
+
+          {/* Metadata */}
+          <div className="flex items-center gap-4 text-xs text-gray-500">
+            <div className="flex items-center gap-1">
+              <div className="w-4 h-4 bg-blue-100 rounded-full flex items-center justify-center">
+                <User className="w-2.5 h-2.5 text-blue-600" />
+              </div>
+              <span className="font-arabic">{factCheck.author}</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <Clock className="w-3 h-3" />
+              <span className="font-arabic">{factCheck.readTime}</span>
+            </div>
+            <div className="flex items-center gap-1">
+              <Eye className="w-3 h-3" />
+              <span>{factCheck.views.toLocaleString()}</span>
+            </div>
+          </div>
         </div>
         
-        <div className="flex items-center gap-4 text-xs text-gray-500">
-          <div className="flex items-center gap-1">
-            <Eye className="w-3.5 h-3.5" />
-            <span>{factCheck.views.toLocaleString()}</span>
-          </div>
-          <div className="flex items-center gap-1">
-            <Clock className="w-3.5 h-3.5" />
-            <span className="font-arabic">{factCheck.readTime}</span>
-          </div>
+        {/* Image Section - Right Side */}
+        <div className="w-24 h-24 flex-shrink-0">
+          <LazyImage 
+            src={factCheck.image} 
+            alt=""
+            className="w-full h-full object-cover rounded-xl"
+          />
+          {featured && (
+            <div className="relative">
+              <div className="absolute -top-2 -right-2 bg-yellow-500 text-white p-1 rounded-full text-xs font-bold shadow-lg">
+                <Star className="w-3 h-3 fill-current" />
+              </div>
+            </div>
+          )}
         </div>
       </div>
-    </div>
-  </article>
-);
+    </article>
+  );
+};
 
 // Lazy Image Component
 const LazyImage: React.FC<{ src: string; alt: string; className?: string }> = ({ src, alt, className = '' }) => {
@@ -270,16 +296,8 @@ const AppLayout: React.FC = () => {
             path="/" 
             element={
               <HomePage
-                searchQuery={searchQuery}
-                setSearchQuery={setSearchQuery}
-                handleSearchChange={handleSearchChange}
-                searchSuggestions={searchSuggestions}
-                showSearchSuggestions={showSearchSuggestions}
-                setShowSearchSuggestions={setShowSearchSuggestions}
-                handleSuggestionClick={handleSuggestionClick}
                 filters={filters}
                 setFilters={setFilters}
-                setIsFilterPanelOpen={setIsFilterPanelOpen}
                 filteredFactChecks={filteredFactChecks}
                 setCurrentPage={handleNavigation}
                 setSelectedArticle={setSelectedArticle}
@@ -290,7 +308,12 @@ const AppLayout: React.FC = () => {
               />
             } 
           />
-          <Route path="/search" element={<SearchPage />} />
+          <Route path="/search" element={
+            <SearchPage 
+              setCurrentPage={handleNavigation}
+              setSelectedArticle={setSelectedArticle}
+            />
+          } />
           <Route 
             path="/article" 
             element={
