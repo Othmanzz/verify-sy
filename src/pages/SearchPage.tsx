@@ -106,11 +106,15 @@ const SearchPage: React.FC<SearchPageProps> = ({ setCurrentPage, setSelectedArti
     sortBy: 'الأحدث'
   });
 
-  // Handle scroll to show sticky search
+  // Handle scroll to show sticky search when main search bar is out of view
   React.useEffect(() => {
     const handleScroll = () => {
-      const heroHeight = 600; // Approximate hero section height
-      setShowStickySearch(window.scrollY > heroHeight);
+      const searchSection = document.querySelector('[data-search-section]');
+      if (searchSection) {
+        const rect = searchSection.getBoundingClientRect();
+        // Show sticky search when the main search section goes out of view (top is negative)
+        setShowStickySearch(rect.bottom < 0);
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -173,76 +177,44 @@ const SearchPage: React.FC<SearchPageProps> = ({ setCurrentPage, setSelectedArti
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50" dir="rtl">
-      {/* Back Button */}
-      <div className="container mx-auto px-4 py-6">
-        <button 
-          onClick={() => setCurrentPage?.('home')}
-          className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors font-arabic font-medium"
-        >
-          <ArrowLeft className="w-5 h-5" />
-          العودة للرئيسية
-        </button>
-      </div>
-
-      {/* Enhanced Hero Search Section */}
-      <section className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 text-white py-20 overflow-visible">
-        {/* Decorative Background - matching home page */}
-        <div className="absolute inset-0 opacity-10 overflow-hidden">
-          <div className="absolute top-0 left-0 w-96 h-96 bg-white/20 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-cyan-400/20 rounded-full blur-3xl"></div>
-        </div>
-        
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-5xl mx-auto text-center">
-            {/* Enhanced Search Icon with Animation */}
-            <div className="inline-flex items-center justify-center mb-8">
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full blur-xl opacity-50 animate-pulse"></div>
-                <div className="relative bg-white rounded-full p-6 shadow-2xl">
-                  <Database className="w-16 h-16 text-blue-900" />
-                </div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-indigo-50/50" dir="rtl">
+      {/* Compact Header with Back Button and Title */}
+      <div className="bg-white/80 backdrop-blur-sm border-b border-gray-200/50">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                <Database className="w-4 h-4 text-blue-600" />
+              </div>
+              <div>
+                <h1 className="text-lg font-bold text-gray-900 font-arabic-heading">منصة تأكد</h1>
+                <p className="text-xs text-gray-500 font-arabic">قاعدة بيانات التحققات</p>
               </div>
             </div>
-            
-            {/* Main Title */}
-            <h1 className="text-5xl md:text-6xl font-black mb-6 font-arabic-heading">
-              منصة تأكد - قاعدة بيانات التحققات
-            </h1>
-            
-            {/* Subtitle with badges */}
-            <div className="flex items-center justify-center gap-4 mb-6">
-              <div className="h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent w-20"></div>
-              <p className="text-xl text-cyan-200 font-arabic font-medium">
-                ابحث في أكبر أرشيف للتحققات في العالم العربي
-              </p>
-              <div className="h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent w-20"></div>
-            </div>
+            <button 
+              onClick={() => setCurrentPage?.('home')}
+              className="inline-flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors font-arabic font-medium"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              العودة للرئيسية
+            </button>
+          </div>
+        </div>
+      </div>
 
-            {/* AI Badge */}
-            <div className="flex flex-wrap justify-center gap-3 mb-8">
-              <span className="inline-flex items-center gap-2 bg-white/15 px-4 py-2 rounded-full border border-white/30 text-white font-arabic text-sm font-medium">
-                <Bot className="w-4 h-4 text-cyan-400" />
-                بحث ذكي بالذكاء الاصطناعي
-              </span>
-              <span className="inline-flex items-center gap-2 bg-white/15 px-4 py-2 rounded-full border border-white/30 text-white font-arabic text-sm font-medium">
-                <Database className="w-4 h-4 text-green-400" />
-                +50,000 تحقق
-              </span>
-              <span className="inline-flex items-center gap-2 bg-white/15 px-4 py-2 rounded-full border border-white/30 text-white font-arabic text-sm font-medium">
-                <Zap className="w-4 h-4 text-yellow-400" />
-                نتائج فورية
-              </span>
-            </div>
+      {/* Compact Search Section */}
+      <section className="relative py-6 overflow-visible" data-search-section>        
+        <div className="container mx-auto px-4 relative z-10">
+          <div className="max-w-4xl mx-auto">
             
-            {/* Enhanced AI Search Bar with Integrated Filters */}
-            <div className="relative max-w-5xl mx-auto mb-12 z-10">
-              <div className="bg-white rounded-3xl shadow-2xl border border-gray-200 p-2 relative">
+            {/* Main Search Bar */}
+            <div className="relative mb-6 z-10">
+              <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-1 relative">
                 {/* Main Search Input */}
                 <div className="relative">
                   <input
                     type="text"
-                    placeholder="🤖 اسأل الذكاء الاصطناعي... مثل: هل لقاحات كورونا آمنة؟ أم ما صحة أخبار التغير المناخي؟"
+                    placeholder="ابحث في قاعدة البيانات أو اسأل الذكاء الاصطناعي..."
                     value={searchQuery}
                     onChange={handleSearchChange}
                     onFocus={() => {
@@ -251,16 +223,15 @@ const SearchPage: React.FC<SearchPageProps> = ({ setCurrentPage, setSelectedArti
                     onBlur={() => {
                       setTimeout(() => setShowSearchSuggestions(false), 200);
                     }}
-                    className="w-full pl-20 pr-6 py-6 text-lg bg-transparent rounded-2xl focus:outline-none focus:ring-2 focus:ring-cyan-400/50 text-right text-gray-900 font-arabic"
+                    className="w-full pl-16 pr-6 py-5 text-base bg-transparent rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/30 text-right text-gray-900 font-arabic border-0"
                     dir="rtl"
                   />
                   
-                  {/* AI Search Icon */}
-                  <div className="absolute left-4 top-4 flex items-center gap-2">
-                    <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center animate-pulse">
-                      <Bot className="h-5 w-5 text-white" />
+                  {/* Modern Search Icon */}
+                  <div className="absolute left-4 top-1/2 transform -translate-y-1/2 flex items-center gap-2">
+                    <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg flex items-center justify-center">
+                      <Bot className="h-4 w-4 text-white" />
                     </div>
-                    <div className="text-xs text-gray-500 font-arabic">AI</div>
                   </div>
                   
                   {/* Enhanced AI Search Suggestions */}
@@ -405,23 +376,27 @@ const SearchPage: React.FC<SearchPageProps> = ({ setCurrentPage, setSelectedArti
               </div>
             </div>
             
-            {/* Search Stats */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto">
-              <div className="bg-white/15 rounded-2xl p-4 text-center border border-white/30">
-                <div className="text-2xl font-bold mb-1 text-white">50K+</div>
-                <div className="text-sm text-white/90 font-arabic font-medium">تحقق مكتمل</div>
+            {/* Compact Statistics */}
+            <div className="flex flex-wrap justify-center gap-4 text-sm">
+              <div className="inline-flex items-center gap-2 bg-white/70 px-4 py-2 rounded-full border border-gray-200/50 shadow-sm">
+                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                <span className="font-semibold text-blue-600 font-arabic-heading">50K+</span>
+                <span className="text-gray-600 font-arabic">تحقق</span>
               </div>
-              <div className="bg-white/15 rounded-2xl p-4 text-center border border-white/30">
-                <div className="text-2xl font-bold mb-1 text-white">15</div>
-                <div className="text-sm text-white/90 font-arabic font-medium">مجال متخصص</div>
+              <div className="inline-flex items-center gap-2 bg-white/70 px-4 py-2 rounded-full border border-gray-200/50 shadow-sm">
+                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                <span className="font-semibold text-green-600 font-arabic-heading">98%</span>
+                <span className="text-gray-600 font-arabic">دقة</span>
               </div>
-              <div className="bg-white/15 rounded-2xl p-4 text-center border border-white/30">
-                <div className="text-2xl font-bold mb-1 text-white">98%</div>
-                <div className="text-sm text-white/90 font-arabic font-medium">دقة التحقق</div>
+              <div className="inline-flex items-center gap-2 bg-white/70 px-4 py-2 rounded-full border border-gray-200/50 shadow-sm">
+                <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                <span className="font-semibold text-purple-600 font-arabic-heading">15</span>
+                <span className="text-gray-600 font-arabic">مجال</span>
               </div>
-              <div className="bg-white/15 rounded-2xl p-4 text-center border border-white/30">
-                <div className="text-2xl font-bold mb-1 text-white">24/7</div>
-                <div className="text-sm text-white/90 font-arabic font-medium">تحديث مستمر</div>
+              <div className="inline-flex items-center gap-2 bg-white/70 px-4 py-2 rounded-full border border-gray-200/50 shadow-sm">
+                <div className="w-2 h-2 bg-indigo-500 rounded-full animate-pulse"></div>
+                <span className="font-semibold text-indigo-600 font-arabic-heading">24/7</span>
+                <span className="text-gray-600 font-arabic">تحديث</span>
               </div>
             </div>
           </div>
@@ -486,12 +461,13 @@ const SearchPage: React.FC<SearchPageProps> = ({ setCurrentPage, setSelectedArti
         </div>
       </div>
 
-      <div className="container mx-auto px-4 py-8">
-        <div className="max-w-7xl mx-auto">
+      <div className="bg-white/30 backdrop-blur-sm min-h-screen">
+        <div className="container mx-auto px-4 py-6">
+          <div className="max-w-7xl mx-auto">
 
           {/* Results Header */}
-          <section className="mb-8">
-            <div className="flex justify-between items-center bg-white rounded-2xl p-6 shadow-lg">
+          <section className="mb-6">
+            <div className="flex justify-between items-center bg-white/80 backdrop-blur-sm rounded-xl p-4 shadow-sm border border-white/50">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 bg-primary-100 rounded-2xl flex items-center justify-center">
                   <span className="text-primary-600 font-bold text-lg">{filteredFactChecks.length}</span>
@@ -596,6 +572,7 @@ const SearchPage: React.FC<SearchPageProps> = ({ setCurrentPage, setSelectedArti
               </div>
             </div>
           )}
+          </div>
         </div>
       </div>
     </div>

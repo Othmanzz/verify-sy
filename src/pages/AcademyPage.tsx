@@ -131,91 +131,74 @@ const AcademyPage: React.FC<AcademyPageProps> = ({ setCurrentPage }) => {
     : mockCourses.filter(course => course.level === activeFilter);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50" dir="rtl">
-      {/* Back Button */}
-      <div className="container mx-auto px-4 py-6">
-        <button 
-          onClick={() => setCurrentPage?.('home')}
-          className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 transition-colors font-arabic font-medium"
-        >
-          <ArrowLeft className="w-5 h-5" />
-          العودة للرئيسية
-        </button>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-indigo-50/50" dir="rtl">
+      {/* Compact Header with Back Button and Title */}
+      <div className="bg-white/80 backdrop-blur-sm border-b border-gray-200/50">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+                <BookOpen className="w-4 h-4 text-blue-600" />
+              </div>
+              <div>
+                <h1 className="text-lg font-bold text-gray-900 font-arabic-heading">أكاديمية تأكد</h1>
+                <p className="text-xs text-gray-500 font-arabic">التعليم والتدريب</p>
+              </div>
+            </div>
+            <button 
+              onClick={() => setCurrentPage?.('home')}
+              className="inline-flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors font-arabic font-medium"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              العودة للرئيسية
+            </button>
+          </div>
+        </div>
       </div>
 
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 text-white py-20 overflow-hidden">
-        {/* Decorative Background */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-white/20 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-cyan-400/20 rounded-full blur-3xl"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-green-400/10 rounded-full blur-3xl"></div>
-        </div>
-
+      {/* Compact Academy Section */}
+      <section className="relative py-6 overflow-visible">        
         <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-6xl mx-auto text-center">
-            {/* Academy Icon */}
-            <div className="inline-flex items-center justify-center mb-8">
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full blur-xl opacity-50 animate-pulse"></div>
-                <div className="relative bg-white rounded-full p-8 shadow-2xl">
-                  <BookOpen className="w-16 h-16 text-blue-900" />
-                </div>
-              </div>
-            </div>
-
-            {/* Main Title */}
-            <h1 className="text-5xl md:text-7xl font-black mb-6 font-arabic-heading">
-              أكاديمية تأكد للتعليم
-            </h1>
+          <div className="max-w-4xl mx-auto text-center mb-8">
             
-            {/* Subtitle */}
-            <p className="text-xl md:text-2xl opacity-95 leading-relaxed mb-8 max-w-4xl mx-auto font-arabic">
-              تعلم مهارات التحقق من المعلومات والإعلام الرقمي من خلال دوراتنا المجانية
-              <br className="hidden md:block" />
-              المصممة من قبل خبراء في المجال
+            {/* Professional Subtitle */}
+            <p className="text-lg text-gray-600 font-arabic font-medium mb-8 leading-relaxed">
+              تعلم مهارات التحقق من المعلومات والإعلام الرقمي من خلال دوراتنا المجانية المصممة من قبل خبراء
             </p>
 
-            {/* Features */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 max-w-4xl mx-auto mb-12">
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-                <Users className="w-8 h-8 mx-auto mb-3 text-cyan-300" />
-                <div className="text-2xl font-bold mb-1">15,420+</div>
-                <div className="text-sm opacity-90 font-arabic">طالب متخرج</div>
+            {/* Compact Statistics */}
+            <div className="flex flex-wrap justify-center gap-4 text-sm mb-8">
+              <div className="inline-flex items-center gap-2 bg-white/70 px-4 py-2 rounded-full border border-gray-200/50 shadow-sm">
+                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                <span className="font-semibold text-blue-600 font-arabic-heading">15,420+</span>
+                <span className="text-gray-600 font-arabic">طالب</span>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-                <BookOpen className="w-8 h-8 mx-auto mb-3 text-green-300" />
-                <div className="text-2xl font-bold mb-1">25</div>
-                <div className="text-sm opacity-90 font-arabic">دورة تدريبية</div>
+              <div className="inline-flex items-center gap-2 bg-white/70 px-4 py-2 rounded-full border border-gray-200/50 shadow-sm">
+                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                <span className="font-semibold text-green-600 font-arabic-heading">25</span>
+                <span className="text-gray-600 font-arabic">دورة</span>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-                <Award className="w-8 h-8 mx-auto mb-3 text-yellow-300" />
-                <div className="text-2xl font-bold mb-1">معتمدة</div>
-                <div className="text-sm opacity-90 font-arabic">شهادات دولية</div>
+              <div className="inline-flex items-center gap-2 bg-white/70 px-4 py-2 rounded-full border border-gray-200/50 shadow-sm">
+                <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                <span className="font-semibold text-yellow-600 font-arabic-heading">معتمدة</span>
+                <span className="text-gray-600 font-arabic">شهادات</span>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20">
-                <Globe className="w-8 h-8 mx-auto mb-3 text-purple-300" />
-                <div className="text-2xl font-bold mb-1">100%</div>
-                <div className="text-sm opacity-90 font-arabic">مجاني</div>
+              <div className="inline-flex items-center gap-2 bg-white/70 px-4 py-2 rounded-full border border-gray-200/50 shadow-sm">
+                <div className="w-2 h-2 bg-purple-500 rounded-full animate-pulse"></div>
+                <span className="font-semibold text-purple-600 font-arabic-heading">100%</span>
+                <span className="text-gray-600 font-arabic">مجاني</span>
               </div>
             </div>
 
-            {/* CTA */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <button className="bg-white text-blue-900 px-10 py-4 rounded-2xl font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 font-arabic">
-                استكشف الدورات
-              </button>
-              <button className="border-2 border-white/60 text-white px-10 py-4 rounded-2xl font-bold text-lg backdrop-blur-sm hover:bg-white/10 transition-all duration-300 transform hover:scale-105 font-arabic">
-                <Download className="w-5 h-5 inline mr-2" />
-                دليل المتعلم
-              </button>
-            </div>
           </div>
         </div>
       </section>
 
-      {/* Learning Path Section */}
-      <section className="py-20">
+      {/* Main Content Area with Modern Background */}
+      <div className="bg-white/30 backdrop-blur-sm min-h-screen">
+        
+        {/* Learning Path Section */}
+        <section className="py-10">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className="text-center mb-16">
@@ -307,8 +290,8 @@ const AcademyPage: React.FC<AcademyPageProps> = ({ setCurrentPage }) => {
         </div>
       </section>
 
-      {/* Courses Section */}
-      <section className="py-16 bg-white">
+        {/* Courses Section */}
+        <section className="py-8 bg-white/50 backdrop-blur-sm">
         <div className="container mx-auto px-4">
           <div className="max-w-7xl mx-auto">
             {/* Section Header */}
@@ -359,7 +342,8 @@ const AcademyPage: React.FC<AcademyPageProps> = ({ setCurrentPage }) => {
             </div>
           </div>
         </div>
-      </section>
+        </section>
+      </div>
     </div>
   );
 };
