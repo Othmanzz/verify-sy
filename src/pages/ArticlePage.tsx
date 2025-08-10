@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { CheckCircle, XCircle, AlertCircle, HelpCircle, User, Calendar, Eye, Clock, Share2, BookmarkPlus, ArrowLeft, Shield, Award, Globe, Play, Pause, Volume2, VolumeX } from 'lucide-react';
+import { CheckCircle, XCircle, AlertCircle, HelpCircle, User, Calendar, Eye, Clock, Share2, BookmarkPlus, ArrowLeft, Shield, Award, Globe, Play, Pause, Volume2, VolumeX, Twitter, Facebook, Instagram, MessageCircle, Link, Copy } from 'lucide-react';
 import { FactCheck } from '../types';
 
 interface ArticlePageProps {
@@ -150,6 +150,139 @@ const AudioPlayer: React.FC<{ text: string }> = ({ text }) => {
           </div>
         </div>
       )}
+    </div>
+  );
+};
+
+// Social Sharing Component
+const SocialShare: React.FC<{ article: FactCheck }> = ({ article }) => {
+  const [showCopied, setShowCopied] = useState(false);
+  const articleUrl = `${window.location.origin}/article/${article.id}`;
+  const shareText = `${article.title} - تحقق من منصة تأكد`;
+
+  const handleShare = (platform: string) => {
+    const encodedUrl = encodeURIComponent(articleUrl);
+    const encodedText = encodeURIComponent(shareText);
+    
+    let shareUrl = '';
+    
+    switch (platform) {
+      case 'twitter':
+        shareUrl = `https://twitter.com/intent/tweet?text=${encodedText}&url=${encodedUrl}`;
+        break;
+      case 'facebook':
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
+        break;
+      case 'whatsapp':
+        shareUrl = `https://wa.me/?text=${encodedText} ${encodedUrl}`;
+        break;
+      case 'telegram':
+        shareUrl = `https://t.me/share/url?url=${encodedUrl}&text=${encodedText}`;
+        break;
+    }
+    
+    if (shareUrl) {
+      window.open(shareUrl, '_blank', 'width=600,height=400');
+    }
+  };
+
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(articleUrl);
+      setShowCopied(true);
+      setTimeout(() => setShowCopied(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy link');
+    }
+  };
+
+  return (
+    <div className="bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-gray-200/50 mb-8">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
+            <Share2 className="w-5 h-5 text-blue-600" />
+          </div>
+          <div>
+            <h3 className="font-bold text-gray-900 font-arabic">شارك التحقق</h3>
+            <p className="text-sm text-gray-600 font-arabic">ساعد في نشر الحقيقة</p>
+          </div>
+        </div>
+
+        <div className="flex items-center gap-3">
+          {/* Twitter */}
+          <button
+            onClick={() => handleShare('twitter')}
+            className="group w-12 h-12 bg-blue-50 hover:bg-blue-100 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 border border-blue-200"
+            title="مشاركة على تويتر"
+          >
+            <Twitter className="w-5 h-5 text-blue-500 group-hover:text-blue-600" />
+          </button>
+
+          {/* Facebook */}
+          <button
+            onClick={() => handleShare('facebook')}
+            className="group w-12 h-12 bg-blue-50 hover:bg-blue-100 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 border border-blue-200"
+            title="مشاركة على فيسبوك"
+          >
+            <Facebook className="w-5 h-5 text-blue-600 group-hover:text-blue-700" />
+          </button>
+
+          {/* WhatsApp */}
+          <button
+            onClick={() => handleShare('whatsapp')}
+            className="group w-12 h-12 bg-green-50 hover:bg-green-100 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 border border-green-200"
+            title="مشاركة على واتساب"
+          >
+            <MessageCircle className="w-5 h-5 text-green-500 group-hover:text-green-600" />
+          </button>
+
+          {/* Telegram */}
+          <button
+            onClick={() => handleShare('telegram')}
+            className="group w-12 h-12 bg-cyan-50 hover:bg-cyan-100 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 border border-cyan-200"
+            title="مشاركة على تيليجرام"
+          >
+            <svg className="w-5 h-5 text-cyan-500 group-hover:text-cyan-600" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.568 8.16l-1.402 6.598c-.105.484-.38.603-.771.375l-2.139-1.578-1.032 1.003c-.115.113-.21.21-.428.21l.151-2.193 3.93-3.551c.171-.15-.037-.234-.266-.085l-4.86 3.059-2.095-.655c-.454-.142-.46-.454.097-.671l8.18-3.155c.378-.142.712.085.593.672z"/>
+            </svg>
+          </button>
+
+          {/* Copy Link */}
+          <button
+            onClick={copyToClipboard}
+            className="group w-12 h-12 bg-gray-50 hover:bg-gray-100 rounded-xl flex items-center justify-center transition-all duration-300 hover:scale-110 border border-gray-200 relative"
+            title="نسخ الرابط"
+          >
+            <Copy className="w-5 h-5 text-gray-500 group-hover:text-gray-600" />
+            
+            {/* Copied notification */}
+            {showCopied && (
+              <div className="absolute -top-10 left-1/2 transform -translate-x-1/2 bg-green-600 text-white text-xs px-3 py-1 rounded-lg font-arabic whitespace-nowrap animate-fadeIn">
+                تم النسخ!
+              </div>
+            )}
+          </button>
+        </div>
+      </div>
+
+      {/* Share statistics */}
+      <div className="mt-4 pt-4 border-t border-gray-200/50">
+        <div className="flex items-center justify-center gap-6 text-sm text-gray-500">
+          <div className="flex items-center gap-2">
+            <Eye className="w-4 h-4" />
+            <span className="font-arabic">{article.views.toLocaleString()} مشاهدة</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <Share2 className="w-4 h-4" />
+            <span className="font-arabic">تم المشاركة 1.2K مرة</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <BookmarkPlus className="w-4 h-4" />
+            <span className="font-arabic">تم الحفظ 340 مرة</span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
@@ -305,6 +438,9 @@ const ArticlePage: React.FC<ArticlePageProps> = ({ selectedArticle, setCurrentPa
                 </div>
               </div>
             </div>
+            
+            {/* Social Sharing Section */}
+            <SocialShare article={article} />
           </div>
         </div>
       </section>
