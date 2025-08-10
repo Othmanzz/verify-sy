@@ -289,53 +289,53 @@ const StickySocialBar: React.FC<{ article: FactCheck; show: boolean }> = ({ arti
   };
 
   return (
-    <div className={`fixed left-4 top-1/2 transform -translate-y-1/2 z-40 transition-all duration-500 ${
-      show ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0'
+    <div className={`fixed left-4 top-1/2 transform -translate-y-1/2 z-40 transition-all duration-300 ${
+      show ? 'translate-x-0 opacity-100 scale-100' : '-translate-x-16 opacity-0 scale-95'
     }`}>
-      <div className="bg-white/95 backdrop-blur-sm rounded-2xl shadow-xl border border-gray-200/50 p-3 flex flex-col gap-3">
-        <div className="text-center">
-          <Share2 className="w-4 h-4 text-gray-600 mx-auto mb-2" />
-          <span className="text-xs text-gray-500 font-arabic">مشاركة</span>
+      <div className="bg-white/96 backdrop-blur-md rounded-2xl shadow-2xl border border-gray-200/50 p-3 flex flex-col gap-2">
+        <div className="text-center pb-2 border-b border-gray-200/50">
+          <Share2 className="w-4 h-4 text-gray-600 mx-auto mb-1" />
+          <span className="text-xs text-gray-500 font-arabic font-medium">مشاركة</span>
         </div>
         
         {/* Twitter */}
         <button
           onClick={() => handleShare('twitter')}
-          className="w-10 h-10 bg-blue-50 hover:bg-blue-100 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-110 group"
+          className="w-9 h-9 bg-blue-50 hover:bg-blue-100 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-105 group shadow-sm"
           title="مشاركة على تويتر"
         >
-          <Twitter className="w-5 h-5 text-blue-500 group-hover:text-blue-600" />
+          <Twitter className="w-4 h-4 text-blue-500 group-hover:text-blue-600" />
         </button>
 
         {/* Facebook */}
         <button
           onClick={() => handleShare('facebook')}
-          className="w-10 h-10 bg-blue-50 hover:bg-blue-100 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-110 group"
+          className="w-9 h-9 bg-blue-50 hover:bg-blue-100 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-105 group shadow-sm"
           title="مشاركة على فيسبوك"
         >
-          <Facebook className="w-5 h-5 text-blue-600 group-hover:text-blue-700" />
+          <Facebook className="w-4 h-4 text-blue-600 group-hover:text-blue-700" />
         </button>
 
         {/* WhatsApp */}
         <button
           onClick={() => handleShare('whatsapp')}
-          className="w-10 h-10 bg-green-50 hover:bg-green-100 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-110 group"
+          className="w-9 h-9 bg-green-50 hover:bg-green-100 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-105 group shadow-sm"
           title="مشاركة على واتساب"
         >
-          <MessageCircle className="w-5 h-5 text-green-500 group-hover:text-green-600" />
+          <MessageCircle className="w-4 h-4 text-green-500 group-hover:text-green-600" />
         </button>
 
         {/* Copy Link */}
         <button
           onClick={copyToClipboard}
-          className="w-10 h-10 bg-gray-50 hover:bg-gray-100 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-110 group relative"
+          className="w-9 h-9 bg-gray-50 hover:bg-gray-100 rounded-xl flex items-center justify-center transition-all duration-200 hover:scale-105 group relative shadow-sm"
           title="نسخ الرابط"
         >
           <Copy className="w-4 h-4 text-gray-500 group-hover:text-gray-600" />
           
           {/* Copied notification */}
           {showCopied && (
-            <div className="absolute -right-20 top-1/2 transform -translate-y-1/2 bg-green-600 text-white text-xs px-3 py-1 rounded-lg font-arabic whitespace-nowrap animate-fadeIn">
+            <div className="absolute -right-18 top-1/2 transform -translate-y-1/2 bg-green-600 text-white text-xs px-2 py-1 rounded font-arabic whitespace-nowrap animate-fadeIn shadow-lg">
               تم النسخ!
             </div>
           )}
@@ -347,6 +347,7 @@ const StickySocialBar: React.FC<{ article: FactCheck; show: boolean }> = ({ arti
 
 const ArticlePage: React.FC<ArticlePageProps> = ({ selectedArticle, setCurrentPage }) => {
   const [showStickySocial, setShowStickySocial] = useState(false);
+  const [activeSection, setActiveSection] = useState('overview');
 
   // Mock article if none provided
   const mockArticle: FactCheck = {
@@ -366,20 +367,47 @@ const ArticlePage: React.FC<ArticlePageProps> = ({ selectedArticle, setCurrentPa
 
   const article = selectedArticle || mockArticle;
 
-  // Handle scroll to show/hide sticky social bar
+  // Handle scroll to show/hide sticky social bar and track active section
   useEffect(() => {
     const handleScroll = () => {
-      const heroSection = document.querySelector('[data-hero-section]');
-      if (heroSection) {
-        const rect = heroSection.getBoundingClientRect();
-        // Show sticky social when hero section goes out of view
-        setShowStickySocial(rect.bottom < 100);
+      const scrollY = window.scrollY;
+      // Show sticky social immediately when user starts scrolling down (after 50px)
+      setShowStickySocial(scrollY > 50);
+
+      // Track active section for navigation highlighting
+      const sections = ['overview', 'details', 'analysis', 'sources'];
+      let currentSection = 'overview';
+
+      for (const sectionId of sections) {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          // Consider section active if it's in the top half of viewport
+          if (rect.top <= window.innerHeight / 2 && rect.bottom >= 0) {
+            currentSection = sectionId;
+          }
+        }
       }
+
+      setActiveSection(currentSection);
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Smooth scroll to section function
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const yOffset = -80; // Account for sticky navigation height
+      const yPosition = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+      window.scrollTo({
+        top: yPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
 
   const getVerdictConfig = (verdict: string) => {
     switch (verdict) {
@@ -440,22 +468,22 @@ const ArticlePage: React.FC<ArticlePageProps> = ({ selectedArticle, setCurrentPa
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-indigo-50/50" dir="rtl">
-      {/* Header - Navigation */}
-      <div className="bg-white/80 backdrop-blur-sm border-b border-gray-200/50 sticky top-0 z-50">
+      {/* Regular Header (Non-sticky) */}
+      <div className="bg-white border-b border-gray-200/50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
+              <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center shadow-sm">
                 <CheckCircle className="w-5 h-5 text-blue-600" />
               </div>
               <div>
                 <h1 className="text-lg font-bold text-gray-900 font-arabic-heading">تحقق من المعلومة</h1>
-                <p className="text-xs text-gray-500 font-arabic">{article.category}</p>
+                <p className="text-sm text-gray-500 font-arabic">{article.category}</p>
               </div>
             </div>
             <button 
               onClick={() => setCurrentPage?.('home')}
-              className="inline-flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors font-arabic font-medium"
+              className="inline-flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200 font-arabic font-medium"
             >
               <ArrowLeft className="w-4 h-4" />
               العودة للرئيسية
@@ -464,12 +492,13 @@ const ArticlePage: React.FC<ArticlePageProps> = ({ selectedArticle, setCurrentPa
         </div>
       </div>
 
+
       {/* Main Content Container */}
       <div className="container mx-auto px-4 py-6">
         <div className="max-w-5xl mx-auto">
           
           {/* Compact Hero Section */}
-          <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-6" data-hero-section>
+          <div id="overview" className="bg-white rounded-2xl shadow-lg overflow-hidden mb-6" data-hero-section>
             {/* Enhanced Header with Better Typography */}
             <div className={`${verdictConfig.headerBg} text-white px-6 py-6 text-center relative overflow-hidden`}>
               {/* Background Pattern */}
@@ -577,7 +606,7 @@ const ArticlePage: React.FC<ArticlePageProps> = ({ selectedArticle, setCurrentPa
             <div className="lg:col-span-2 space-y-4">
               
               {/* Article Content - Compact */}
-              <div className="bg-white rounded-xl shadow-md p-6">
+              <div id="details" className="bg-white rounded-xl shadow-md p-6">
                 <h2 className="text-2xl font-black mb-6 font-arabic-heading text-gray-900">تفاصيل التحقق</h2>
                 
                 <div className="text-lg leading-relaxed space-y-6 font-arabic text-gray-700">
@@ -634,7 +663,7 @@ const ArticlePage: React.FC<ArticlePageProps> = ({ selectedArticle, setCurrentPa
               <AudioPlayer text={`${article.title}. ${article.summary}. الادعاء المنتشر: انتشر عبر وسائل التواصل الاجتماعي ادعاء يفيد بأن شرب الماء الدافئ مع الليمون في الصباح يساعد بشكل كبير في إنقاص الوزن وحرق الدهون، وأنه يمكن الاعتماد عليه كحل سحري للتخسيس.`} />
               
               {/* Compact Verdict Analysis */}
-              <div className={`${verdictConfig.bg} ${verdictConfig.border} border rounded-xl overflow-hidden shadow-md`}>
+              <div id="analysis" className={`${verdictConfig.bg} ${verdictConfig.border} border rounded-xl overflow-hidden shadow-md`}>
                 <div className="p-4">
                   <h3 className="text-lg font-black mb-3 font-arabic-heading text-gray-900 flex items-center gap-2">
                     <verdictConfig.icon className={`w-6 h-6 ${verdictConfig.iconColor}`} />
