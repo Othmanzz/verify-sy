@@ -547,18 +547,6 @@ const HomePage: React.FC<HomePageProps> = ({
         </div>
       )}
       
-      {/* Load More with AI Suggestions */}
-      <div className="text-center mt-8">
-        <button 
-          onClick={() => setCurrentPage('search')}
-          className="group bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-4 rounded-2xl hover:from-blue-700 hover:to-purple-700 transition-all duration-300 font-semibold text-base flex items-center gap-3 shadow-lg hover:shadow-xl transform hover:scale-105 font-arabic mx-auto"
-        >
-          <span className="text-lg">🤖</span>
-          عرض مزيد من التحققات الذكية
-          <ChevronDown className="w-5 h-5 rotate-[-90deg] group-hover:translate-x-1 transition-transform duration-300" />
-        </button>
-        <p className="text-sm text-gray-500 mt-3 font-arabic">الذكاء الاصطناعي يختار لك أهم التحققات</p>
-      </div>
 
       {/* Enhanced Empty State */}
       {filteredFactChecks.length === 0 && (
