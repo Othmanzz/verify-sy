@@ -112,6 +112,62 @@ export const mockFactChecks: FactCheck[] = [
     tags: ['درعا', 'مساعدات إنسانية', 'منظمات دولية'],
     views: 8920,
     featured: true
+  },
+  {
+    id: '9',
+    title: 'الحكومة السورية تؤكد رسمياً بدء إعادة إعمار المناطق المتضررة',
+    summary: 'أعلنت الحكومة السورية رسمياً عن بدء برنامج شامل لإعادة إعمار المناطق المتضررة في عدة محافظات بالتعاون مع المنظمات الدولية.',
+    verdict: 'confirmed',
+    image: 'https://images.pexels.com/photos/2219024/pexels-photo-2219024.jpeg?auto=compress&cs=tinysrgb&w=800',
+    author: 'فريق تأكد',
+    date: '2024-12-19',
+    category: 'سياسة',
+    readTime: '5 دقائق',
+    tags: ['إعمار', 'حكومة', 'سوريا'],
+    views: 12500,
+    featured: true
+  },
+  {
+    id: '10',
+    title: 'البنك المركزي السوري يؤكد استقرار سعر الصرف وتحسن الوضع الاقتصادي',
+    summary: 'أكد البنك المركزي السوري في بيان رسمي استقرار سعر الصرف وتحسن مؤشرات الاقتصاد الكلي بعد سلسلة من الإجراءات الاقتصادية.',
+    verdict: 'confirmed',
+    image: 'https://images.pexels.com/photos/4386370/pexels-photo-4386370.jpeg?auto=compress&cs=tinysrgb&w=800',
+    author: 'فريق تأكد',
+    date: '2024-12-18',
+    category: 'اقتصاد',
+    readTime: '4 دقائق',
+    tags: ['اقتصاد', 'بنك مركزي', 'عملة'],
+    views: 10800,
+    featured: false
+  },
+  {
+    id: '11',
+    title: 'منظمة الصحة العالمية تؤكد فعالية اللقاحات المعتمدة ضد كوفيد-19',
+    summary: 'أكدت منظمة الصحة العالمية في تقرير جديد فعالية وأمان جميع اللقاحات المعتمدة ضد فيروس كورونا بناءً على دراسات علمية موسعة.',
+    verdict: 'confirmed',
+    image: 'https://images.pexels.com/photos/3952224/pexels-photo-3952224.jpeg?auto=compress&cs=tinysrgb&w=800',
+    author: 'فريق تأكد',
+    date: '2024-12-17',
+    category: 'صحة',
+    readTime: '6 دقائق',
+    tags: ['صحة', 'لقاحات', 'كورونا'],
+    views: 15200,
+    featured: false
+  },
+  {
+    id: '12',
+    title: 'وزارة التربية تؤكد استئناف الدراسة في جميع المحافظات',
+    summary: 'أعلنت وزارة التربية رسمياً عن استئناف العملية التعليمية في جميع المحافظات السورية بعد تأهيل المدارس وتوفير المستلزمات الضرورية.',
+    verdict: 'confirmed',
+    image: 'https://images.pexels.com/photos/5905445/pexels-photo-5905445.jpeg?auto=compress&cs=tinysrgb&w=800',
+    author: 'فريق تأكد',
+    date: '2024-12-16',
+    category: 'تعليم',
+    readTime: '3 دقائق',
+    tags: ['تعليم', 'مدارس', 'وزارة'],
+    views: 8900,
+    featured: false
   }
 ];
 

@@ -385,6 +385,123 @@ const HomePage: React.FC<HomePageProps> = ({
         </div>
       )}
 
+      {/* مؤكد (Confirmed) Section - Special Layout */}
+      {mockFactChecks.filter(fc => fc.verdict === 'confirmed').length > 0 && (
+        <div className="mb-16">
+          <div className="flex items-center gap-4 mb-8">
+            <div className="w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center shadow-lg">
+              <CheckCircle className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <h3 className="text-3xl font-bold text-blue-800 font-arabic-heading">
+                مؤكد
+              </h3>
+              <p className="text-blue-600 font-arabic">أخبار مؤكدة من مصادر رسمية</p>
+            </div>
+            <div className="mr-auto bg-blue-100 text-blue-800 px-4 py-2 rounded-xl font-bold">
+              {mockFactChecks.filter(fc => fc.verdict === 'confirmed').length} تحقق
+            </div>
+          </div>
+          
+          {/* Special Two Column Layout */}
+          <div className="grid lg:grid-cols-3 gap-6">
+            {/* Featured Article - Left Column */}
+            <div className="lg:col-span-1">
+              {mockFactChecks.filter(fc => fc.verdict === 'confirmed').slice(0, 1).map((factCheck) => (
+                <div key={`confirmed-featured-${factCheck.id}`} className="h-full">
+                  <article 
+                    className="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-blue-100 cursor-pointer h-full flex flex-col"
+                    onClick={() => {
+                      setSelectedArticle(factCheck);
+                      setCurrentPage('article');
+                    }}
+                  >
+                    {/* Large Image */}
+                    <div className="relative h-64 overflow-hidden rounded-t-2xl">
+                      <img 
+                        src={factCheck.image}
+                        alt={factCheck.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                      <div className="absolute top-4 right-4">
+                        <div className="bg-blue-500 text-white px-3 py-1.5 rounded-full text-sm font-bold font-arabic shadow-lg">
+                          مؤكد
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Content */}
+                    <div className="p-6 flex-1 flex flex-col">
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="text-xs text-blue-600 font-arabic font-medium">
+                          {factCheck.category}
+                        </span>
+                        <span className="text-xs text-gray-400">•</span>
+                        <span className="text-xs text-gray-500 font-arabic">
+                          {factCheck.date}
+                        </span>
+                      </div>
+                      
+                      <h3 className="text-xl font-bold text-gray-900 mb-3 leading-tight group-hover:text-blue-600 transition-colors font-arabic-heading line-clamp-3">
+                        {factCheck.title}
+                      </h3>
+                      
+                      <p className="text-sm text-gray-600 line-clamp-4 leading-relaxed mb-4 font-arabic flex-1">
+                        {factCheck.summary}
+                      </p>
+                      
+                      {/* Metadata */}
+                      <div className="flex items-center gap-4 text-xs text-gray-500 pt-4 border-t border-gray-100">
+                        <div className="flex items-center gap-1">
+                          <User className="w-3.5 h-3.5" />
+                          <span className="font-arabic">{factCheck.author}</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Eye className="w-3.5 h-3.5" />
+                          <span>{factCheck.views.toLocaleString()}</span>
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Clock className="w-3.5 h-3.5" />
+                          <span className="font-arabic">{factCheck.readTime}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+              ))}
+            </div>
+            
+            {/* Three Articles - Right Column */}
+            <div className="lg:col-span-2 space-y-4">
+              {mockFactChecks.filter(fc => fc.verdict === 'confirmed').slice(1, 4).map((factCheck, index) => (
+                <div key={`confirmed-${factCheck.id}`} style={{ animationDelay: `${index * 30}ms` }} className="animate-in fade-in slide-in-from-bottom-1 duration-300">
+                  <CompactCard 
+                    factCheck={factCheck}
+                    onClick={() => {
+                      setSelectedArticle(factCheck);
+                      setCurrentPage('article');
+                    }}
+                    featured={false}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+          
+          <div className="text-center mt-6">
+            <button 
+              onClick={() => {
+                setFilters(prev => ({ ...prev, verdict: 'مؤكد' }));
+                setCurrentPage('search');
+              }}
+              className="text-blue-600 hover:text-blue-700 font-arabic font-medium"
+            >
+              عرض جميع الأخبار المؤكدة ←
+            </button>
+          </div>
+        </div>
+      )}
+
       {/* إرباك (Unproven) Section */}
       {mockFactChecks.filter(fc => fc.verdict === 'unproven').length > 0 && (
         <div className="mb-16">
