@@ -187,7 +187,7 @@ const SearchPage: React.FC<SearchPageProps> = ({ setCurrentPage, setSelectedArti
                 <Database className="w-4 h-4 text-blue-600" />
               </div>
               <div>
-                <h1 className="text-lg font-bold text-gray-900 font-arabic-heading">منصة تأكد</h1>
+                <h1 className="text-lg font-bold text-gray-900 font-arabic-heading">قاعدة بيانات تأكد</h1>
                 <p className="text-xs text-gray-500 font-arabic">قاعدة بيانات التحققات</p>
               </div>
             </div>
