@@ -12,7 +12,9 @@
       "WebFetch(domain:www.verify-sy.com)",
       "Bash(mkdir:*)",
       "Bash(cp:*)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Bash(grep:*)",
+      "mcp__ide__getDiagnostics"
     ],
     "deny": []
   }
