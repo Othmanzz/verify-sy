@@ -398,22 +398,23 @@ const ArticlePage: React.FC<ArticlePageProps> = ({ selectedArticle, setCurrentPa
                 </div>
               </div>
 
-              {/* Tags */}
-              <div className="mb-12">
-                <h3 className="text-xl font-bold mb-4 font-arabic-heading text-gray-900">العلامات ذات الصلة</h3>
-                <div className="flex flex-wrap gap-3">
+              {/* Enhanced Tags Section */}
+              <div className="bg-white rounded-3xl shadow-xl p-8 mb-12">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-10 h-10 bg-indigo-100 rounded-xl flex items-center justify-center">
+                    <span className="text-indigo-600 font-black">#</span>
+                  </div>
+                  <h3 className="text-2xl font-bold font-arabic-heading text-gray-900">العلامات ذات الصلة</h3>
+                </div>
+                <div className="flex flex-wrap gap-4">
                   {article.tags.map((tag, index) => (
-                    <span key={index} className="bg-blue-100 text-blue-800 px-4 py-2 rounded-xl font-arabic font-medium">
+                    <span key={index} className="bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-6 py-3 rounded-2xl font-arabic font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
                       #{tag}
                     </span>
                   ))}
                 </div>
               </div>
 
-              {/* Verdict Badge */}
-              <div className="text-center">
-                <VerdictBadge verdict={article.verdict} size="lg" />
-              </div>
 
             </div>
           </div>

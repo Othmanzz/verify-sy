@@ -370,7 +370,40 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 p {
+  line-height: 1.7;
+}
+
+/* Enhanced Arabic typography */
+[dir="rtl"] p {
+  line-height: 1.8;
+  text-align: justify;
+  text-justify: auto;
+}
+
+[dir="rtl"] .text-xl {
+  line-height: 1.8;
+}
+
+[dir="rtl"] .text-2xl {
   line-height: 1.6;
+}
+
+/* Better readability for article content */
+.article-content {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: #374151;
+}
+
+.article-content h3 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.article-content p {
+  margin-bottom: 1.5rem;
 }
 
 /* Button improvements */

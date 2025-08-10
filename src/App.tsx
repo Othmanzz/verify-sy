@@ -65,12 +65,25 @@ const CompactCard: React.FC<{ factCheck: FactCheck; onClick: () => void; feature
 
   return (
     <article 
-      className="group bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 hover:border-gray-200 cursor-pointer"
+      className="group bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 hover:border-gray-200 cursor-pointer relative"
       onClick={onClick}
     >
-      <div className="flex gap-4">
-        {/* Content Section - Left Side */}
-        <div className="flex-1">
+      {/* Image Section - Absolutely Positioned Right */}
+      <div className="absolute top-6 right-6 w-24 h-24 flex-shrink-0">
+        <LazyImage 
+          src={factCheck.image} 
+          alt=""
+          className="w-full h-full object-cover rounded-xl"
+        />
+        {featured && (
+          <div className="absolute -top-2 -right-2 bg-yellow-500 text-white p-1 rounded-full text-xs font-bold shadow-lg">
+            <Star className="w-3 h-3 fill-current" />
+          </div>
+        )}
+      </div>
+      
+      {/* Content Section - Full Width with Right Margin */}
+      <div className="pr-28">
           {/* Status Badge */}
           <div className="flex items-center gap-2 mb-3">
             <div className={`flex items-center gap-2 px-3 py-1 rounded-full ${verdictConfig.bg}`}>
@@ -112,23 +125,6 @@ const CompactCard: React.FC<{ factCheck: FactCheck; onClick: () => void; feature
             </div>
           </div>
         </div>
-        
-        {/* Image Section - Right Side */}
-        <div className="w-24 h-24 flex-shrink-0">
-          <LazyImage 
-            src={factCheck.image} 
-            alt=""
-            className="w-full h-full object-cover rounded-xl"
-          />
-          {featured && (
-            <div className="relative">
-              <div className="absolute -top-2 -right-2 bg-yellow-500 text-white p-1 rounded-full text-xs font-bold shadow-lg">
-                <Star className="w-3 h-3 fill-current" />
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
     </article>
   );
 };
