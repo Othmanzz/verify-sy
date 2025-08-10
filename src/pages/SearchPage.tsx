@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Search, Filter, TrendingUp, Database, CheckCircle, XCircle, AlertCircle, HelpCircle, User, Eye, Clock, Star, ArrowLeft, Zap, Bot, Brain, Sparkles, Heart, DollarSign, Globe2, BookOpen, Laptop, Building2, Activity, Users2, X, RotateCcw } from 'lucide-react';
+import { Search, Filter, TrendingUp, Database, CheckCircle, XCircle, AlertCircle, HelpCircle, User, Eye, Clock, Star, ArrowLeft, Zap, Bot, Brain, Sparkles, Heart, DollarSign, Globe2, BookOpen, Laptop, Building2, Activity, Users2, X, RotateCcw, ChevronDown, Calendar, SortAsc } from 'lucide-react';
 import { FactCheck } from '../types';
 import { mockFactChecks, categories, verdictOptions } from '../data/mockData';
 
@@ -8,22 +8,22 @@ interface SearchPageProps {
   setSelectedArticle?: (article: FactCheck) => void;
 }
 
-// Modern CompactCard Component matching HomePage style
+// Compact Card Component matching HomePage categories style
 const CompactCard: React.FC<{ factCheck: FactCheck; onClick: () => void; featured?: boolean }> = ({ factCheck, onClick, featured = false }) => {
   const getVerdictConfig = (verdict: string) => {
     switch (verdict) {
       case 'true':
-        return { bg: 'bg-green-100', text: 'text-green-800', dot: 'bg-green-500', label: 'صحيح' };
+        return { bg: 'bg-green-500', label: 'صحيح', hoverColor: 'group-hover:text-green-600' };
       case 'false':
-        return { bg: 'bg-red-100', text: 'text-red-800', dot: 'bg-red-500', label: 'احتيال' };
+        return { bg: 'bg-red-500', label: 'احتيال', hoverColor: 'group-hover:text-red-600' };
       case 'misleading':
-        return { bg: 'bg-orange-100', text: 'text-orange-800', dot: 'bg-orange-500', label: 'عبث' };
+        return { bg: 'bg-orange-500', label: 'عبث', hoverColor: 'group-hover:text-orange-600' };
       case 'unproven':
-        return { bg: 'bg-gray-100', text: 'text-gray-800', dot: 'bg-gray-500', label: 'إرباك' };
+        return { bg: 'bg-gray-500', label: 'إرباك', hoverColor: 'group-hover:text-gray-600' };
       case 'confirmed':
-        return { bg: 'bg-blue-100', text: 'text-blue-800', dot: 'bg-blue-500', label: 'مؤكد' };
+        return { bg: 'bg-blue-500', label: 'مؤكد', hoverColor: 'group-hover:text-blue-600' };
       default:
-        return { bg: 'bg-gray-100', text: 'text-gray-800', dot: 'bg-gray-500', label: 'غير محدد' };
+        return { bg: 'bg-gray-500', label: 'غير محدد', hoverColor: 'group-hover:text-gray-600' };
     }
   };
 
@@ -31,66 +31,95 @@ const CompactCard: React.FC<{ factCheck: FactCheck; onClick: () => void; feature
 
   return (
     <article 
-      className="group bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 hover:border-gray-200 cursor-pointer relative"
+      className="group relative bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 cursor-pointer transform hover:scale-[1.01] hover:-translate-y-1 overflow-hidden"
       onClick={onClick}
     >
-      {/* Image Section - Absolutely Positioned Right */}
-      <div className="absolute top-6 right-6 w-24 h-24">
-        <img 
-          src={factCheck.image}
-          alt={factCheck.title}
-          className="w-full h-full object-cover rounded-xl"
-        />
-        {featured && (
-          <div className="absolute -top-2 -right-2 bg-yellow-500 text-white p-1 rounded-full shadow-lg">
+      {/* Featured Badge */}
+      {featured && (
+        <div className="absolute -top-2 -right-2 z-20">
+          <div className="bg-gradient-to-r from-yellow-500 to-amber-500 text-white p-2 rounded-xl shadow-lg border-2 border-white transform rotate-12 hover:rotate-0 transition-transform duration-300">
             <Star className="w-3 h-3 fill-current" />
           </div>
-        )}
-      </div>
+        </div>
+      )}
       
-      {/* Content Section - Full Width with Right Margin */}
-      <div className="pr-28">
-          {/* Status Badge */}
-          <div className="flex items-center gap-2 mb-3">
-            <div className={`flex items-center gap-2 px-3 py-1 rounded-full ${verdictConfig.bg}`}>
-              <div className={`w-2 h-2 rounded-full ${verdictConfig.dot}`}></div>
-              <span className={`text-sm font-medium font-arabic ${verdictConfig.text}`}>
+      {/* Card Content */}
+      <div className="relative z-10 p-6">
+        <div className="flex gap-4">
+          {/* Compact Image Section */}
+          <div className="relative w-24 h-24 flex-shrink-0">
+            <img 
+              src={factCheck.image}
+              alt={factCheck.title}
+              className="w-full h-full object-cover rounded-xl group-hover:scale-110 transition-transform duration-300 shadow-md"
+            />
+            
+            {/* Compact Verdict Badge */}
+            <div className="absolute -bottom-1 -right-1 z-20">
+              <div className={`px-2 py-1 rounded-lg text-xs font-bold shadow-md border border-white ${verdictConfig.bg} text-white`}>
                 {verdictConfig.label}
-              </span>
+              </div>
             </div>
-            <span className="text-xs text-gray-500 font-arabic">
-              {factCheck.category}
-            </span>
           </div>
           
-          {/* Title */}
-          <h3 className="text-lg font-bold text-gray-900 mb-2 leading-tight group-hover:text-blue-600 transition-colors font-arabic-heading line-clamp-2">
-            {factCheck.title}
-          </h3>
-          
-          {/* Summary */}
-          <p className="text-sm text-gray-600 line-clamp-2 leading-relaxed mb-4 font-arabic">
-            {factCheck.summary}
-          </p>
-
-          {/* Metadata */}
-          <div className="flex items-center gap-4 text-xs text-gray-500">
-            <div className="flex items-center gap-1">
-              <div className="w-4 h-4 bg-blue-100 rounded-full flex items-center justify-center">
-                <User className="w-2.5 h-2.5 text-blue-600" />
+          {/* Compact Content Section */}
+          <div className="flex-1 min-w-0">
+            {/* Category & Date */}
+            <div className="flex items-center gap-2 mb-3">
+              <span className={`px-2 py-1 rounded-lg text-xs font-medium font-arabic border ${
+                factCheck.verdict === 'true' ? 'bg-green-50 text-green-700 border-green-100' :
+                factCheck.verdict === 'false' ? 'bg-red-50 text-red-700 border-red-100' :
+                factCheck.verdict === 'misleading' ? 'bg-orange-50 text-orange-700 border-orange-100' :
+                factCheck.verdict === 'confirmed' ? 'bg-blue-50 text-blue-700 border-blue-100' :
+                'bg-gray-50 text-gray-700 border-gray-100'
+              }`}>
+                {factCheck.category}
+              </span>
+              <div className="flex items-center gap-1 text-gray-500 text-xs">
+                <Clock className="w-3 h-3" />
+                <span className="font-arabic">{factCheck.readTime}</span>
               </div>
-              <span className="font-arabic">{factCheck.author}</span>
             </div>
-            <div className="flex items-center gap-1">
-              <Eye className="w-3.5 h-3.5" />
-              <span>{factCheck.views.toLocaleString()}</span>
-            </div>
-            <div className="flex items-center gap-1">
-              <Clock className="w-3.5 h-3.5" />
-              <span className="font-arabic">{factCheck.readTime}</span>
+            
+            {/* Compact Title */}
+            <h3 className={`text-lg font-bold text-gray-900 mb-2 leading-tight transition-colors font-arabic-heading line-clamp-2 ${verdictConfig.hoverColor}`}>
+              {factCheck.title}
+            </h3>
+            
+            {/* Compact Summary */}
+            <p className="text-gray-600 font-arabic text-sm leading-relaxed mb-3 line-clamp-2">
+              {factCheck.summary}
+            </p>
+            
+            {/* Compact Metadata */}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-3 text-xs text-gray-500">
+                <div className="flex items-center gap-1">
+                  <User className="w-3 h-3" />
+                  <span className="font-arabic">{factCheck.author}</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <Eye className="w-3 h-3" />
+                  <span>{factCheck.views.toLocaleString()}</span>
+                </div>
+              </div>
+              
+              {/* Read More Arrow */}
+              <div className={`transition-colors ${
+                factCheck.verdict === 'true' ? 'text-green-500 group-hover:text-green-600' :
+                factCheck.verdict === 'false' ? 'text-red-500 group-hover:text-red-600' :
+                factCheck.verdict === 'misleading' ? 'text-orange-500 group-hover:text-orange-600' :
+                factCheck.verdict === 'confirmed' ? 'text-blue-500 group-hover:text-blue-600' :
+                'text-gray-500 group-hover:text-gray-600'
+              }`}>
+                <svg className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+                </svg>
+              </div>
             </div>
           </div>
         </div>
+      </div>
     </article>
   );
 };
@@ -99,6 +128,7 @@ const SearchPage: React.FC<SearchPageProps> = ({ setCurrentPage, setSelectedArti
   const [searchQuery, setSearchQuery] = useState('');
   const [showSearchSuggestions, setShowSearchSuggestions] = useState(false);
   const [showStickySearch, setShowStickySearch] = useState(false);
+  const [showFilterDropdown, setShowFilterDropdown] = useState(false);
   const [filters, setFilters] = useState({
     category: 'جميع الفئات',
     verdict: 'جميع التصنيفات',
@@ -120,6 +150,26 @@ const SearchPage: React.FC<SearchPageProps> = ({ setCurrentPage, setSelectedArti
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  // Handle click outside to close filter dropdown
+  React.useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as Element;
+      if (showFilterDropdown && !target.closest('[data-filter-dropdown]')) {
+        setShowFilterDropdown(false);
+      }
+    };
+
+    // Use a small delay to prevent immediate closure when opening
+    const timeoutId = setTimeout(() => {
+      document.addEventListener('mousedown', handleClickOutside);
+    }, 100);
+
+    return () => {
+      clearTimeout(timeoutId);
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showFilterDropdown]);
 
   // Enhanced AI Search functionality with mock responses
   const aiSuggestions = [
@@ -208,36 +258,394 @@ const SearchPage: React.FC<SearchPageProps> = ({ setCurrentPage, setSelectedArti
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto">
             
-            {/* Main Search Bar */}
-            <div className="relative mb-6 z-10">
-              <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-1 relative">
-                {/* Main Search Input */}
-                <div className="relative">
-                  <input
-                    type="text"
-                    placeholder="ابحث في قاعدة البيانات أو اسأل الذكاء الاصطناعي..."
-                    value={searchQuery}
-                    onChange={handleSearchChange}
-                    onFocus={() => {
-                      setShowSearchSuggestions(true);
-                    }}
-                    onBlur={() => {
-                      setTimeout(() => setShowSearchSuggestions(false), 200);
-                    }}
-                    className="w-full pl-16 pr-6 py-5 text-base bg-transparent rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500/30 text-right text-gray-900 font-arabic border-0"
-                    dir="rtl"
-                  />
-                  
-                  {/* Modern Search Icon */}
-                  <div className="absolute left-4 top-1/2 transform -translate-y-1/2 flex items-center gap-2">
-                    <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-lg flex items-center justify-center">
-                      <Bot className="h-4 w-4 text-white" />
+            {/* Compact Modern Search Bar */}
+            <div className="relative mb-4 z-20">
+              <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+                {/* Search Input Container */}
+                <div className="flex items-center">
+                  {/* Main Search Input */}
+                  <div className="flex-1 relative">
+                    <input
+                      type="text"
+                      placeholder="ابحث في قاعدة البيانات..."
+                      value={searchQuery}
+                      onChange={handleSearchChange}
+                      onFocus={() => {
+                        setShowSearchSuggestions(true);
+                      }}
+                      onBlur={() => {
+                        setTimeout(() => setShowSearchSuggestions(false), 200);
+                      }}
+                      className="w-full pl-16 pr-4 py-4 text-base bg-transparent focus:outline-none text-right text-gray-900 font-arabic border-0"
+                      dir="rtl"
+                    />
+                    
+                    {/* Compact Search Icon */}
+                    <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
+                      <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center shadow-md">
+                        <Bot className="h-4 w-4 text-white" />
+                      </div>
                     </div>
                   </div>
                   
-                  {/* Enhanced AI Search Suggestions */}
-                  {showSearchSuggestions && (
-                    <div className="absolute top-full left-0 right-0 bg-white rounded-2xl shadow-2xl z-30 mt-3 border border-gray-100 animate-fadeIn flex flex-col max-h-96">
+                  {/* Compact Filter Dropdown Button */}
+                  <div className="relative" data-filter-dropdown>
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        setShowFilterDropdown(prev => !prev);
+                      }}
+                      className="flex items-center gap-2 px-4 py-4 bg-gradient-to-r from-gray-50 to-gray-100 hover:from-blue-50 hover:to-blue-100 transition-all duration-300 border-r border-gray-200"
+                    >
+                      <Filter className="w-4 h-4 text-gray-600" />
+                      <span className="font-arabic font-medium text-gray-700 text-sm">فلترة</span>
+                      <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform duration-300 ${showFilterDropdown ? 'rotate-180' : ''}`} />
+                    </button>
+                    
+                    {/* Modern Filter Dropdown */}
+                    {showFilterDropdown && (
+                      <div 
+                        style={{
+                          position: 'absolute',
+                          top: '100%',
+                          right: '0',
+                          width: '380px',
+                          backgroundColor: 'white',
+                          border: '1px solid #e2e8f0',
+                          borderRadius: '16px',
+                          padding: '0',
+                          zIndex: 99999,
+                          boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+                          marginTop: '8px',
+                          backdropFilter: 'blur(10px)',
+                          background: 'linear-gradient(145deg, rgba(255,255,255,0.95), rgba(248,250,252,0.95))'
+                        }}
+                      >
+                        {/* Modern Header */}
+                        <div style={{
+                          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                          padding: '20px',
+                          borderRadius: '16px 16px 0 0',
+                          color: 'white',
+                          position: 'relative',
+                          overflow: 'hidden'
+                        }}>
+                          <div style={{
+                            position: 'absolute',
+                            top: '-50%',
+                            right: '-20%',
+                            width: '100px',
+                            height: '100px',
+                            background: 'rgba(255,255,255,0.1)',
+                            borderRadius: '50%',
+                            animation: 'pulse 2s infinite'
+                          }}></div>
+                          <div style={{position: 'relative', zIndex: 2}}>
+                            <h3 style={{fontSize: '20px', fontWeight: '700', margin: '0 0 6px 0', textShadow: '0 2px 4px rgba(0,0,0,0.1)'}}>🎯 فلترة ذكية</h3>
+                            <p style={{fontSize: '14px', margin: '0', opacity: '0.9'}}>اختر المعايير المناسبة للحصول على أفضل النتائج</p>
+                          </div>
+                        </div>
+                        
+                        {/* Content */}
+                        <div style={{padding: '24px', direction: 'rtl'}}>
+                          {/* Category Filter with Colors */}
+                          <div style={{marginBottom: '24px'}}>
+                            <div style={{display: 'flex', alignItems: 'center', marginBottom: '12px'}}>
+                              <div style={{
+                                width: '20px',
+                                height: '20px',
+                                background: 'linear-gradient(45deg, #3b82f6, #1d4ed8)',
+                                borderRadius: '6px',
+                                marginLeft: '8px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                              }}>
+                                📂
+                              </div>
+                              <label style={{
+                                fontSize: '16px', 
+                                fontWeight: '600', 
+                                color: '#1f2937'
+                              }}>الفئة</label>
+                            </div>
+                            
+                            {/* Category Grid */}
+                            <div style={{
+                              display: 'grid',
+                              gridTemplateColumns: 'repeat(2, 1fr)',
+                              gap: '8px',
+                              marginBottom: '12px'
+                            }}>
+                              {categories.map((category, index) => {
+                                const categoryColors = [
+                                  { bg: 'linear-gradient(45deg, #6366f1, #8b5cf6)', emoji: '📊' },
+                                  { bg: 'linear-gradient(45deg, #ef4444, #dc2626)', emoji: '🏛️' },
+                                  { bg: 'linear-gradient(45deg, #10b981, #059669)', emoji: '📰' },
+                                  { bg: 'linear-gradient(45deg, #f59e0b, #d97706)', emoji: '🌱' },
+                                  { bg: 'linear-gradient(45deg, #8b5cf6, #7c3aed)', emoji: '🎓' },
+                                  { bg: 'linear-gradient(45deg, #06b6d4, #0891b2)', emoji: '💻' },
+                                  { bg: 'linear-gradient(45deg, #84cc16, #65a30d)', emoji: '⚽' },
+                                  { bg: 'linear-gradient(45deg, #f97316, #ea580c)', emoji: '🎨' }
+                                ];
+                                const config = categoryColors[index] || categoryColors[0];
+                                const isSelected = filters.category === category;
+                                
+                                return (
+                                  <button
+                                    key={category}
+                                    onClick={() => setFilters(prev => ({ ...prev, category }))}
+                                    style={{
+                                      padding: '12px',
+                                      borderRadius: '12px',
+                                      border: isSelected ? '2px solid #3b82f6' : '1px solid #e5e7eb',
+                                      background: isSelected ? 'linear-gradient(145deg, #dbeafe, #bfdbfe)' : 'white',
+                                      cursor: 'pointer',
+                                      transition: 'all 0.2s ease',
+                                      display: 'flex',
+                                      alignItems: 'center',
+                                      gap: '8px',
+                                      fontSize: '13px',
+                                      fontWeight: isSelected ? '600' : '500',
+                                      color: isSelected ? '#1d4ed8' : '#374151',
+                                      boxShadow: isSelected ? '0 4px 12px rgba(59, 130, 246, 0.15)' : '0 2px 4px rgba(0,0,0,0.05)',
+                                      transform: isSelected ? 'scale(1.02)' : 'scale(1)'
+                                    }}
+                                    onMouseEnter={(e) => {
+                                      if (!isSelected) {
+                                        e.currentTarget.style.transform = 'scale(1.02)';
+                                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+                                      }
+                                    }}
+                                    onMouseLeave={(e) => {
+                                      if (!isSelected) {
+                                        e.currentTarget.style.transform = 'scale(1)';
+                                        e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.05)';
+                                      }
+                                    }}
+                                  >
+                                    <div style={{
+                                      width: '24px',
+                                      height: '24px',
+                                      background: config.bg,
+                                      borderRadius: '6px',
+                                      display: 'flex',
+                                      alignItems: 'center',
+                                      justifyContent: 'center',
+                                      fontSize: '12px'
+                                    }}>
+                                      {config.emoji}
+                                    </div>
+                                    <span style={{flex: 1, textAlign: 'right'}}>{category}</span>
+                                    {isSelected && (
+                                      <div style={{
+                                        width: '16px',
+                                        height: '16px',
+                                        background: '#10b981',
+                                        borderRadius: '50%',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        fontSize: '10px'
+                                      }}>
+                                        ✓
+                                      </div>
+                                    )}
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          </div>
+                          
+                          {/* Verdict Filter with Colors */}
+                          <div style={{marginBottom: '24px'}}>
+                            <div style={{display: 'flex', alignItems: 'center', marginBottom: '12px'}}>
+                              <div style={{
+                                width: '20px',
+                                height: '20px',
+                                background: 'linear-gradient(45deg, #10b981, #059669)',
+                                borderRadius: '6px',
+                                marginLeft: '8px',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center'
+                              }}>
+                                ✅
+                              </div>
+                              <label style={{
+                                fontSize: '16px', 
+                                fontWeight: '600', 
+                                color: '#1f2937'
+                              }}>نوع التحقق</label>
+                            </div>
+                            
+                            {/* Verdict Buttons */}
+                            <div style={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
+                              {verdictOptions.map((verdict, index) => {
+                                const verdictColors = [
+                                  { bg: 'linear-gradient(45deg, #6b7280, #4b5563)', emoji: '📋', desc: 'جميع الأنواع' },
+                                  { bg: 'linear-gradient(45deg, #10b981, #059669)', emoji: '✅', desc: 'معلومات صحيحة' },
+                                  { bg: 'linear-gradient(45deg, #ef4444, #dc2626)', emoji: '❌', desc: 'معلومات خاطئة' },
+                                  { bg: 'linear-gradient(45deg, #f59e0b, #d97706)', emoji: '⚠️', desc: 'مشكوك فيها' },
+                                  { bg: 'linear-gradient(45deg, #8b5cf6, #7c3aed)', emoji: '❓', desc: 'غير مؤكدة' },
+                                  { bg: 'linear-gradient(45deg, #06b6d4, #0891b2)', emoji: '🔍', desc: 'مؤكدة رسمياً' }
+                                ];
+                                const config = verdictColors[index] || verdictColors[0];
+                                const isSelected = filters.verdict === verdict;
+                                
+                                return (
+                                  <button
+                                    key={verdict}
+                                    onClick={() => setFilters(prev => ({ ...prev, verdict }))}
+                                    style={{
+                                      padding: '14px 16px',
+                                      borderRadius: '12px',
+                                      border: isSelected ? '2px solid #10b981' : '1px solid #e5e7eb',
+                                      background: isSelected ? 'linear-gradient(145deg, #d1fae5, #a7f3d0)' : 'white',
+                                      cursor: 'pointer',
+                                      transition: 'all 0.2s ease',
+                                      display: 'flex',
+                                      alignItems: 'center',
+                                      gap: '12px',
+                                      fontSize: '14px',
+                                      fontWeight: isSelected ? '600' : '500',
+                                      color: isSelected ? '#065f46' : '#374151',
+                                      boxShadow: isSelected ? '0 4px 12px rgba(16, 185, 129, 0.15)' : '0 2px 4px rgba(0,0,0,0.05)',
+                                      transform: isSelected ? 'scale(1.01)' : 'scale(1)'
+                                    }}
+                                    onMouseEnter={(e) => {
+                                      if (!isSelected) {
+                                        e.currentTarget.style.transform = 'scale(1.01)';
+                                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+                                      }
+                                    }}
+                                    onMouseLeave={(e) => {
+                                      if (!isSelected) {
+                                        e.currentTarget.style.transform = 'scale(1)';
+                                        e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.05)';
+                                      }
+                                    }}
+                                  >
+                                    <div style={{
+                                      width: '28px',
+                                      height: '28px',
+                                      background: config.bg,
+                                      borderRadius: '8px',
+                                      display: 'flex',
+                                      alignItems: 'center',
+                                      justifyContent: 'center',
+                                      fontSize: '14px'
+                                    }}>
+                                      {config.emoji}
+                                    </div>
+                                    <div style={{flex: 1, textAlign: 'right'}}>
+                                      <div style={{fontWeight: '600'}}>{verdict}</div>
+                                      <div style={{fontSize: '12px', opacity: '0.7', marginTop: '2px'}}>{config.desc}</div>
+                                    </div>
+                                    {isSelected && (
+                                      <div style={{
+                                        width: '18px',
+                                        height: '18px',
+                                        background: '#10b981',
+                                        borderRadius: '50%',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        fontSize: '12px',
+                                        color: 'white'
+                                      }}>
+                                        ✓
+                                      </div>
+                                    )}
+                                  </button>
+                                );
+                              })}
+                            </div>
+                          </div>
+                          
+                          {/* Modern Action Buttons */}
+                          <div style={{
+                            display: 'flex', 
+                            gap: '12px', 
+                            paddingTop: '16px',
+                            borderTop: '1px solid #f3f4f6'
+                          }}>
+                            <button
+                              onClick={() => setFilters({
+                                category: 'جميع الفئات',
+                                verdict: 'جميع التصنيفات',
+                                dateRange: 'جميع التواريخ',
+                                sortBy: 'الأحدث'
+                              })}
+                              style={{
+                                flex: 1,
+                                padding: '12px 20px',
+                                background: 'linear-gradient(145deg, #f8fafc, #e2e8f0)',
+                                color: '#475569',
+                                border: '1px solid #cbd5e1',
+                                borderRadius: '12px',
+                                fontSize: '14px',
+                                cursor: 'pointer',
+                                fontWeight: '600',
+                                transition: 'all 0.2s ease',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: '8px'
+                              }}
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.transform = 'translateY(-1px)';
+                                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.transform = 'translateY(0)';
+                                e.currentTarget.style.boxShadow = 'none';
+                              }}
+                            >
+                              🗑️ <span>مسح الكل</span>
+                            </button>
+                            <button
+                              onClick={() => setShowFilterDropdown(false)}
+                              style={{
+                                flex: 1,
+                                padding: '12px 20px',
+                                background: 'linear-gradient(135deg, #667eea, #764ba2)',
+                                color: 'white',
+                                border: 'none',
+                                borderRadius: '12px',
+                                fontSize: '14px',
+                                cursor: 'pointer',
+                                fontWeight: '600',
+                                transition: 'all 0.2s ease',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                gap: '8px',
+                                boxShadow: '0 4px 12px rgba(102, 126, 234, 0.25)'
+                              }}
+                              onMouseEnter={(e) => {
+                                e.currentTarget.style.transform = 'translateY(-1px)';
+                                e.currentTarget.style.boxShadow = '0 6px 20px rgba(102, 126, 234, 0.4)';
+                              }}
+                              onMouseLeave={(e) => {
+                                e.currentTarget.style.transform = 'translateY(0)';
+                                e.currentTarget.style.boxShadow = '0 4px 12px rgba(102, 126, 234, 0.25)';
+                              }}
+                            >
+                              ✨ <span>تطبيق الآن</span>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+                  
+                
+                {/* Enhanced AI Search Suggestions */}
+                {showSearchSuggestions && (
+                  <div className="absolute top-full left-0 right-0 bg-white rounded-2xl shadow-2xl z-30 mt-3 border border-gray-100 animate-fadeIn flex flex-col max-h-96">
                       {/* Header - Fixed at top */}
                       <div className="bg-gradient-to-r from-blue-600 to-purple-600 p-4 rounded-t-2xl flex-shrink-0 relative z-20">
                         <div className="flex items-center gap-3 text-white">
@@ -292,88 +700,39 @@ const SearchPage: React.FC<SearchPageProps> = ({ setCurrentPage, setSelectedArti
                       </div>
                     </div>
                   )}
-                </div>
 
-                {/* Integrated Quick Filters */}
-                <div className="border-t border-gray-200 pt-4 mt-2">
-                  <div className="flex flex-wrap items-center gap-3 justify-center">
-                    <div className="flex items-center gap-2">
-                      <Filter className="w-4 h-4 text-blue-600" />
-                      <span className="text-sm text-gray-600 font-arabic font-medium">تصفية سريعة:</span>
+                {/* Active Filters Display */}
+                {(filters.category !== 'جميع الفئات' || filters.verdict !== 'جميع التصنيفات') && (
+                  <div className="border-t border-gray-100 pt-4 mt-2">
+                    <div className="flex flex-wrap items-center gap-2 justify-center">
+                      <span className="text-sm text-gray-600 font-arabic font-medium">المرشحات النشطة:</span>
+                      
+                      {filters.category !== 'جميع الفئات' && (
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-100 text-blue-700 rounded-full text-sm font-arabic font-medium">
+                          <span>{filters.category}</span>
+                          <button
+                            onClick={() => setFilters(prev => ({ ...prev, category: 'جميع الفئات' }))}
+                            className="hover:bg-blue-200 rounded-full p-0.5"
+                          >
+                            <X className="w-3 h-3" />
+                          </button>
+                        </div>
+                      )}
+                      
+                      {filters.verdict !== 'جميع التصنيفات' && (
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-green-100 text-green-700 rounded-full text-sm font-arabic font-medium">
+                          <span>{filters.verdict}</span>
+                          <button
+                            onClick={() => setFilters(prev => ({ ...prev, verdict: 'جميع التصنيفات' }))}
+                            className="hover:bg-green-200 rounded-full p-0.5"
+                          >
+                            <X className="w-3 h-3" />
+                          </button>
+                        </div>
+                      )}
                     </div>
-                    
-                    {/* Quick Category Filters */}
-                    {categories.slice(0, 4).map((category, index) => {
-                      const categoryIcons = [Database, Heart, DollarSign, Globe2];
-                      const IconComponent = categoryIcons[index] || Database;
-                      
-                      return (
-                        <button
-                          key={category}
-                          onClick={() => setFilters(prev => ({ ...prev, category }))}
-                          className={`inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium transition-all duration-300 font-arabic ${
-                            filters.category === category
-                              ? 'bg-blue-600 text-white shadow-md'
-                              : 'bg-gray-100 text-gray-700 hover:bg-blue-100 hover:text-blue-700'
-                          }`}
-                        >
-                          <IconComponent className="w-3 h-3" />
-                          {category}
-                        </button>
-                      );
-                    })}
-
-                    {/* Quick Verdict Filters */}
-                    <div className="h-6 w-px bg-gray-300 mx-2"></div>
-                    
-                    {verdictOptions.slice(1, 5).map((verdict, index) => {
-                      const verdictIcons = [CheckCircle, XCircle, AlertCircle, HelpCircle];
-                      const verdictStyles = [
-                        { bg: 'bg-green-50', text: 'text-green-700', hover: 'hover:bg-green-100' },
-                        { bg: 'bg-red-50', text: 'text-red-700', hover: 'hover:bg-red-100' },
-                        { bg: 'bg-orange-50', text: 'text-orange-700', hover: 'hover:bg-orange-100' },
-                        { bg: 'bg-gray-50', text: 'text-gray-700', hover: 'hover:bg-gray-100' }
-                      ];
-                      
-                      const IconComponent = verdictIcons[index] || HelpCircle;
-                      const style = verdictStyles[index] || verdictStyles[3];
-                      
-                      return (
-                        <button
-                          key={verdict}
-                          onClick={() => setFilters(prev => ({ ...prev, verdict }))}
-                          className={`inline-flex items-center gap-1 px-3 py-2 rounded-lg text-xs font-medium transition-all duration-300 font-arabic ${
-                            filters.verdict === verdict
-                              ? 'bg-blue-600 text-white shadow-sm'
-                              : `${style.bg} ${style.text} ${style.hover}`
-                          }`}
-                        >
-                          <IconComponent className="w-3 h-3" />
-                          {verdict}
-                        </button>
-                      );
-                    })}
-
-                    {/* Clear Filters Button */}
-                    {(filters.category !== 'جميع الفئات' || filters.verdict !== 'جميع التصنيفات') && (
-                      <>
-                        <div className="h-6 w-px bg-gray-300 mx-2"></div>
-                        <button
-                          onClick={() => setFilters({
-                            category: 'جميع الفئات',
-                            verdict: 'جميع التصنيفات',
-                            dateRange: 'جميع التواريخ',
-                            sortBy: 'الأحدث'
-                          })}
-                          className="inline-flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-medium bg-gray-200 text-gray-600 hover:bg-gray-300 transition-colors font-arabic"
-                        >
-                          <RotateCcw className="w-3 h-3" />
-                          مسح الكل
-                        </button>
-                      </>
-                    )}
                   </div>
-                </div>
+                )}
               </div>
             </div>
             
@@ -404,57 +763,44 @@ const SearchPage: React.FC<SearchPageProps> = ({ setCurrentPage, setSelectedArti
         </div>
       </section>
 
-      {/* Sticky Search Bar */}
-      <div className={`fixed top-20 left-0 right-0 z-30 transition-all duration-300 ${
+      {/* Enhanced Sticky Search Bar */}
+      <div className={`fixed top-0 left-0 right-0 z-30 transition-all duration-300 ${
         showStickySearch ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
       }`}>
-        <div className="bg-white shadow-xl border-b border-gray-200">
-          <div className="container mx-auto px-4 py-4">
+        <div className="bg-white/95 backdrop-blur-md shadow-2xl border-b border-gray-200">
+          <div className="container mx-auto px-4 py-3">
             <div className="max-w-4xl mx-auto">
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3">
                 {/* Compact Search Input */}
                 <div className="flex-1 relative">
                   <input
                     type="text"
-                    placeholder="🤖 بحث ذكي..."
+                    placeholder="بحث ذكي في قاعدة البيانات..."
                     value={searchQuery}
                     onChange={handleSearchChange}
-                    className="w-full pl-12 pr-4 py-3 bg-gray-100 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 text-right text-gray-900 font-arabic"
+                    className="w-full pl-14 pr-4 py-3 bg-gray-50 rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white text-right text-gray-900 font-arabic border border-gray-200"
                     dir="rtl"
                   />
-                  <div className="absolute left-3 top-3">
-                    <Bot className="w-5 h-5 text-blue-600" />
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2">
+                    <div className="w-6 h-6 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                      <Bot className="w-3 h-3 text-white" />
+                    </div>
                   </div>
                 </div>
 
-                {/* Quick Filter Pills */}
-                <div className="flex items-center gap-2">
-                  {/* Category Filter */}
-                  <select
-                    value={filters.category}
-                    onChange={(e) => setFilters(prev => ({ ...prev, category: e.target.value }))}
-                    className="px-3 py-3 bg-gray-100 rounded-xl border-none focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-arabic"
-                  >
-                    {categories.slice(0, 5).map(category => (
-                      <option key={category} value={category}>{category}</option>
-                    ))}
-                  </select>
+                {/* Compact Filter Button */}
+                <button
+                  onClick={() => setShowFilterDropdown(!showFilterDropdown)}
+                  className="flex items-center gap-2 px-4 py-3 bg-gray-50 hover:bg-gray-100 rounded-2xl transition-colors border border-gray-200"
+                >
+                  <Filter className="w-4 h-4 text-gray-600" />
+                  <span className="text-sm font-arabic font-medium text-gray-700">فلترة</span>
+                  <ChevronDown className={`w-3 h-3 text-gray-500 transition-transform duration-300 ${showFilterDropdown ? 'rotate-180' : ''}`} />
+                </button>
 
-                  {/* Verdict Filter */}
-                  <select
-                    value={filters.verdict}
-                    onChange={(e) => setFilters(prev => ({ ...prev, verdict: e.target.value }))}
-                    className="px-3 py-3 bg-gray-100 rounded-xl border-none focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm font-arabic"
-                  >
-                    {verdictOptions.slice(0, 5).map(verdict => (
-                      <option key={verdict} value={verdict}>{verdict}</option>
-                    ))}
-                  </select>
-
-                  {/* Results Count */}
-                  <div className="px-4 py-3 bg-blue-100 text-blue-800 rounded-xl text-sm font-bold font-arabic">
-                    {filteredFactChecks.length} نتيجة
-                  </div>
+                {/* Results Count */}
+                <div className="px-4 py-3 bg-gradient-to-r from-blue-100 to-blue-50 text-blue-800 rounded-2xl text-sm font-bold font-arabic border border-blue-200">
+                  {filteredFactChecks.length} نتيجة
                 </div>
               </div>
             </div>

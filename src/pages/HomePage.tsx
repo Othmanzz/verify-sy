@@ -44,17 +44,55 @@ const HomePage: React.FC<HomePageProps> = ({
   VerdictBadge,
   LazyImage
 }) => {
-  const [trendingCarouselIndex, setTrendingCarouselIndex] = useState(0);
-  const itemsPerPage = 3;
-  const totalTrendingItems = mockFactChecks.slice(0, 18).length;
-  const totalPages = Math.ceil(totalTrendingItems / itemsPerPage);
-
-  const handleTrendingPrev = () => {
-    setTrendingCarouselIndex((prev) => (prev - 1 + totalPages) % totalPages);
-  };
-
-  const handleTrendingNext = () => {
-    setTrendingCarouselIndex((prev) => (prev + 1) % totalPages);
+  // Helper function to get verdict colors and labels
+  const getVerdictInfo = (verdict: string) => {
+    switch (verdict) {
+      case 'confirmed':
+        return {
+          label: 'مؤكد',
+          bg: 'bg-green-100',
+          text: 'text-green-700',
+          border: 'border-green-200',
+          hover: 'group-hover:text-green-600',
+          cardBorder: 'group-hover:border-green-300'
+        };
+      case 'false':
+        return {
+          label: 'احتيال',
+          bg: 'bg-red-100',
+          text: 'text-red-700',
+          border: 'border-red-200',
+          hover: 'group-hover:text-red-600',
+          cardBorder: 'group-hover:border-red-300'
+        };
+      case 'misleading':
+        return {
+          label: 'عبث',
+          bg: 'bg-orange-100',
+          text: 'text-orange-700',
+          border: 'border-orange-200',
+          hover: 'group-hover:text-orange-600',
+          cardBorder: 'group-hover:border-orange-300'
+        };
+      case 'unproven':
+        return {
+          label: 'إرباك',
+          bg: 'bg-yellow-100',
+          text: 'text-yellow-700',
+          border: 'border-yellow-200',
+          hover: 'group-hover:text-yellow-600',
+          cardBorder: 'group-hover:border-yellow-300'
+        };
+      default:
+        return {
+          label: 'غير مؤكد',
+          bg: 'bg-gray-100',
+          text: 'text-gray-700',
+          border: 'border-gray-200',
+          hover: 'group-hover:text-gray-600',
+          cardBorder: 'group-hover:border-gray-300'
+        };
+    }
   };
 
   return (
@@ -211,7 +249,7 @@ const HomePage: React.FC<HomePageProps> = ({
       </div>
     </section>
 
-    {/* Enhanced Professional Trending News Section with Carousel */}
+    {/* Modern Horizontal Scrollable Trending News Section */}
     <section className="container mx-auto px-4 pt-8 pb-16" style={{paddingLeft: '70px', paddingRight: '70px'}}>
       {/* Enhanced Modern Header */}
       <div className="flex items-center justify-between mb-12">
@@ -231,7 +269,9 @@ const HomePage: React.FC<HomePageProps> = ({
           {/* Live Indicator */}
           <div className="inline-flex items-center gap-2 bg-red-50 border border-red-200 px-3 py-1.5 rounded-xl">
             <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
-            <span className="text-red-600 font-arabic font-medium text-xs">تحديث مباشر</span>
+            <span className="text-red-600 font-arabic font-medium text-xs">
+              تحديث مباشر • {mockFactChecks.length} مقال
+            </span>
           </div>
         </div>
         
@@ -247,158 +287,146 @@ const HomePage: React.FC<HomePageProps> = ({
         </button>
       </div>
       
-      {/* Carousel Container */}
-      <div className="relative w-full py-4">
-        {/* Navigation Buttons */}
+      {/* Horizontal Scrollable Carousel with External Navigation */}
+      <div className="relative px-16">
+        {/* External Navigation Buttons */}
         <button
-          onClick={handleTrendingPrev}
-          className="absolute right-[-50px] top-1/2 -translate-y-1/2 z-20 bg-gradient-to-r from-white to-gray-50 backdrop-blur-sm text-gray-700 p-3 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 border border-gray-200 hover:border-red-300 group"
-          aria-label="Previous"
+          onClick={() => {
+            const container = document.getElementById('trending-scroll-container');
+            if (container) {
+              container.scrollBy({ left: 400, behavior: 'smooth' });
+            }
+          }}
+          className="absolute -right-2 top-1/2 -translate-y-1/2 z-20 bg-gradient-to-r from-red-500 to-orange-500 text-white p-4 rounded-full shadow-xl hover:shadow-2xl hover:scale-110 transition-all duration-300 border-2 border-white group"
+          aria-label="Scroll Right"
         >
-          <ChevronRight className="w-5 h-5 group-hover:scale-110 group-hover:text-red-600 transition-all duration-300" />
+          <ChevronRight className="w-6 h-6 group-hover:scale-110 transition-all duration-300" />
         </button>
         
         <button
-          onClick={handleTrendingNext}
-          className="absolute left-[-50px] top-1/2 -translate-y-1/2 z-20 bg-gradient-to-l from-white to-gray-50 backdrop-blur-sm text-gray-700 p-3 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 border border-gray-200 hover:border-red-300 group"
-          aria-label="Next"
+          onClick={() => {
+            const container = document.getElementById('trending-scroll-container');
+            if (container) {
+              container.scrollBy({ left: -400, behavior: 'smooth' });
+            }
+          }}
+          className="absolute -left-2 top-1/2 -translate-y-1/2 z-20 bg-gradient-to-r from-orange-500 to-red-500 text-white p-4 rounded-full shadow-xl hover:shadow-2xl hover:scale-110 transition-all duration-300 border-2 border-white group"
+          aria-label="Scroll Left"
         >
-          <ChevronLeft className="w-5 h-5 group-hover:scale-110 group-hover:text-red-600 transition-all duration-300" />
+          <ChevronLeft className="w-6 h-6 group-hover:scale-110 transition-all duration-300" />
         </button>
         
-        {/* Cards Container with Overflow Hidden */}
-        <div className="overflow-hidden rounded-3xl mx-16">
-          <div 
-            className="flex transition-transform duration-500 ease-in-out"
-            style={{ transform: `translateX(-${trendingCarouselIndex * 100}%)` }}
-          >
-            {Array.from({ length: totalPages }).map((_, pageIndex) => (
-              <div key={pageIndex} className="flex-none w-full grid grid-cols-3 gap-6 px-2 py-2">
-                {mockFactChecks
-                  .slice(0, 18)
-                  .slice(pageIndex * itemsPerPage, (pageIndex + 1) * itemsPerPage)
-                  .map((factCheck, index) => (
-                  <div 
-                    key={`trending-${factCheck.id}`}
-                    className="w-full"
-                  >
-                <article 
-                  className="group relative bg-white rounded-3xl shadow-lg hover:shadow-xl transition-all duration-400 border border-gray-100 cursor-pointer transform hover:scale-[1.02] hover:-translate-y-2 overflow-hidden h-full"
-                  onClick={() => {
-                    setSelectedArticle(factCheck);
-                    setCurrentPage('article');
-                  }}
-                >
-                  {/* Trending Badge for First Article */}
-                  {index === 0 && (
-                    <div className="absolute -top-2 -right-2 z-20">
-                      <div className="bg-gradient-to-r from-red-500 to-orange-500 text-white p-2 rounded-xl shadow-lg border-2 border-white transform rotate-12 hover:rotate-0 transition-transform duration-300">
-                        <span className="text-xs font-bold font-arabic">رائج</span>
-                      </div>
-                    </div>
-                  )}
+        {/* Horizontal Scroll Container */}
+        <div 
+          id="trending-scroll-container"
+          className="flex gap-6 overflow-x-auto py-4 px-2 scroll-smooth"
+          style={{
+            scrollbarWidth: 'none',
+            msOverflowStyle: 'none',
+          }}
+        >
+          {mockFactChecks.slice(0, 12).map((factCheck, index) => (
+            <div 
+              key={`trending-${factCheck.id}`}
+              className="flex-none w-80"
+            >
+              <article 
+                className={`group relative bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 cursor-pointer transform hover:scale-[1.02] hover:-translate-y-1 overflow-hidden h-full ${getVerdictInfo(factCheck.verdict).cardBorder}`}
+                onClick={() => {
+                  setSelectedArticle(factCheck);
+                  setCurrentPage('article');
+                }}
+              >
+
+                {/* Image with Modern Overlay */}
+                <div className="relative overflow-hidden bg-gradient-to-br from-gray-100 to-gray-200 h-48">
+                  <LazyImage
+                    src={factCheck.image}
+                    alt={factCheck.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  {/* Gradient Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
                   
-                  {/* Vertical Card Content */}
-                  <div className="relative z-10">
-                    {/* Compact Image Section */}
-                    <div className="relative h-40">
-                      <img 
-                        src={factCheck.image}
-                        alt={factCheck.title}
-                        className="w-full h-full object-cover rounded-t-3xl group-hover:scale-105 transition-transform duration-400"
-                      />
-                      
-                      {/* Gradient Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent rounded-t-3xl" />
-                      
-                      {/* Verdict Badge */}
-                      <div className="absolute top-3 right-3 z-20">
-                        <div className={`px-3 py-1.5 rounded-xl text-sm font-bold shadow-lg backdrop-blur-sm border border-white/20 ${
-                          factCheck.verdict === 'true' ? 'bg-green-500/90 text-white' :
-                          factCheck.verdict === 'false' ? 'bg-red-500/90 text-white' :
-                          factCheck.verdict === 'misleading' ? 'bg-orange-500/90 text-white' :
-                          factCheck.verdict === 'confirmed' ? 'bg-blue-500/90 text-white' :
-                          'bg-gray-500/90 text-white'
-                        }`}>
-                          {factCheck.verdict === 'true' ? 'صحيح' :
-                           factCheck.verdict === 'false' ? 'احتيال' :
-                           factCheck.verdict === 'misleading' ? 'عبث' :
-                           factCheck.verdict === 'confirmed' ? 'مؤكد' :
-                           'إرباك'}
-                        </div>
-                      </div>
-                      
-                      {/* Category Badge */}
-                      <div className="absolute bottom-3 right-3 z-20">
-                        <span className="bg-white/90 backdrop-blur-sm text-gray-800 px-3 py-1.5 rounded-xl text-sm font-medium font-arabic border border-white/50 shadow-lg">
-                          {factCheck.category}
+                  {/* Verdict Badge - Top Right */}
+                  <div className="absolute top-3 right-3 z-10">
+                    {(() => {
+                      const verdictInfo = getVerdictInfo(factCheck.verdict);
+                      return (
+                        <span className={`${verdictInfo.bg} ${verdictInfo.text} ${verdictInfo.border} px-3 py-1.5 rounded-lg text-xs font-bold font-arabic border shadow-lg backdrop-blur-sm transform hover:scale-105 transition-transform duration-200`}>
+                          {verdictInfo.label}
                         </span>
-                      </div>
-                    </div>
-                    
-                    {/* Content Section */}
-                    <div className="p-6">
-                      {/* Date & Author */}
-                      <div className="flex items-center gap-2 mb-2 text-xs text-gray-500">
-                        <div className="flex items-center gap-1">
-                          <Clock className="w-3 h-3" />
-                          <span className="font-arabic">{factCheck.date}</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <User className="w-3 h-3" />
-                          <span className="font-arabic">{factCheck.author}</span>
-                        </div>
-                      </div>
-                      
-                      {/* Title */}
-                      <h3 className="text-lg font-bold text-gray-900 mb-2 leading-tight group-hover:text-red-600 transition-colors font-arabic-heading line-clamp-2">
+                      );
+                    })()}
+                  </div>
+                  
+                  {/* Views Counter Overlay */}
+                  <div className="absolute bottom-3 left-3 flex items-center gap-1 bg-black/30 backdrop-blur-sm px-2 py-1 rounded-lg text-white text-xs">
+                    <Eye className="w-3 h-3" />
+                    <span>{factCheck.views.toLocaleString()}</span>
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="p-5 space-y-3">
+                  {/* Category Tag */}
+                  <div className="inline-flex items-center gap-1 bg-gray-50 text-gray-600 px-2 py-1 rounded-lg text-xs font-medium font-arabic">
+                    <span>{factCheck.category}</span>
+                  </div>
+                  
+                  {/* Title */}
+                  {(() => {
+                    const verdictInfo = getVerdictInfo(factCheck.verdict);
+                    return (
+                      <h3 className={`text-base font-bold text-gray-900 line-clamp-2 leading-tight font-arabic-heading ${verdictInfo.hover} transition-colors duration-300`}>
                         {factCheck.title}
                       </h3>
-                      
-                      {/* Description */}
-                      <p className="text-gray-600 font-arabic text-sm leading-relaxed mb-3 line-clamp-2">
-                        {factCheck.description}
-                      </p>
-                      
-                      {/* Footer with Views and Read More */}
-                      <div className="flex items-center justify-between pt-2 border-t border-gray-100">
-                        <div className="flex items-center gap-1 text-gray-500">
-                          <Eye className="w-4 h-4" />
-                          <span className="text-sm font-medium">{factCheck.views.toLocaleString()}</span>
-                        </div>
-                        
-                        {/* Read More Button */}
-                        <div className="flex items-center gap-2 text-red-500 group-hover:text-red-600 transition-colors">
-                          <span className="text-sm font-arabic font-medium">اقرأ المزيد</span>
-                          <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                          </svg>
-                        </div>
+                    );
+                  })()}
+
+                  {/* Summary */}
+                  <p className="text-sm text-gray-600 line-clamp-2 font-arabic leading-relaxed">
+                    {factCheck.summary}
+                  </p>
+
+                  {/* Footer */}
+                  <div className="flex items-center justify-between pt-3 border-t border-gray-100">
+                    <div className="flex items-center gap-2">
+                      <div className="w-5 h-5 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
+                        <User className="w-3 h-3 text-white" />
                       </div>
+                      <span className="text-xs text-gray-500 font-arabic">{factCheck.author}</span>
+                    </div>
+
+                    <div className="flex items-center gap-1 text-xs text-gray-500 font-arabic">
+                      <Clock className="w-3 h-3" />
+                      <span>{factCheck.readTime}</span>
                     </div>
                   </div>
-                </article>
+
+                  {/* Read More Button */}
+                  <div className="pt-2">
+                    <div className="group-hover:bg-red-50 group-hover:text-red-600 text-gray-600 px-3 py-2 rounded-lg border border-gray-200 group-hover:border-red-200 transition-all duration-300 text-center flex items-center justify-center gap-2 font-arabic text-sm">
+                      <span>اقرأ المزيد</span>
+                      <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                      </svg>
+                    </div>
                   </div>
-                ))}
-              </div>
-            ))}
-          </div>
+                </div>
+              </article>
+            </div>
+          ))}
         </div>
         
-        {/* Carousel Dots Indicator */}
-        <div className="flex justify-center items-center gap-3 mt-6 py-2">
-          {[...Array(totalPages)].map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setTrendingCarouselIndex(index)}
-              className={`transition-all duration-300 ${
-                index === trendingCarouselIndex 
-                  ? 'w-10 h-3 bg-gradient-to-r from-red-500 to-orange-500 rounded-full shadow-lg' 
-                  : 'w-3 h-3 bg-gray-300 hover:bg-gray-400 hover:scale-110 rounded-full'
-              }`}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
+        {/* Scroll Indicator */}
+        <div className="flex justify-center items-center gap-2 mt-6">
+          <div className="text-xs text-gray-500 font-arabic">اسحب لرؤية المزيد</div>
+          <div className="flex gap-1">
+            <div className="w-1 h-1 bg-red-400 rounded-full animate-bounce"></div>
+            <div className="w-1 h-1 bg-red-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+            <div className="w-1 h-1 bg-red-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+          </div>
         </div>
       </div>
     </section>
