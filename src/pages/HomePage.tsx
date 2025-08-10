@@ -373,89 +373,77 @@ const HomePage: React.FC<HomePageProps> = ({
             </button>
           </div>
           
-          {/* Professional Cards Grid */}
-          <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            {mockFactChecks.filter(fc => fc.verdict === 'true').slice(0, 4).map((factCheck, index) => (
+          {/* Compact Professional Cards Grid */}
+          <div className="grid lg:grid-cols-2 gap-6 max-w-6xl mx-auto">
+            {mockFactChecks.filter(fc => fc.verdict === 'true').slice(0, 8).map((factCheck, index) => (
               <article 
                 key={`true-${factCheck.id}`} 
-                className="group relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 cursor-pointer transform hover:scale-[1.02] hover:-translate-y-2 overflow-hidden"
-                style={{ animationDelay: `${index * 100}ms` }}
+                className="group relative bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 cursor-pointer transform hover:scale-[1.01] hover:-translate-y-1 overflow-hidden"
+                style={{ animationDelay: `${index * 50}ms` }}
                 onClick={() => {
                   setSelectedArticle(factCheck);
                   setCurrentPage('article');
                 }}
               >
-                {/* Modern Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-green-600/5 via-transparent to-emerald-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-3xl"></div>
-                
                 {/* Enhanced Card Content */}
-                <div className="relative z-10 p-8">
-                  <div className="flex gap-6">
-                    {/* Enhanced Image Section */}
-                    <div className="relative w-32 h-32 flex-shrink-0">
-                      <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl"></div>
+                <div className="relative z-10 p-6">
+                  <div className="flex gap-4">
+                    {/* Compact Image Section */}
+                    <div className="relative w-24 h-24 flex-shrink-0">
                       <img 
                         src={factCheck.image}
                         alt={factCheck.title}
-                        className="relative w-full h-full object-cover rounded-2xl group-hover:scale-110 transition-transform duration-500 shadow-lg border-2 border-white"
+                        className="w-full h-full object-cover rounded-xl group-hover:scale-110 transition-transform duration-300 shadow-md"
                       />
                       
-                      {/* Modern Verdict Badge */}
-                      <div className="absolute -bottom-2 -right-2 z-20">
-                        <div className="bg-green-500 text-white px-3 py-1.5 rounded-xl text-xs font-bold shadow-lg border-2 border-white">
+                      {/* Compact Verdict Badge */}
+                      <div className="absolute -bottom-1 -right-1 z-20">
+                        <div className="bg-green-500 text-white px-2 py-1 rounded-lg text-xs font-bold shadow-md border border-white">
                           صحيح
                         </div>
                       </div>
                     </div>
                     
-                    {/* Enhanced Content Section */}
+                    {/* Compact Content Section */}
                     <div className="flex-1 min-w-0">
                       {/* Category & Date */}
-                      <div className="flex items-center gap-3 mb-4">
-                        <span className="bg-gradient-to-r from-green-100 to-emerald-100 text-green-800 px-3 py-1 rounded-xl text-sm font-medium font-arabic border border-green-200 shadow-sm">
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="bg-green-50 text-green-700 px-2 py-1 rounded-lg text-xs font-medium font-arabic border border-green-100">
                           {factCheck.category}
                         </span>
-                        <div className="flex items-center gap-2 text-gray-500 text-sm">
-                          <Clock className="w-4 h-4" />
+                        <div className="flex items-center gap-1 text-gray-500 text-xs">
+                          <Clock className="w-3 h-3" />
                           <span className="font-arabic">{factCheck.date}</span>
                         </div>
                       </div>
                       
-                      {/* Enhanced Title */}
-                      <h4 className="text-xl font-bold text-gray-900 mb-3 leading-tight group-hover:text-green-600 transition-colors font-arabic-heading line-clamp-2 pr-4">
+                      {/* Compact Title */}
+                      <h3 className="text-lg font-bold text-gray-900 mb-2 leading-tight group-hover:text-green-600 transition-colors font-arabic-heading line-clamp-2">
                         {factCheck.title}
-                      </h4>
+                      </h3>
                       
-                      {/* Enhanced Summary */}
-                      <p className="text-gray-600 line-clamp-2 leading-relaxed mb-4 font-arabic text-sm pr-4">
-                        {factCheck.summary}
-                      </p>
-                      
-                      {/* Enhanced Metadata */}
+                      {/* Compact Metadata */}
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4 text-sm text-gray-500">
+                        <div className="flex items-center gap-3 text-xs text-gray-500">
                           <div className="flex items-center gap-1">
-                            <User className="w-4 h-4" />
+                            <User className="w-3 h-3" />
                             <span className="font-arabic">{factCheck.author}</span>
                           </div>
                           <div className="flex items-center gap-1">
-                            <Eye className="w-4 h-4" />
+                            <Eye className="w-3 h-3" />
                             <span>{factCheck.views.toLocaleString()}</span>
                           </div>
                         </div>
                         
                         {/* Read More Arrow */}
                         <div className="text-green-500 group-hover:text-green-600 transition-colors">
-                          <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                          <svg className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 17l-5-5m0 0l5-5m-5 5h12" />
                           </svg>
                         </div>
                       </div>
                     </div>
                   </div>
-                  
-                  {/* Verification Indicator Line */}
-                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-green-500 via-emerald-500 to-green-500 opacity-20 group-hover:opacity-60 transition-opacity duration-300"></div>
                 </div>
               </article>
             ))}
@@ -506,89 +494,77 @@ const HomePage: React.FC<HomePageProps> = ({
             </button>
           </div>
           
-          {/* Professional Cards Grid */}
-          <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            {mockFactChecks.filter(fc => fc.verdict === 'false').slice(0, 4).map((factCheck, index) => (
+          {/* Compact Professional Cards Grid */}
+          <div className="grid lg:grid-cols-2 gap-6 max-w-6xl mx-auto">
+            {mockFactChecks.filter(fc => fc.verdict === 'false').slice(0, 8).map((factCheck, index) => (
               <article 
                 key={`false-${factCheck.id}`} 
-                className="group relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 cursor-pointer transform hover:scale-[1.02] hover:-translate-y-2 overflow-hidden"
-                style={{ animationDelay: `${index * 100}ms` }}
+                className="group relative bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 cursor-pointer transform hover:scale-[1.01] hover:-translate-y-1 overflow-hidden"
+                style={{ animationDelay: `${index * 50}ms` }}
                 onClick={() => {
                   setSelectedArticle(factCheck);
                   setCurrentPage('article');
                 }}
               >
-                {/* Modern Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-red-600/5 via-transparent to-rose-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-3xl"></div>
-                
                 {/* Enhanced Card Content */}
-                <div className="relative z-10 p-8">
-                  <div className="flex gap-6">
-                    {/* Enhanced Image Section */}
-                    <div className="relative w-32 h-32 flex-shrink-0">
-                      <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl"></div>
+                <div className="relative z-10 p-6">
+                  <div className="flex gap-4">
+                    {/* Compact Image Section */}
+                    <div className="relative w-24 h-24 flex-shrink-0">
                       <img 
                         src={factCheck.image}
                         alt={factCheck.title}
-                        className="relative w-full h-full object-cover rounded-2xl group-hover:scale-110 transition-transform duration-500 shadow-lg border-2 border-white"
+                        className="w-full h-full object-cover rounded-xl group-hover:scale-110 transition-transform duration-300 shadow-md"
                       />
                       
-                      {/* Modern Verdict Badge */}
-                      <div className="absolute -bottom-2 -right-2 z-20">
-                        <div className="bg-red-500 text-white px-3 py-1.5 rounded-xl text-xs font-bold shadow-lg border-2 border-white">
+                      {/* Compact Verdict Badge */}
+                      <div className="absolute -bottom-1 -right-1 z-20">
+                        <div className="bg-red-500 text-white px-2 py-1 rounded-lg text-xs font-bold shadow-md border border-white">
                           احتيال
                         </div>
                       </div>
                     </div>
                     
-                    {/* Enhanced Content Section */}
+                    {/* Compact Content Section */}
                     <div className="flex-1 min-w-0">
                       {/* Category & Date */}
-                      <div className="flex items-center gap-3 mb-4">
-                        <span className="bg-gradient-to-r from-red-100 to-rose-100 text-red-800 px-3 py-1 rounded-xl text-sm font-medium font-arabic border border-red-200 shadow-sm">
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="bg-red-50 text-red-700 px-2 py-1 rounded-lg text-xs font-medium font-arabic border border-red-100">
                           {factCheck.category}
                         </span>
-                        <div className="flex items-center gap-2 text-gray-500 text-sm">
-                          <Clock className="w-4 h-4" />
+                        <div className="flex items-center gap-1 text-gray-500 text-xs">
+                          <Clock className="w-3 h-3" />
                           <span className="font-arabic">{factCheck.date}</span>
                         </div>
                       </div>
                       
-                      {/* Enhanced Title */}
-                      <h4 className="text-xl font-bold text-gray-900 mb-3 leading-tight group-hover:text-red-600 transition-colors font-arabic-heading line-clamp-2 pr-4">
+                      {/* Compact Title */}
+                      <h3 className="text-lg font-bold text-gray-900 mb-2 leading-tight group-hover:text-red-600 transition-colors font-arabic-heading line-clamp-2">
                         {factCheck.title}
-                      </h4>
+                      </h3>
                       
-                      {/* Enhanced Summary */}
-                      <p className="text-gray-600 line-clamp-2 leading-relaxed mb-4 font-arabic text-sm pr-4">
-                        {factCheck.summary}
-                      </p>
-                      
-                      {/* Enhanced Metadata */}
+                      {/* Compact Metadata */}
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4 text-sm text-gray-500">
+                        <div className="flex items-center gap-3 text-xs text-gray-500">
                           <div className="flex items-center gap-1">
-                            <User className="w-4 h-4" />
+                            <User className="w-3 h-3" />
                             <span className="font-arabic">{factCheck.author}</span>
                           </div>
                           <div className="flex items-center gap-1">
-                            <Eye className="w-4 h-4" />
+                            <Eye className="w-3 h-3" />
                             <span>{factCheck.views.toLocaleString()}</span>
                           </div>
                         </div>
                         
                         {/* Read More Arrow */}
                         <div className="text-red-500 group-hover:text-red-600 transition-colors">
-                          <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                          <svg className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 17l-5-5m0 0l5-5m-5 5h12" />
                           </svg>
                         </div>
                       </div>
                     </div>
                   </div>
-                  
-                  {/* Warning Indicator Line */}
-                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-red-500 via-rose-500 to-red-500 opacity-20 group-hover:opacity-60 transition-opacity duration-300"></div>
                 </div>
               </article>
             ))}
@@ -639,89 +615,77 @@ const HomePage: React.FC<HomePageProps> = ({
             </button>
           </div>
           
-          {/* Professional Cards Grid */}
-          <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            {mockFactChecks.filter(fc => fc.verdict === 'misleading').slice(0, 4).map((factCheck, index) => (
+          {/* Compact Professional Cards Grid */}
+          <div className="grid lg:grid-cols-2 gap-6 max-w-6xl mx-auto">
+            {mockFactChecks.filter(fc => fc.verdict === 'misleading').slice(0, 8).map((factCheck, index) => (
               <article 
                 key={`misleading-${factCheck.id}`} 
-                className="group relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 cursor-pointer transform hover:scale-[1.02] hover:-translate-y-2 overflow-hidden"
-                style={{ animationDelay: `${index * 100}ms` }}
+                className="group relative bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 cursor-pointer transform hover:scale-[1.01] hover:-translate-y-1 overflow-hidden"
+                style={{ animationDelay: `${index * 50}ms` }}
                 onClick={() => {
                   setSelectedArticle(factCheck);
                   setCurrentPage('article');
                 }}
               >
-                {/* Modern Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-orange-600/5 via-transparent to-amber-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-3xl"></div>
-                
                 {/* Enhanced Card Content */}
-                <div className="relative z-10 p-8">
-                  <div className="flex gap-6">
-                    {/* Enhanced Image Section */}
-                    <div className="relative w-32 h-32 flex-shrink-0">
-                      <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl"></div>
+                <div className="relative z-10 p-6">
+                  <div className="flex gap-4">
+                    {/* Compact Image Section */}
+                    <div className="relative w-24 h-24 flex-shrink-0">
                       <img 
                         src={factCheck.image}
                         alt={factCheck.title}
-                        className="relative w-full h-full object-cover rounded-2xl group-hover:scale-110 transition-transform duration-500 shadow-lg border-2 border-white"
+                        className="w-full h-full object-cover rounded-xl group-hover:scale-110 transition-transform duration-300 shadow-md"
                       />
                       
-                      {/* Modern Verdict Badge */}
-                      <div className="absolute -bottom-2 -right-2 z-20">
-                        <div className="bg-orange-500 text-white px-3 py-1.5 rounded-xl text-xs font-bold shadow-lg border-2 border-white">
+                      {/* Compact Verdict Badge */}
+                      <div className="absolute -bottom-1 -right-1 z-20">
+                        <div className="bg-orange-500 text-white px-2 py-1 rounded-lg text-xs font-bold shadow-md border border-white">
                           عبث
                         </div>
                       </div>
                     </div>
                     
-                    {/* Enhanced Content Section */}
+                    {/* Compact Content Section */}
                     <div className="flex-1 min-w-0">
                       {/* Category & Date */}
-                      <div className="flex items-center gap-3 mb-4">
-                        <span className="bg-gradient-to-r from-orange-100 to-amber-100 text-orange-800 px-3 py-1 rounded-xl text-sm font-medium font-arabic border border-orange-200 shadow-sm">
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="bg-orange-50 text-orange-700 px-2 py-1 rounded-lg text-xs font-medium font-arabic border border-orange-100">
                           {factCheck.category}
                         </span>
-                        <div className="flex items-center gap-2 text-gray-500 text-sm">
-                          <Clock className="w-4 h-4" />
+                        <div className="flex items-center gap-1 text-gray-500 text-xs">
+                          <Clock className="w-3 h-3" />
                           <span className="font-arabic">{factCheck.date}</span>
                         </div>
                       </div>
                       
-                      {/* Enhanced Title */}
-                      <h4 className="text-xl font-bold text-gray-900 mb-3 leading-tight group-hover:text-orange-600 transition-colors font-arabic-heading line-clamp-2 pr-4">
+                      {/* Compact Title */}
+                      <h3 className="text-lg font-bold text-gray-900 mb-2 leading-tight group-hover:text-orange-600 transition-colors font-arabic-heading line-clamp-2">
                         {factCheck.title}
-                      </h4>
+                      </h3>
                       
-                      {/* Enhanced Summary */}
-                      <p className="text-gray-600 line-clamp-2 leading-relaxed mb-4 font-arabic text-sm pr-4">
-                        {factCheck.summary}
-                      </p>
-                      
-                      {/* Enhanced Metadata */}
+                      {/* Compact Metadata */}
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4 text-sm text-gray-500">
+                        <div className="flex items-center gap-3 text-xs text-gray-500">
                           <div className="flex items-center gap-1">
-                            <User className="w-4 h-4" />
+                            <User className="w-3 h-3" />
                             <span className="font-arabic">{factCheck.author}</span>
                           </div>
                           <div className="flex items-center gap-1">
-                            <Eye className="w-4 h-4" />
+                            <Eye className="w-3 h-3" />
                             <span>{factCheck.views.toLocaleString()}</span>
                           </div>
                         </div>
                         
                         {/* Read More Arrow */}
                         <div className="text-orange-500 group-hover:text-orange-600 transition-colors">
-                          <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                          <svg className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 17l-5-5m0 0l5-5m-5 5h12" />
                           </svg>
                         </div>
                       </div>
                     </div>
                   </div>
-                  
-                  {/* Warning Indicator Line */}
-                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-orange-500 via-amber-500 to-orange-500 opacity-20 group-hover:opacity-60 transition-opacity duration-300"></div>
                 </div>
               </article>
             ))}
@@ -772,89 +736,77 @@ const HomePage: React.FC<HomePageProps> = ({
             </button>
           </div>
           
-          {/* Professional Cards Grid */}
-          <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            {mockFactChecks.filter(fc => fc.verdict === 'confirmed').slice(0, 4).map((factCheck, index) => (
+          {/* Compact Professional Cards Grid */}
+          <div className="grid lg:grid-cols-2 gap-6 max-w-6xl mx-auto">
+            {mockFactChecks.filter(fc => fc.verdict === 'confirmed').slice(0, 8).map((factCheck, index) => (
               <article 
                 key={`confirmed-${factCheck.id}`} 
-                className="group relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 cursor-pointer transform hover:scale-[1.02] hover:-translate-y-2 overflow-hidden"
-                style={{ animationDelay: `${index * 100}ms` }}
+                className="group relative bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 cursor-pointer transform hover:scale-[1.01] hover:-translate-y-1 overflow-hidden"
+                style={{ animationDelay: `${index * 50}ms` }}
                 onClick={() => {
                   setSelectedArticle(factCheck);
                   setCurrentPage('article');
                 }}
               >
-                {/* Modern Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 via-transparent to-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-3xl"></div>
-                
                 {/* Enhanced Card Content */}
-                <div className="relative z-10 p-8">
-                  <div className="flex gap-6">
-                    {/* Enhanced Image Section */}
-                    <div className="relative w-32 h-32 flex-shrink-0">
-                      <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl"></div>
+                <div className="relative z-10 p-6">
+                  <div className="flex gap-4">
+                    {/* Compact Image Section */}
+                    <div className="relative w-24 h-24 flex-shrink-0">
                       <img 
                         src={factCheck.image}
                         alt={factCheck.title}
-                        className="relative w-full h-full object-cover rounded-2xl group-hover:scale-110 transition-transform duration-500 shadow-lg border-2 border-white"
+                        className="w-full h-full object-cover rounded-xl group-hover:scale-110 transition-transform duration-300 shadow-md"
                       />
                       
-                      {/* Modern Verdict Badge */}
-                      <div className="absolute -bottom-2 -right-2 z-20">
-                        <div className="bg-blue-500 text-white px-3 py-1.5 rounded-xl text-xs font-bold shadow-lg border-2 border-white">
+                      {/* Compact Verdict Badge */}
+                      <div className="absolute -bottom-1 -right-1 z-20">
+                        <div className="bg-blue-500 text-white px-2 py-1 rounded-lg text-xs font-bold shadow-md border border-white">
                           مؤكد
                         </div>
                       </div>
                     </div>
                     
-                    {/* Enhanced Content Section */}
+                    {/* Compact Content Section */}
                     <div className="flex-1 min-w-0">
                       {/* Category & Date */}
-                      <div className="flex items-center gap-3 mb-4">
-                        <span className="bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-800 px-3 py-1 rounded-xl text-sm font-medium font-arabic border border-blue-200 shadow-sm">
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="bg-blue-50 text-blue-700 px-2 py-1 rounded-lg text-xs font-medium font-arabic border border-blue-100">
                           {factCheck.category}
                         </span>
-                        <div className="flex items-center gap-2 text-gray-500 text-sm">
-                          <Clock className="w-4 h-4" />
+                        <div className="flex items-center gap-1 text-gray-500 text-xs">
+                          <Clock className="w-3 h-3" />
                           <span className="font-arabic">{factCheck.date}</span>
                         </div>
                       </div>
                       
-                      {/* Enhanced Title */}
-                      <h4 className="text-xl font-bold text-gray-900 mb-3 leading-tight group-hover:text-blue-600 transition-colors font-arabic-heading line-clamp-2 pr-4">
+                      {/* Compact Title */}
+                      <h3 className="text-lg font-bold text-gray-900 mb-2 leading-tight group-hover:text-blue-600 transition-colors font-arabic-heading line-clamp-2">
                         {factCheck.title}
-                      </h4>
+                      </h3>
                       
-                      {/* Enhanced Summary */}
-                      <p className="text-gray-600 line-clamp-2 leading-relaxed mb-4 font-arabic text-sm pr-4">
-                        {factCheck.summary}
-                      </p>
-                      
-                      {/* Enhanced Metadata */}
+                      {/* Compact Metadata */}
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4 text-sm text-gray-500">
+                        <div className="flex items-center gap-3 text-xs text-gray-500">
                           <div className="flex items-center gap-1">
-                            <User className="w-4 h-4" />
+                            <User className="w-3 h-3" />
                             <span className="font-arabic">{factCheck.author}</span>
                           </div>
                           <div className="flex items-center gap-1">
-                            <Eye className="w-4 h-4" />
+                            <Eye className="w-3 h-3" />
                             <span>{factCheck.views.toLocaleString()}</span>
                           </div>
                         </div>
                         
                         {/* Read More Arrow */}
                         <div className="text-blue-500 group-hover:text-blue-600 transition-colors">
-                          <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                          <svg className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 17l-5-5m0 0l5-5m-5 5h12" />
                           </svg>
                         </div>
                       </div>
                     </div>
                   </div>
-                  
-                  {/* Confirmation Indicator Line */}
-                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-500 opacity-20 group-hover:opacity-60 transition-opacity duration-300"></div>
                 </div>
               </article>
             ))}
@@ -905,89 +857,77 @@ const HomePage: React.FC<HomePageProps> = ({
             </button>
           </div>
           
-          {/* Professional Cards Grid */}
-          <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-            {mockFactChecks.filter(fc => fc.verdict === 'unproven').slice(0, 4).map((factCheck, index) => (
+          {/* Compact Professional Cards Grid */}
+          <div className="grid lg:grid-cols-2 gap-6 max-w-6xl mx-auto">
+            {mockFactChecks.filter(fc => fc.verdict === 'unproven').slice(0, 8).map((factCheck, index) => (
               <article 
                 key={`unproven-${factCheck.id}`} 
-                className="group relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 cursor-pointer transform hover:scale-[1.02] hover:-translate-y-2 overflow-hidden"
-                style={{ animationDelay: `${index * 100}ms` }}
+                className="group relative bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 cursor-pointer transform hover:scale-[1.01] hover:-translate-y-1 overflow-hidden"
+                style={{ animationDelay: `${index * 50}ms` }}
                 onClick={() => {
                   setSelectedArticle(factCheck);
                   setCurrentPage('article');
                 }}
               >
-                {/* Modern Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-br from-gray-600/5 via-transparent to-slate-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-3xl"></div>
-                
                 {/* Enhanced Card Content */}
-                <div className="relative z-10 p-8">
-                  <div className="flex gap-6">
-                    {/* Enhanced Image Section */}
-                    <div className="relative w-32 h-32 flex-shrink-0">
-                      <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl"></div>
+                <div className="relative z-10 p-6">
+                  <div className="flex gap-4">
+                    {/* Compact Image Section */}
+                    <div className="relative w-24 h-24 flex-shrink-0">
                       <img 
                         src={factCheck.image}
                         alt={factCheck.title}
-                        className="relative w-full h-full object-cover rounded-2xl group-hover:scale-110 transition-transform duration-500 shadow-lg border-2 border-white"
+                        className="w-full h-full object-cover rounded-xl group-hover:scale-110 transition-transform duration-300 shadow-md"
                       />
                       
-                      {/* Modern Verdict Badge */}
-                      <div className="absolute -bottom-2 -right-2 z-20">
-                        <div className="bg-gray-500 text-white px-3 py-1.5 rounded-xl text-xs font-bold shadow-lg border-2 border-white">
+                      {/* Compact Verdict Badge */}
+                      <div className="absolute -bottom-1 -right-1 z-20">
+                        <div className="bg-gray-500 text-white px-2 py-1 rounded-lg text-xs font-bold shadow-md border border-white">
                           إرباك
                         </div>
                       </div>
                     </div>
                     
-                    {/* Enhanced Content Section */}
+                    {/* Compact Content Section */}
                     <div className="flex-1 min-w-0">
                       {/* Category & Date */}
-                      <div className="flex items-center gap-3 mb-4">
-                        <span className="bg-gradient-to-r from-gray-100 to-slate-100 text-gray-800 px-3 py-1 rounded-xl text-sm font-medium font-arabic border border-gray-200 shadow-sm">
+                      <div className="flex items-center gap-2 mb-3">
+                        <span className="bg-gray-50 text-gray-700 px-2 py-1 rounded-lg text-xs font-medium font-arabic border border-gray-100">
                           {factCheck.category}
                         </span>
-                        <div className="flex items-center gap-2 text-gray-500 text-sm">
-                          <Clock className="w-4 h-4" />
+                        <div className="flex items-center gap-1 text-gray-500 text-xs">
+                          <Clock className="w-3 h-3" />
                           <span className="font-arabic">{factCheck.date}</span>
                         </div>
                       </div>
                       
-                      {/* Enhanced Title */}
-                      <h4 className="text-xl font-bold text-gray-900 mb-3 leading-tight group-hover:text-gray-600 transition-colors font-arabic-heading line-clamp-2 pr-4">
+                      {/* Compact Title */}
+                      <h3 className="text-lg font-bold text-gray-900 mb-2 leading-tight group-hover:text-gray-600 transition-colors font-arabic-heading line-clamp-2">
                         {factCheck.title}
-                      </h4>
+                      </h3>
                       
-                      {/* Enhanced Summary */}
-                      <p className="text-gray-600 line-clamp-2 leading-relaxed mb-4 font-arabic text-sm pr-4">
-                        {factCheck.summary}
-                      </p>
-                      
-                      {/* Enhanced Metadata */}
+                      {/* Compact Metadata */}
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4 text-sm text-gray-500">
+                        <div className="flex items-center gap-3 text-xs text-gray-500">
                           <div className="flex items-center gap-1">
-                            <User className="w-4 h-4" />
+                            <User className="w-3 h-3" />
                             <span className="font-arabic">{factCheck.author}</span>
                           </div>
                           <div className="flex items-center gap-1">
-                            <Eye className="w-4 h-4" />
+                            <Eye className="w-3 h-3" />
                             <span>{factCheck.views.toLocaleString()}</span>
                           </div>
                         </div>
                         
                         {/* Read More Arrow */}
                         <div className="text-gray-500 group-hover:text-gray-600 transition-colors">
-                          <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                          <svg className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 17l-5-5m0 0l5-5m-5 5h12" />
                           </svg>
                         </div>
                       </div>
                     </div>
                   </div>
-                  
-                  {/* Unclear Indicator Line */}
-                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-gray-500 via-slate-500 to-gray-500 opacity-20 group-hover:opacity-60 transition-opacity duration-300"></div>
                 </div>
               </article>
             ))}
