@@ -671,210 +671,175 @@ const HomePage: React.FC<HomePageProps> = ({
       </section>
     )}
 
-    {/* Enhanced Professional Trust Section */}
-    <section className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 py-20 overflow-hidden">
-      {/* Decorative Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-0 left-0 w-96 h-96 bg-white/20 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-cyan-400/20 rounded-full blur-3xl"></div>
-      </div>
-
-      <div className="container mx-auto px-4 relative z-10">
-        {/* Professional Header */}
-        <div className="text-center mb-16">
-          {/* Animated Badge */}
-          <div className="inline-flex items-center justify-center mb-8">
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full blur-xl opacity-50 animate-pulse"></div>
-              <div className="relative bg-white rounded-full p-6 shadow-2xl">
-                <svg className="w-16 h-16 text-blue-900" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+    {/* Modern Enhanced Trust Section */}
+    <section className="bg-gradient-to-b from-gray-50 to-white py-16" style={{paddingLeft: '70px', paddingRight: '70px'}}>
+      <div className="container mx-auto px-4">
+        {/* Enhanced Modern Header */}
+        <div className="text-center mb-12">
+          <div className="bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-900 rounded-3xl px-10 py-8 mb-8 inline-block shadow-2xl transform hover:scale-105 transition-transform duration-300">
+            <div className="flex items-center justify-center gap-4">
+              <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center border border-white/30 shadow-lg">
+                <svg className="w-6 h-6 text-cyan-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
               </div>
+              <div>
+                <h2 className="text-2xl md:text-3xl font-bold text-white font-arabic-heading">
+                  منصة موثوقة ومعتمدة
+                </h2>
+                <div className="flex items-center justify-center gap-2 mt-2">
+                  <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
+                  <span className="text-cyan-200 text-sm font-arabic">معتمدة دولياً</span>
+                </div>
+              </div>
             </div>
           </div>
-
-          {/* Main Title */}
-          <h2 className="text-5xl md:text-6xl font-black text-white mb-6 font-arabic-heading">
-            منصة موثوقة ومعتمدة
-          </h2>
-          
-          {/* Subtitle with Badge */}
-          <div className="flex items-center justify-center gap-4 mb-6">
-            <div className="h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent w-20"></div>
-            <p className="text-xl text-cyan-200 font-arabic font-medium">
-              نفخر بكوننا المرجع الأول للتحقق من الأخبار في العالم العربي
-            </p>
-            <div className="h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent w-20"></div>
-          </div>
-
-          {/* Trust Badges */}
-          <div className="flex flex-wrap justify-center gap-3 mt-8">
-            <span className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20 text-white font-arabic text-sm">
-              <svg className="w-4 h-4 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-              </svg>
-              معتمد من IFCN
-            </span>
-            <span className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20 text-white font-arabic text-sm">
-              <svg className="w-4 h-4 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
-                <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-              </svg>
-              منصة مستقلة
-            </span>
-            <span className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20 text-white font-arabic text-sm">
-              <svg className="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-              </svg>
-              8+ سنوات خبرة
-            </span>
-          </div>
+          <p className="text-lg text-gray-700 font-arabic max-w-3xl mx-auto leading-relaxed">
+            نفخر بكوننا المرجع الأول للتحقق من الأخبار في العالم العربي، معتمدون من الشبكة الدولية لفحص الحقائق
+          </p>
         </div>
 
-        {/* Modern Statistics Grid with Glass Effect */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
-          {/* Total Articles */}
-          <div className="group relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-3xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-            <div className="relative bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 hover:border-cyan-400/30 transition-all duration-300 transform hover:scale-105">
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                <FileText className="w-8 h-8 text-white" />
+        {/* Modern Statistics Grid */}
+        <div className="flex justify-center mb-16">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl">
+            {/* Total Articles */}
+            <div className="bg-white rounded-3xl p-6 text-center group hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border border-gray-100 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-20 h-20 bg-orange-50 rounded-full -translate-y-10 translate-x-10"></div>
+              <div className="relative z-10">
+                <div className="w-16 h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                  <FileText className="w-8 h-8 text-orange-600" />
+                </div>
+                <div className="text-2xl font-bold text-gray-900 mb-2">2,847+</div>
+                <div className="text-sm font-medium text-gray-600 font-arabic">مقال محقق</div>
               </div>
-              <div className="text-4xl font-black text-white mb-2">2,847+</div>
-              <div className="text-sm font-medium text-cyan-200 font-arabic">مقال محقق</div>
-              <div className="mt-4 h-1 bg-gradient-to-r from-transparent via-cyan-400 to-transparent rounded-full opacity-50"></div>
             </div>
-          </div>
 
-          {/* Monthly Visitors */}
-          <div className="group relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-3xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-            <div className="relative bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 hover:border-cyan-400/30 transition-all duration-300 transform hover:scale-105">
-              <div className="w-16 h-16 bg-gradient-to-br from-cyan-400 to-cyan-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                <Users className="w-8 h-8 text-white" />
+            {/* Monthly Visitors */}
+            <div className="bg-white rounded-3xl p-6 text-center group hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border border-gray-100 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-20 h-20 bg-blue-50 rounded-full -translate-y-10 translate-x-10"></div>
+              <div className="relative z-10">
+                <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                  <Users className="w-8 h-8 text-blue-600" />
+                </div>
+                <div className="text-2xl font-bold text-gray-900 mb-2">1.2M</div>
+                <div className="text-sm font-medium text-gray-600 font-arabic">زائر شهرياً</div>
               </div>
-              <div className="text-4xl font-black text-white mb-2">1.2M</div>
-              <div className="text-sm font-medium text-cyan-200 font-arabic">زائر شهرياً</div>
-              <div className="mt-4 h-1 bg-gradient-to-r from-transparent via-cyan-400 to-transparent rounded-full opacity-50"></div>
             </div>
-          </div>
 
-          {/* Academy Students */}
-          <div className="group relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-cyan-400 rounded-3xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-            <div className="relative bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 hover:border-green-400/30 transition-all duration-300 transform hover:scale-105">
-              <div className="w-16 h-16 bg-gradient-to-br from-green-400 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                <GraduationCap className="w-8 h-8 text-white" />
+            {/* Academy Students */}
+            <div className="bg-white rounded-3xl p-6 text-center group hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border border-gray-100 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-20 h-20 bg-green-50 rounded-full -translate-y-10 translate-x-10"></div>
+              <div className="relative z-10">
+                <div className="w-16 h-16 bg-gradient-to-br from-green-100 to-green-200 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                  <GraduationCap className="w-8 h-8 text-green-600" />
+                </div>
+                <div className="text-2xl font-bold text-gray-900 mb-2">15,420</div>
+                <div className="text-sm font-medium text-gray-600 font-arabic">طالب متخرج</div>
               </div>
-              <div className="text-4xl font-black text-white mb-2">15,420</div>
-              <div className="text-sm font-medium text-green-200 font-arabic">طالب متخرج</div>
-              <div className="mt-4 h-1 bg-gradient-to-r from-transparent via-green-400 to-transparent rounded-full opacity-50"></div>
             </div>
-          </div>
 
-          {/* Team Experience */}
-          <div className="group relative">
-            <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-yellow-400 rounded-3xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity duration-300"></div>
-            <div className="relative bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 hover:border-orange-400/30 transition-all duration-300 transform hover:scale-105">
-              <div className="w-16 h-16 bg-gradient-to-br from-orange-400 to-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
-                <Award className="w-8 h-8 text-white" />
+            {/* Team Experience */}
+            <div className="bg-white rounded-3xl p-6 text-center group hover:shadow-xl hover:-translate-y-2 transition-all duration-300 border border-gray-100 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-20 h-20 bg-yellow-50 rounded-full -translate-y-10 translate-x-10"></div>
+              <div className="relative z-10">
+                <div className="w-16 h-16 bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                  <Award className="w-8 h-8 text-yellow-600" />
+                </div>
+                <div className="text-2xl font-bold text-gray-900 mb-2">8+</div>
+                <div className="text-sm font-medium text-gray-600 font-arabic">سنوات خبرة</div>
               </div>
-              <div className="text-4xl font-black text-white mb-2">8+</div>
-              <div className="text-sm font-medium text-orange-200 font-arabic">سنوات خبرة</div>
-              <div className="mt-4 h-1 bg-gradient-to-r from-transparent via-orange-400 to-transparent rounded-full opacity-50"></div>
             </div>
           </div>
         </div>
 
-        {/* Professional Partners Section */}
+        {/* Modern Partners Section */}
         <div className="relative">
-          {/* Section Header */}
+          {/* Enhanced Section Header */}
           <div className="text-center mb-12">
-            <h3 className="text-4xl font-black text-white mb-4 font-arabic-heading">
+            <div className="flex items-center justify-center mb-6">
+              <div className="h-px bg-gradient-to-r from-transparent via-blue-300 to-transparent flex-1 max-w-32"></div>
+              <div className="mx-6">
+                <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl flex items-center justify-center shadow-lg transform hover:scale-110 transition-transform duration-300">
+                  <svg className="w-8 h-8 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+                  </svg>
+                </div>
+              </div>
+              <div className="h-px bg-gradient-to-r from-transparent via-blue-300 to-transparent flex-1 max-w-32"></div>
+            </div>
+            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-4 font-arabic-heading">
               شركاؤنا والمنظمات المعتمدة
             </h3>
-            <div className="flex items-center justify-center gap-4 mb-4">
-              <div className="h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent w-32"></div>
-              <svg className="w-8 h-8 text-cyan-400" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
-              </svg>
-              <div className="h-px bg-gradient-to-r from-transparent via-cyan-400 to-transparent w-32"></div>
-            </div>
-            <p className="text-lg text-cyan-200 font-arabic max-w-3xl mx-auto">
-              نعمل بالتعاون مع أهم المنظمات الدولية في مجال مكافحة المعلومات المضللة
+            <p className="text-base text-gray-600 font-arabic max-w-3xl mx-auto leading-relaxed">
+              نعمل بالتعاون مع أهم المنظمات الدولية في مجال مكافحة المعلومات المضللة وتعزيز الثقة الرقمية
             </p>
           </div>
 
+          {/* Modern Partner Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* International Fact-Checking Network */}
-            <div className="group relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-3xl blur-lg opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
-              <div className="relative bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 hover:border-cyan-400/50 transition-all duration-300 transform hover:scale-105">
-                <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:shadow-blue-500/30 transition-shadow duration-300">
-                  <Globe className="w-10 h-10 text-white" />
+            <div className="bg-white rounded-3xl p-8 text-center group hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 border border-gray-100 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-blue-50 rounded-full -translate-y-16 translate-x-16 opacity-50"></div>
+              <div className="relative z-10">
+                <div className="w-20 h-20 bg-gradient-to-br from-blue-100 to-blue-200 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-xl">
+                  <Globe className="w-10 h-10 text-blue-600" />
                 </div>
-                <h4 className="text-xl font-bold text-white mb-3 font-arabic-heading">
+                <h4 className="text-lg font-bold text-gray-900 mb-4 font-arabic-heading">
                   الشبكة الدولية للتحقق
                 </h4>
-                <p className="text-sm text-cyan-200 font-arabic leading-relaxed">
-                  عضو معتمد في الشبكة الدولية للتحقق من الأخبار (IFCN)
+                <p className="text-sm text-gray-600 font-arabic leading-relaxed mb-6">
+                  عضو معتمد في الشبكة الدولية للتحقق من الأخبار (IFCN) والملتزم بأعلى معايير الجودة والشفافية
                 </p>
-                <div className="mt-6 flex justify-center">
-                  <span className="inline-flex items-center gap-2 bg-blue-500/20 px-3 py-1 rounded-full text-xs text-cyan-300 font-arabic">
-                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                    </svg>
-                    معتمد دولياً
-                  </span>
-                </div>
+                <span className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-50 to-blue-100 text-blue-700 px-4 py-2 rounded-full text-sm font-arabic font-medium shadow-md hover:shadow-lg transition-shadow duration-300">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                  معتمد دولياً
+                </span>
               </div>
             </div>
 
             {/* Media Literacy */}
-            <div className="group relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-cyan-400 rounded-3xl blur-lg opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
-              <div className="relative bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 hover:border-green-400/50 transition-all duration-300 transform hover:scale-105">
-                <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-green-700 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:shadow-green-500/30 transition-shadow duration-300">
-                  <BookOpen className="w-10 h-10 text-white" />
+            <div className="bg-white rounded-3xl p-8 text-center group hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 border border-gray-100 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-green-50 rounded-full -translate-y-16 translate-x-16 opacity-50"></div>
+              <div className="relative z-10">
+                <div className="w-20 h-20 bg-gradient-to-br from-green-100 to-green-200 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-xl">
+                  <BookOpen className="w-10 h-10 text-green-600" />
                 </div>
-                <h4 className="text-xl font-bold text-white mb-3 font-arabic-heading">
+                <h4 className="text-lg font-bold text-gray-900 mb-4 font-arabic-heading">
                   تعليم الإعلام الرقمي
                 </h4>
-                <p className="text-sm text-green-200 font-arabic leading-relaxed">
-                  شريك رسمي في مبادرات محو الأمية الإعلامية الرقمية
+                <p className="text-sm text-gray-600 font-arabic leading-relaxed mb-6">
+                  شريك رسمي في مبادرات محو الأمية الإعلامية الرقمية وتطوير مهارات التفكير النقدي
                 </p>
-                <div className="mt-6 flex justify-center">
-                  <span className="inline-flex items-center gap-2 bg-green-500/20 px-3 py-1 rounded-full text-xs text-green-300 font-arabic">
-                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                      <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z" />
-                    </svg>
-                    تعليمي
-                  </span>
-                </div>
+                <span className="inline-flex items-center gap-2 bg-gradient-to-r from-green-50 to-green-100 text-green-700 px-4 py-2 rounded-full text-sm font-arabic font-medium shadow-md hover:shadow-lg transition-shadow duration-300">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z" />
+                  </svg>
+                  تعليمي متطور
+                </span>
               </div>
             </div>
 
             {/* Research Collaboration */}
-            <div className="group relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-yellow-400 rounded-3xl blur-lg opacity-0 group-hover:opacity-30 transition-opacity duration-300"></div>
-              <div className="relative bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/20 hover:border-orange-400/50 transition-all duration-300 transform hover:scale-105">
-                <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-orange-700 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-xl group-hover:shadow-orange-500/30 transition-shadow duration-300">
-                  <TrendingUp className="w-10 h-10 text-white" />
+            <div className="bg-white rounded-3xl p-8 text-center group hover:shadow-2xl hover:-translate-y-3 transition-all duration-300 border border-gray-100 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-orange-50 rounded-full -translate-y-16 translate-x-16 opacity-50"></div>
+              <div className="relative z-10">
+                <div className="w-20 h-20 bg-gradient-to-br from-orange-100 to-orange-200 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-xl">
+                  <TrendingUp className="w-10 h-10 text-orange-600" />
                 </div>
-                <h4 className="text-xl font-bold text-white mb-3 font-arabic-heading">
+                <h4 className="text-lg font-bold text-gray-900 mb-4 font-arabic-heading">
                   البحث والتطوير
                 </h4>
-                <p className="text-sm text-orange-200 font-arabic leading-relaxed">
-                  تعاون مع الجامعات الرائدة في أبحاث مكافحة المعلومات المضللة
+                <p className="text-sm text-gray-600 font-arabic leading-relaxed mb-6">
+                  تعاون مع الجامعات الرائدة في أبحاث مكافحة المعلومات المضللة وتطوير تقنيات متقدمة
                 </p>
-                <div className="mt-6 flex justify-center">
-                  <span className="inline-flex items-center gap-2 bg-orange-500/20 px-3 py-1 rounded-full text-xs text-orange-300 font-arabic">
-                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                    </svg>
-                    بحثي
-                  </span>
-                </div>
+                <span className="inline-flex items-center gap-2 bg-gradient-to-r from-orange-50 to-orange-100 text-orange-700 px-4 py-2 rounded-full text-sm font-arabic font-medium shadow-md hover:shadow-lg transition-shadow duration-300">
+                  <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                    <path fillRule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                  </svg>
+                  بحثي متقدم
+                </span>
               </div>
             </div>
           </div>
