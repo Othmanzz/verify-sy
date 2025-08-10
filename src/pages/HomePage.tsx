@@ -201,28 +201,17 @@ const HomePage: React.FC<HomePageProps> = ({
     <section className="container mx-auto px-4 py-16" style={{paddingLeft: '70px', paddingRight: '70px'}}>
       {/* Enhanced Modern Header */}
       <div className="flex items-center justify-between mb-12">
-        {/* Read More Button - Left Side */}
-        <button 
-          onClick={() => setCurrentPage('search')}
-          className="group text-red-600 hover:text-red-700 font-arabic font-medium flex items-center gap-2 transition-colors duration-300"
-        >
-          <span>عرض المزيد</span>
-          <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-          </svg>
-        </button>
-        
-        {/* Title Section - Right Side */}
-        <div className="text-right">
-          <div className="flex items-center justify-end gap-4 mb-2">
+        {/* Title Section - Left Side */}
+        <div className="text-left">
+          <div className="flex items-center justify-start gap-4 mb-2">
+            <div className="w-12 h-12 bg-gradient-to-r from-red-500 to-orange-500 rounded-2xl flex items-center justify-center shadow-lg">
+              <TrendingUp className="w-6 h-6 text-white" />
+            </div>
             <div>
               <h2 className="text-2xl md:text-3xl font-bold text-gray-900 font-arabic-heading">
                 الأخبار الرائجة
               </h2>
               <p className="text-gray-600 font-arabic text-sm">أهم القضايا المتداولة اليوم</p>
-            </div>
-            <div className="w-12 h-12 bg-gradient-to-r from-red-500 to-orange-500 rounded-2xl flex items-center justify-center shadow-lg">
-              <TrendingUp className="w-6 h-6 text-white" />
             </div>
           </div>
           {/* Live Indicator */}
@@ -231,6 +220,17 @@ const HomePage: React.FC<HomePageProps> = ({
             <span className="text-red-600 font-arabic font-medium text-xs">تحديث مباشر</span>
           </div>
         </div>
+        
+        {/* Read More Button - Right Side */}
+        <button 
+          onClick={() => setCurrentPage('search')}
+          className="group text-red-600 hover:text-red-700 font-arabic font-medium flex items-center gap-2 transition-colors duration-300"
+        >
+          <svg className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+          </svg>
+          <span>عرض المزيد</span>
+        </button>
       </div>
       
       {/* Compact Professional Cards Grid */}
@@ -336,31 +336,17 @@ const HomePage: React.FC<HomePageProps> = ({
         <div className="mb-20">
           {/* Compact Title Header */}
           <div className="flex items-center justify-between mb-12">
-            {/* Read More Button - Left Side */}
-            <button 
-              onClick={() => {
-                setFilters(prev => ({ ...prev, verdict: 'صحيح' }));
-                setCurrentPage('search');
-              }}
-              className="group text-green-600 hover:text-green-700 font-arabic font-medium flex items-center gap-2 transition-colors duration-300"
-            >
-              <span>عرض المزيد</span>
-              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </button>
-            
-            {/* Title Section - Right Side */}
-            <div className="text-right">
-              <div className="flex items-center justify-end gap-4 mb-2">
+            {/* Title Section - Left Side */}
+            <div className="text-left">
+              <div className="flex items-center justify-start gap-4 mb-2">
+                <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center shadow-lg">
+                  <CheckCircle className="w-6 h-6 text-white" />
+                </div>
                 <div>
                   <h3 className="text-2xl md:text-3xl font-bold text-gray-900 font-arabic-heading">
                     صحيح
                   </h3>
                   <p className="text-gray-600 font-arabic text-sm">معلومات موثقة ومتحقق منها</p>
-                </div>
-                <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center shadow-lg">
-                  <CheckCircle className="w-6 h-6 text-white" />
                 </div>
               </div>
               {/* Article Count */}
@@ -371,6 +357,20 @@ const HomePage: React.FC<HomePageProps> = ({
                 </span>
               </div>
             </div>
+            
+            {/* Read More Button - Right Side */}
+            <button 
+              onClick={() => {
+                setFilters(prev => ({ ...prev, verdict: 'صحيح' }));
+                setCurrentPage('search');
+              }}
+              className="group text-green-600 hover:text-green-700 font-arabic font-medium flex items-center gap-2 transition-colors duration-300"
+            >
+              <svg className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+              </svg>
+              <span>عرض المزيد</span>
+            </button>
           </div>
           
           {/* Professional Cards Grid */}
@@ -469,31 +469,17 @@ const HomePage: React.FC<HomePageProps> = ({
         <div className="mb-20">
           {/* Compact Title Header */}
           <div className="flex items-center justify-between mb-12">
-            {/* Read More Button - Left Side */}
-            <button 
-              onClick={() => {
-                setFilters(prev => ({ ...prev, verdict: 'احتيال' }));
-                setCurrentPage('search');
-              }}
-              className="group text-red-600 hover:text-red-700 font-arabic font-medium flex items-center gap-2 transition-colors duration-300"
-            >
-              <span>عرض المزيد</span>
-              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </button>
-            
-            {/* Title Section - Right Side */}
-            <div className="text-right">
-              <div className="flex items-center justify-end gap-4 mb-2">
+            {/* Title Section - Left Side */}
+            <div className="text-left">
+              <div className="flex items-center justify-start gap-4 mb-2">
+                <div className="w-12 h-12 bg-gradient-to-r from-red-500 to-rose-500 rounded-2xl flex items-center justify-center shadow-lg">
+                  <XCircle className="w-6 h-6 text-white" />
+                </div>
                 <div>
                   <h3 className="text-2xl md:text-3xl font-bold text-gray-900 font-arabic-heading">
                     احتيال
                   </h3>
                   <p className="text-gray-600 font-arabic text-sm">معلومات احتيالية ومضللة</p>
-                </div>
-                <div className="w-12 h-12 bg-gradient-to-r from-red-500 to-rose-500 rounded-2xl flex items-center justify-center shadow-lg">
-                  <XCircle className="w-6 h-6 text-white" />
                 </div>
               </div>
               {/* Article Count */}
@@ -504,6 +490,20 @@ const HomePage: React.FC<HomePageProps> = ({
                 </span>
               </div>
             </div>
+            
+            {/* Read More Button - Right Side */}
+            <button 
+              onClick={() => {
+                setFilters(prev => ({ ...prev, verdict: 'احتيال' }));
+                setCurrentPage('search');
+              }}
+              className="group text-red-600 hover:text-red-700 font-arabic font-medium flex items-center gap-2 transition-colors duration-300"
+            >
+              <svg className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+              </svg>
+              <span>عرض المزيد</span>
+            </button>
           </div>
           
           {/* Professional Cards Grid */}
@@ -602,31 +602,17 @@ const HomePage: React.FC<HomePageProps> = ({
         <div className="mb-20">
           {/* Compact Title Header */}
           <div className="flex items-center justify-between mb-12">
-            {/* Read More Button - Left Side */}
-            <button 
-              onClick={() => {
-                setFilters(prev => ({ ...prev, verdict: 'عبث' }));
-                setCurrentPage('search');
-              }}
-              className="group text-orange-600 hover:text-orange-700 font-arabic font-medium flex items-center gap-2 transition-colors duration-300"
-            >
-              <span>عرض المزيد</span>
-              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </button>
-            
-            {/* Title Section - Right Side */}
-            <div className="text-right">
-              <div className="flex items-center justify-end gap-4 mb-2">
+            {/* Title Section - Left Side */}
+            <div className="text-left">
+              <div className="flex items-center justify-start gap-4 mb-2">
+                <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-amber-500 rounded-2xl flex items-center justify-center shadow-lg">
+                  <AlertCircle className="w-6 h-6 text-white" />
+                </div>
                 <div>
                   <h3 className="text-2xl md:text-3xl font-bold text-gray-900 font-arabic-heading">
                     عبث
                   </h3>
                   <p className="text-gray-600 font-arabic text-sm">معلومات عابثة أو مضللة</p>
-                </div>
-                <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-amber-500 rounded-2xl flex items-center justify-center shadow-lg">
-                  <AlertCircle className="w-6 h-6 text-white" />
                 </div>
               </div>
               {/* Article Count */}
@@ -637,6 +623,20 @@ const HomePage: React.FC<HomePageProps> = ({
                 </span>
               </div>
             </div>
+            
+            {/* Read More Button - Right Side */}
+            <button 
+              onClick={() => {
+                setFilters(prev => ({ ...prev, verdict: 'عبث' }));
+                setCurrentPage('search');
+              }}
+              className="group text-orange-600 hover:text-orange-700 font-arabic font-medium flex items-center gap-2 transition-colors duration-300"
+            >
+              <svg className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+              </svg>
+              <span>عرض المزيد</span>
+            </button>
           </div>
           
           {/* Professional Cards Grid */}
@@ -735,31 +735,17 @@ const HomePage: React.FC<HomePageProps> = ({
         <div className="mb-20">
           {/* Compact Title Header */}
           <div className="flex items-center justify-between mb-12">
-            {/* Read More Button - Left Side */}
-            <button 
-              onClick={() => {
-                setFilters(prev => ({ ...prev, verdict: 'مؤكد' }));
-                setCurrentPage('search');
-              }}
-              className="group text-blue-600 hover:text-blue-700 font-arabic font-medium flex items-center gap-2 transition-colors duration-300"
-            >
-              <span>عرض المزيد</span>
-              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </button>
-            
-            {/* Title Section - Right Side */}
-            <div className="text-right">
-              <div className="flex items-center justify-end gap-4 mb-2">
+            {/* Title Section - Left Side */}
+            <div className="text-left">
+              <div className="flex items-center justify-start gap-4 mb-2">
+                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl flex items-center justify-center shadow-lg">
+                  <CheckCircle className="w-6 h-6 text-white" />
+                </div>
                 <div>
                   <h3 className="text-2xl md:text-3xl font-bold text-gray-900 font-arabic-heading">
                     مؤكد
                   </h3>
                   <p className="text-gray-600 font-arabic text-sm">أخبار مؤكدة من مصادر رسمية</p>
-                </div>
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl flex items-center justify-center shadow-lg">
-                  <CheckCircle className="w-6 h-6 text-white" />
                 </div>
               </div>
               {/* Article Count */}
@@ -770,6 +756,20 @@ const HomePage: React.FC<HomePageProps> = ({
                 </span>
               </div>
             </div>
+            
+            {/* Read More Button - Right Side */}
+            <button 
+              onClick={() => {
+                setFilters(prev => ({ ...prev, verdict: 'مؤكد' }));
+                setCurrentPage('search');
+              }}
+              className="group text-blue-600 hover:text-blue-700 font-arabic font-medium flex items-center gap-2 transition-colors duration-300"
+            >
+              <svg className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+              </svg>
+              <span>عرض المزيد</span>
+            </button>
           </div>
           
           {/* Professional Cards Grid */}
@@ -868,31 +868,17 @@ const HomePage: React.FC<HomePageProps> = ({
         <div className="mb-20">
           {/* Compact Title Header */}
           <div className="flex items-center justify-between mb-12">
-            {/* Read More Button - Left Side */}
-            <button 
-              onClick={() => {
-                setFilters(prev => ({ ...prev, verdict: 'إرباك' }));
-                setCurrentPage('search');
-              }}
-              className="group text-gray-600 hover:text-gray-700 font-arabic font-medium flex items-center gap-2 transition-colors duration-300"
-            >
-              <span>عرض المزيد</span>
-              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </button>
-            
-            {/* Title Section - Right Side */}
-            <div className="text-right">
-              <div className="flex items-center justify-end gap-4 mb-2">
+            {/* Title Section - Left Side */}
+            <div className="text-left">
+              <div className="flex items-center justify-start gap-4 mb-2">
+                <div className="w-12 h-12 bg-gradient-to-r from-gray-500 to-slate-500 rounded-2xl flex items-center justify-center shadow-lg">
+                  <HelpCircle className="w-6 h-6 text-white" />
+                </div>
                 <div>
                   <h3 className="text-2xl md:text-3xl font-bold text-gray-900 font-arabic-heading">
                     إرباك
                   </h3>
                   <p className="text-gray-600 font-arabic text-sm">معلومات مربكة وغير واضحة</p>
-                </div>
-                <div className="w-12 h-12 bg-gradient-to-r from-gray-500 to-slate-500 rounded-2xl flex items-center justify-center shadow-lg">
-                  <HelpCircle className="w-6 h-6 text-white" />
                 </div>
               </div>
               {/* Article Count */}
@@ -903,6 +889,20 @@ const HomePage: React.FC<HomePageProps> = ({
                 </span>
               </div>
             </div>
+            
+            {/* Read More Button - Right Side */}
+            <button 
+              onClick={() => {
+                setFilters(prev => ({ ...prev, verdict: 'إرباك' }));
+                setCurrentPage('search');
+              }}
+              className="group text-gray-600 hover:text-gray-700 font-arabic font-medium flex items-center gap-2 transition-colors duration-300"
+            >
+              <svg className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+              </svg>
+              <span>عرض المزيد</span>
+            </button>
           </div>
           
           {/* Professional Cards Grid */}
@@ -1039,31 +1039,17 @@ const HomePage: React.FC<HomePageProps> = ({
       <section className="container mx-auto px-4 py-16" style={{paddingLeft: '70px', paddingRight: '70px'}}>
         {/* Compact Title Header */}
         <div className="flex items-center justify-between mb-12">
-          {/* Read Article Button - Left Side */}
-          <button 
-            onClick={() => {
-              setSelectedArticle(mockFactChecks.find(fc => fc.featured)!);
-              setCurrentPage('article');
-            }}
-            className="group text-yellow-600 hover:text-yellow-700 font-arabic font-medium flex items-center gap-2 transition-colors duration-300"
-          >
-            <span>قراءة المقال</span>
-            <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-            </svg>
-          </button>
-          
-          {/* Title Section - Right Side */}
-          <div className="text-right">
-            <div className="flex items-center justify-end gap-4 mb-2">
+          {/* Title Section - Left Side */}
+          <div className="text-left">
+            <div className="flex items-center justify-start gap-4 mb-2">
+              <div className="w-12 h-12 bg-gradient-to-r from-yellow-500 to-amber-500 rounded-2xl flex items-center justify-center shadow-lg">
+                <Star className="w-6 h-6 text-white fill-current" />
+              </div>
               <div>
                 <h2 className="text-2xl md:text-3xl font-bold text-gray-900 font-arabic-heading">
                   التحقق المميز
                 </h2>
                 <p className="text-gray-600 font-arabic text-sm">التحقق الأكثر أهمية وتأثيراً</p>
-              </div>
-              <div className="w-12 h-12 bg-gradient-to-r from-yellow-500 to-amber-500 rounded-2xl flex items-center justify-center shadow-lg">
-                <Star className="w-6 h-6 text-white fill-current" />
               </div>
             </div>
             {/* Special Indicator */}
@@ -1072,6 +1058,20 @@ const HomePage: React.FC<HomePageProps> = ({
               <span className="text-yellow-600 font-arabic font-medium text-xs">يستحق اهتمامك الخاص</span>
             </div>
           </div>
+          
+          {/* Read Article Button - Right Side */}
+          <button 
+            onClick={() => {
+              setSelectedArticle(mockFactChecks.find(fc => fc.featured)!);
+              setCurrentPage('article');
+            }}
+            className="group text-yellow-600 hover:text-yellow-700 font-arabic font-medium flex items-center gap-2 transition-colors duration-300"
+          >
+            <svg className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 17l-5-5m0 0l5-5m-5 5h12" />
+            </svg>
+            <span>قراءة المقال</span>
+          </button>
         </div>
         
         {/* Enhanced Professional Card */}
