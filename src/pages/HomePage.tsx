@@ -197,353 +197,802 @@ const HomePage: React.FC<HomePageProps> = ({
       </div>
     </section>
 
-    {/* Trending News Section */}
-    <section className="container mx-auto px-4 py-16">
-      <div className="flex items-center gap-4 mb-12">
-        <div className="w-12 h-12 bg-gradient-to-r from-red-500 to-orange-500 rounded-2xl flex items-center justify-center shadow-lg">
-          <TrendingUp className="w-6 h-6 text-white" />
-        </div>
-        <div>
-          <h2 className="text-4xl font-bold text-gray-900 font-arabic-heading">
-            🔥 الأخبار الرائجة
-          </h2>
-          <p className="text-gray-600 font-arabic">أهم الأخبار والقضايا المتداولة اليوم</p>
-        </div>
-        <div className="mr-auto">
-          <div className="flex items-center gap-2 text-sm text-red-600 bg-red-50 px-3 py-2 rounded-xl">
-            <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
-            <span className="font-arabic font-medium">مباشر</span>
-          </div>
-        </div>
-      </div>
-      
-      <div className="grid lg:grid-cols-2 gap-6">
-        {mockFactChecks.slice(0, 6).map((factCheck, index) => (
-          <div key={`trending-${factCheck.id}`} className="relative">
-            {index === 0 && (
-              <div className="absolute -top-2 -right-2 z-10 bg-red-500 text-white p-2 rounded-full shadow-lg">
-                <span className="text-xs font-bold">🔥</span>
-              </div>
-            )}
-            <CompactCard 
-              factCheck={factCheck}
-              onClick={() => {
-                setSelectedArticle(factCheck);
-                setCurrentPage('article');
-              }}
-              featured={index === 0}
-            />
-          </div>
-        ))}
-      </div>
-      
-      <div className="text-center mt-8">
+    {/* Enhanced Professional Trending News Section */}
+    <section className="container mx-auto px-4 py-16" style={{paddingLeft: '70px', paddingRight: '70px'}}>
+      {/* Enhanced Modern Header */}
+      <div className="flex items-center justify-between mb-12">
+        {/* Read More Button - Left Side */}
         <button 
           onClick={() => setCurrentPage('search')}
-          className="bg-gradient-to-r from-red-500 to-orange-500 text-white px-8 py-4 rounded-2xl hover:from-red-600 hover:to-orange-600 transition-all duration-300 font-semibold text-lg flex items-center gap-3 shadow-lg hover:shadow-xl transform hover:scale-105 font-arabic mx-auto"
+          className="group text-red-600 hover:text-red-700 font-arabic font-medium flex items-center gap-2 transition-colors duration-300"
         >
-          <TrendingUp className="w-5 h-5" />
-          عرض مزيد من الأخبار الرائجة
+          <span>عرض المزيد</span>
+          <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+          </svg>
         </button>
+        
+        {/* Title Section - Right Side */}
+        <div className="text-right">
+          <div className="flex items-center justify-end gap-4 mb-2">
+            <div>
+              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 font-arabic-heading">
+                الأخبار الرائجة
+              </h2>
+              <p className="text-gray-600 font-arabic text-sm">أهم القضايا المتداولة اليوم</p>
+            </div>
+            <div className="w-12 h-12 bg-gradient-to-r from-red-500 to-orange-500 rounded-2xl flex items-center justify-center shadow-lg">
+              <TrendingUp className="w-6 h-6 text-white" />
+            </div>
+          </div>
+          {/* Live Indicator */}
+          <div className="inline-flex items-center gap-2 bg-red-50 border border-red-200 px-3 py-1.5 rounded-xl">
+            <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+            <span className="text-red-600 font-arabic font-medium text-xs">تحديث مباشر</span>
+          </div>
+        </div>
+      </div>
+      
+      {/* Compact Professional Cards Grid */}
+      <div className="grid lg:grid-cols-2 gap-6 max-w-6xl mx-auto">
+        {mockFactChecks.slice(0, 8).map((factCheck, index) => (
+          <article 
+            key={`trending-${factCheck.id}`} 
+            className="group relative bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 cursor-pointer transform hover:scale-[1.01] hover:-translate-y-1 overflow-hidden"
+            style={{ animationDelay: `${index * 50}ms` }}
+            onClick={() => {
+              setSelectedArticle(factCheck);
+              setCurrentPage('article');
+            }}
+          >
+            {/* Trending Badge for First Article */}
+            {index === 0 && (
+              <div className="absolute -top-2 -right-2 z-20">
+                <div className="bg-gradient-to-r from-red-500 to-orange-500 text-white p-2 rounded-xl shadow-lg border-2 border-white transform rotate-12 hover:rotate-0 transition-transform duration-300">
+                  <span className="text-xs font-bold font-arabic">رائج</span>
+                </div>
+              </div>
+            )}
+            
+            {/* Enhanced Card Content */}
+            <div className="relative z-10 p-6">
+              <div className="flex gap-4">
+                {/* Compact Image Section */}
+                <div className="relative w-24 h-24 flex-shrink-0">
+                  <img 
+                    src={factCheck.image}
+                    alt={factCheck.title}
+                    className="w-full h-full object-cover rounded-xl group-hover:scale-110 transition-transform duration-300 shadow-md"
+                  />
+                  
+                  {/* Compact Verdict Badge */}
+                  <div className="absolute -bottom-1 -right-1 z-20">
+                    <div className={`px-2 py-1 rounded-lg text-xs font-bold shadow-md border border-white ${
+                      factCheck.verdict === 'true' ? 'bg-green-500 text-white' :
+                      factCheck.verdict === 'false' ? 'bg-red-500 text-white' :
+                      factCheck.verdict === 'misleading' ? 'bg-orange-500 text-white' :
+                      factCheck.verdict === 'confirmed' ? 'bg-blue-500 text-white' :
+                      'bg-gray-500 text-white'
+                    }`}>
+                      {factCheck.verdict === 'true' ? 'صحيح' :
+                       factCheck.verdict === 'false' ? 'احتيال' :
+                       factCheck.verdict === 'misleading' ? 'عبث' :
+                       factCheck.verdict === 'confirmed' ? 'مؤكد' :
+                       'إرباك'}
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Compact Content Section */}
+                <div className="flex-1 min-w-0">
+                  {/* Category & Date */}
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="bg-red-50 text-red-700 px-2 py-1 rounded-lg text-xs font-medium font-arabic border border-red-100">
+                      {factCheck.category}
+                    </span>
+                    <div className="flex items-center gap-1 text-gray-500 text-xs">
+                      <Clock className="w-3 h-3" />
+                      <span className="font-arabic">{factCheck.date}</span>
+                    </div>
+                  </div>
+                  
+                  {/* Compact Title */}
+                  <h3 className="text-lg font-bold text-gray-900 mb-2 leading-tight group-hover:text-red-600 transition-colors font-arabic-heading line-clamp-2">
+                    {factCheck.title}
+                  </h3>
+                  
+                  {/* Compact Metadata */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3 text-xs text-gray-500">
+                      <div className="flex items-center gap-1">
+                        <User className="w-3 h-3" />
+                        <span className="font-arabic">{factCheck.author}</span>
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Eye className="w-3 h-3" />
+                        <span>{factCheck.views.toLocaleString()}</span>
+                      </div>
+                    </div>
+                    
+                    {/* Read More Arrow */}
+                    <div className="text-red-500 group-hover:text-red-600 transition-colors">
+                      <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+        ))}
       </div>
     </section>
 
-    {/* Categorized Content Sections */}
-    <section className="container mx-auto px-4 py-16">
-      {/* صحيح (True) Section */}
+    {/* Enhanced Categorized Content Sections */}
+    <section className="container mx-auto px-4 py-20" style={{paddingLeft: '70px', paddingRight: '70px'}}>
+      {/* صحيح (True) Section - Enhanced */}
       {mockFactChecks.filter(fc => fc.verdict === 'true').length > 0 && (
-        <div className="mb-16">
-          <div className="flex items-center gap-4 mb-8">
-            <div className="w-12 h-12 bg-green-500 rounded-2xl flex items-center justify-center shadow-lg">
-              <CheckCircle className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <h3 className="text-3xl font-bold text-green-800 font-arabic-heading">
-                صحيح
-              </h3>
-              <p className="text-green-600 font-arabic">معلومات موثقة ومتحقق منها</p>
-            </div>
-            <div className="mr-auto bg-green-100 text-green-800 px-4 py-2 rounded-xl font-bold">
-              {mockFactChecks.filter(fc => fc.verdict === 'true').length} تحقق
-            </div>
-          </div>
-          <div className="grid lg:grid-cols-2 gap-4">
-            {mockFactChecks.filter(fc => fc.verdict === 'true').slice(0, 4).map((factCheck, index) => (
-              <div key={`true-${factCheck.id}`} style={{ animationDelay: `${index * 30}ms` }} className="animate-in fade-in slide-in-from-bottom-1 duration-300">
-                <CompactCard 
-                  factCheck={factCheck}
-                  onClick={() => {
-                    setSelectedArticle(factCheck);
-                    setCurrentPage('article');
-                  }}
-                  featured={factCheck.featured}
-                />
-              </div>
-            ))}
-          </div>
-          <div className="text-center mt-6">
+        <div className="mb-20">
+          {/* Compact Title Header */}
+          <div className="flex items-center justify-between mb-12">
+            {/* Read More Button - Left Side */}
             <button 
               onClick={() => {
                 setFilters(prev => ({ ...prev, verdict: 'صحيح' }));
                 setCurrentPage('search');
               }}
-              className="text-green-600 hover:text-green-700 font-arabic font-medium"
+              className="group text-green-600 hover:text-green-700 font-arabic font-medium flex items-center gap-2 transition-colors duration-300"
             >
-              عرض جميع التحققات الصحيحة ←
+              <span>عرض المزيد</span>
+              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
             </button>
+            
+            {/* Title Section - Right Side */}
+            <div className="text-right">
+              <div className="flex items-center justify-end gap-4 mb-2">
+                <div>
+                  <h3 className="text-2xl md:text-3xl font-bold text-gray-900 font-arabic-heading">
+                    صحيح
+                  </h3>
+                  <p className="text-gray-600 font-arabic text-sm">معلومات موثقة ومتحقق منها</p>
+                </div>
+                <div className="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center shadow-lg">
+                  <CheckCircle className="w-6 h-6 text-white" />
+                </div>
+              </div>
+              {/* Article Count */}
+              <div className="inline-flex items-center gap-2 bg-green-50 border border-green-200 px-3 py-1.5 rounded-xl">
+                <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                <span className="text-green-600 font-arabic font-medium text-xs">
+                  {mockFactChecks.filter(fc => fc.verdict === 'true').length} تحقق متاح
+                </span>
+              </div>
+            </div>
           </div>
+          
+          {/* Professional Cards Grid */}
+          <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            {mockFactChecks.filter(fc => fc.verdict === 'true').slice(0, 4).map((factCheck, index) => (
+              <article 
+                key={`true-${factCheck.id}`} 
+                className="group relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 cursor-pointer transform hover:scale-[1.02] hover:-translate-y-2 overflow-hidden"
+                style={{ animationDelay: `${index * 100}ms` }}
+                onClick={() => {
+                  setSelectedArticle(factCheck);
+                  setCurrentPage('article');
+                }}
+              >
+                {/* Modern Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-green-600/5 via-transparent to-emerald-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-3xl"></div>
+                
+                {/* Enhanced Card Content */}
+                <div className="relative z-10 p-8">
+                  <div className="flex gap-6">
+                    {/* Enhanced Image Section */}
+                    <div className="relative w-32 h-32 flex-shrink-0">
+                      <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl"></div>
+                      <img 
+                        src={factCheck.image}
+                        alt={factCheck.title}
+                        className="relative w-full h-full object-cover rounded-2xl group-hover:scale-110 transition-transform duration-500 shadow-lg border-2 border-white"
+                      />
+                      
+                      {/* Modern Verdict Badge */}
+                      <div className="absolute -bottom-2 -right-2 z-20">
+                        <div className="bg-green-500 text-white px-3 py-1.5 rounded-xl text-xs font-bold shadow-lg border-2 border-white">
+                          صحيح
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Enhanced Content Section */}
+                    <div className="flex-1 min-w-0">
+                      {/* Category & Date */}
+                      <div className="flex items-center gap-3 mb-4">
+                        <span className="bg-gradient-to-r from-green-100 to-emerald-100 text-green-800 px-3 py-1 rounded-xl text-sm font-medium font-arabic border border-green-200 shadow-sm">
+                          {factCheck.category}
+                        </span>
+                        <div className="flex items-center gap-2 text-gray-500 text-sm">
+                          <Clock className="w-4 h-4" />
+                          <span className="font-arabic">{factCheck.date}</span>
+                        </div>
+                      </div>
+                      
+                      {/* Enhanced Title */}
+                      <h4 className="text-xl font-bold text-gray-900 mb-3 leading-tight group-hover:text-green-600 transition-colors font-arabic-heading line-clamp-2 pr-4">
+                        {factCheck.title}
+                      </h4>
+                      
+                      {/* Enhanced Summary */}
+                      <p className="text-gray-600 line-clamp-2 leading-relaxed mb-4 font-arabic text-sm pr-4">
+                        {factCheck.summary}
+                      </p>
+                      
+                      {/* Enhanced Metadata */}
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4 text-sm text-gray-500">
+                          <div className="flex items-center gap-1">
+                            <User className="w-4 h-4" />
+                            <span className="font-arabic">{factCheck.author}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Eye className="w-4 h-4" />
+                            <span>{factCheck.views.toLocaleString()}</span>
+                          </div>
+                        </div>
+                        
+                        {/* Read More Arrow */}
+                        <div className="text-green-500 group-hover:text-green-600 transition-colors">
+                          <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Verification Indicator Line */}
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-green-500 via-emerald-500 to-green-500 opacity-20 group-hover:opacity-60 transition-opacity duration-300"></div>
+                </div>
+              </article>
+            ))}
+          </div>
+          
         </div>
       )}
 
-      {/* احتيال (False) Section */}
+      {/* احتيال (False) Section - Enhanced */}
       {mockFactChecks.filter(fc => fc.verdict === 'false').length > 0 && (
-        <div className="mb-16">
-          <div className="flex items-center gap-4 mb-8">
-            <div className="w-12 h-12 bg-red-500 rounded-2xl flex items-center justify-center shadow-lg">
-              <XCircle className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <h3 className="text-3xl font-bold text-red-800 font-arabic-heading">
-                احتيال
-              </h3>
-              <p className="text-red-600 font-arabic">معلومات احتيالية ومضللة</p>
-            </div>
-            <div className="mr-auto bg-red-100 text-red-800 px-4 py-2 rounded-xl font-bold">
-              {mockFactChecks.filter(fc => fc.verdict === 'false').length} تحقق
-            </div>
-          </div>
-          <div className="grid lg:grid-cols-2 gap-4">
-            {mockFactChecks.filter(fc => fc.verdict === 'false').slice(0, 4).map((factCheck, index) => (
-              <div key={`false-${factCheck.id}`} style={{ animationDelay: `${index * 30}ms` }} className="animate-in fade-in slide-in-from-bottom-1 duration-300">
-                <CompactCard 
-                  factCheck={factCheck}
-                  onClick={() => {
-                    setSelectedArticle(factCheck);
-                    setCurrentPage('article');
-                  }}
-                  featured={factCheck.featured}
-                />
-              </div>
-            ))}
-          </div>
-          <div className="text-center mt-6">
+        <div className="mb-20">
+          {/* Compact Title Header */}
+          <div className="flex items-center justify-between mb-12">
+            {/* Read More Button - Left Side */}
             <button 
               onClick={() => {
                 setFilters(prev => ({ ...prev, verdict: 'احتيال' }));
                 setCurrentPage('search');
               }}
-              className="text-red-600 hover:text-red-700 font-arabic font-medium"
+              className="group text-red-600 hover:text-red-700 font-arabic font-medium flex items-center gap-2 transition-colors duration-300"
             >
-              عرض جميع التحققات الاحتيالية ←
+              <span>عرض المزيد</span>
+              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
             </button>
+            
+            {/* Title Section - Right Side */}
+            <div className="text-right">
+              <div className="flex items-center justify-end gap-4 mb-2">
+                <div>
+                  <h3 className="text-2xl md:text-3xl font-bold text-gray-900 font-arabic-heading">
+                    احتيال
+                  </h3>
+                  <p className="text-gray-600 font-arabic text-sm">معلومات احتيالية ومضللة</p>
+                </div>
+                <div className="w-12 h-12 bg-gradient-to-r from-red-500 to-rose-500 rounded-2xl flex items-center justify-center shadow-lg">
+                  <XCircle className="w-6 h-6 text-white" />
+                </div>
+              </div>
+              {/* Article Count */}
+              <div className="inline-flex items-center gap-2 bg-red-50 border border-red-200 px-3 py-1.5 rounded-xl">
+                <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                <span className="text-red-600 font-arabic font-medium text-xs">
+                  {mockFactChecks.filter(fc => fc.verdict === 'false').length} تحقق متاح
+                </span>
+              </div>
+            </div>
           </div>
+          
+          {/* Professional Cards Grid */}
+          <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            {mockFactChecks.filter(fc => fc.verdict === 'false').slice(0, 4).map((factCheck, index) => (
+              <article 
+                key={`false-${factCheck.id}`} 
+                className="group relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 cursor-pointer transform hover:scale-[1.02] hover:-translate-y-2 overflow-hidden"
+                style={{ animationDelay: `${index * 100}ms` }}
+                onClick={() => {
+                  setSelectedArticle(factCheck);
+                  setCurrentPage('article');
+                }}
+              >
+                {/* Modern Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-red-600/5 via-transparent to-rose-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-3xl"></div>
+                
+                {/* Enhanced Card Content */}
+                <div className="relative z-10 p-8">
+                  <div className="flex gap-6">
+                    {/* Enhanced Image Section */}
+                    <div className="relative w-32 h-32 flex-shrink-0">
+                      <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl"></div>
+                      <img 
+                        src={factCheck.image}
+                        alt={factCheck.title}
+                        className="relative w-full h-full object-cover rounded-2xl group-hover:scale-110 transition-transform duration-500 shadow-lg border-2 border-white"
+                      />
+                      
+                      {/* Modern Verdict Badge */}
+                      <div className="absolute -bottom-2 -right-2 z-20">
+                        <div className="bg-red-500 text-white px-3 py-1.5 rounded-xl text-xs font-bold shadow-lg border-2 border-white">
+                          احتيال
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Enhanced Content Section */}
+                    <div className="flex-1 min-w-0">
+                      {/* Category & Date */}
+                      <div className="flex items-center gap-3 mb-4">
+                        <span className="bg-gradient-to-r from-red-100 to-rose-100 text-red-800 px-3 py-1 rounded-xl text-sm font-medium font-arabic border border-red-200 shadow-sm">
+                          {factCheck.category}
+                        </span>
+                        <div className="flex items-center gap-2 text-gray-500 text-sm">
+                          <Clock className="w-4 h-4" />
+                          <span className="font-arabic">{factCheck.date}</span>
+                        </div>
+                      </div>
+                      
+                      {/* Enhanced Title */}
+                      <h4 className="text-xl font-bold text-gray-900 mb-3 leading-tight group-hover:text-red-600 transition-colors font-arabic-heading line-clamp-2 pr-4">
+                        {factCheck.title}
+                      </h4>
+                      
+                      {/* Enhanced Summary */}
+                      <p className="text-gray-600 line-clamp-2 leading-relaxed mb-4 font-arabic text-sm pr-4">
+                        {factCheck.summary}
+                      </p>
+                      
+                      {/* Enhanced Metadata */}
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4 text-sm text-gray-500">
+                          <div className="flex items-center gap-1">
+                            <User className="w-4 h-4" />
+                            <span className="font-arabic">{factCheck.author}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Eye className="w-4 h-4" />
+                            <span>{factCheck.views.toLocaleString()}</span>
+                          </div>
+                        </div>
+                        
+                        {/* Read More Arrow */}
+                        <div className="text-red-500 group-hover:text-red-600 transition-colors">
+                          <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Warning Indicator Line */}
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-red-500 via-rose-500 to-red-500 opacity-20 group-hover:opacity-60 transition-opacity duration-300"></div>
+                </div>
+              </article>
+            ))}
+          </div>
+          
         </div>
       )}
 
-      {/* عبث (Misleading) Section */}
+      {/* عبث (Misleading) Section - Enhanced */}
       {mockFactChecks.filter(fc => fc.verdict === 'misleading').length > 0 && (
-        <div className="mb-16">
-          <div className="flex items-center gap-4 mb-8">
-            <div className="w-12 h-12 bg-orange-500 rounded-2xl flex items-center justify-center shadow-lg">
-              <AlertCircle className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <h3 className="text-3xl font-bold text-orange-800 font-arabic-heading">
-                عبث
-              </h3>
-              <p className="text-orange-600 font-arabic">معلومات عابثة أو مضللة</p>
-            </div>
-            <div className="mr-auto bg-orange-100 text-orange-800 px-4 py-2 rounded-xl font-bold">
-              {mockFactChecks.filter(fc => fc.verdict === 'misleading').length} تحقق
-            </div>
-          </div>
-          <div className="grid lg:grid-cols-2 gap-4">
-            {mockFactChecks.filter(fc => fc.verdict === 'misleading').slice(0, 4).map((factCheck, index) => (
-              <div key={`misleading-${factCheck.id}`} style={{ animationDelay: `${index * 30}ms` }} className="animate-in fade-in slide-in-from-bottom-1 duration-300">
-                <CompactCard 
-                  factCheck={factCheck}
-                  onClick={() => {
-                    setSelectedArticle(factCheck);
-                    setCurrentPage('article');
-                  }}
-                  featured={factCheck.featured}
-                />
-              </div>
-            ))}
-          </div>
-          <div className="text-center mt-6">
+        <div className="mb-20">
+          {/* Compact Title Header */}
+          <div className="flex items-center justify-between mb-12">
+            {/* Read More Button - Left Side */}
             <button 
               onClick={() => {
                 setFilters(prev => ({ ...prev, verdict: 'عبث' }));
                 setCurrentPage('search');
               }}
-              className="text-orange-600 hover:text-orange-700 font-arabic font-medium"
+              className="group text-orange-600 hover:text-orange-700 font-arabic font-medium flex items-center gap-2 transition-colors duration-300"
             >
-              عرض جميع التحققات العابثة ←
+              <span>عرض المزيد</span>
+              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
             </button>
-          </div>
-        </div>
-      )}
-
-      {/* مؤكد (Confirmed) Section - Special Layout */}
-      {mockFactChecks.filter(fc => fc.verdict === 'confirmed').length > 0 && (
-        <div className="mb-16">
-          <div className="flex items-center gap-4 mb-8">
-            <div className="w-12 h-12 bg-blue-500 rounded-2xl flex items-center justify-center shadow-lg">
-              <CheckCircle className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <h3 className="text-3xl font-bold text-blue-800 font-arabic-heading">
-                مؤكد
-              </h3>
-              <p className="text-blue-600 font-arabic">أخبار مؤكدة من مصادر رسمية</p>
-            </div>
-            <div className="mr-auto bg-blue-100 text-blue-800 px-4 py-2 rounded-xl font-bold">
-              {mockFactChecks.filter(fc => fc.verdict === 'confirmed').length} تحقق
+            
+            {/* Title Section - Right Side */}
+            <div className="text-right">
+              <div className="flex items-center justify-end gap-4 mb-2">
+                <div>
+                  <h3 className="text-2xl md:text-3xl font-bold text-gray-900 font-arabic-heading">
+                    عبث
+                  </h3>
+                  <p className="text-gray-600 font-arabic text-sm">معلومات عابثة أو مضللة</p>
+                </div>
+                <div className="w-12 h-12 bg-gradient-to-r from-orange-500 to-amber-500 rounded-2xl flex items-center justify-center shadow-lg">
+                  <AlertCircle className="w-6 h-6 text-white" />
+                </div>
+              </div>
+              {/* Article Count */}
+              <div className="inline-flex items-center gap-2 bg-orange-50 border border-orange-200 px-3 py-1.5 rounded-xl">
+                <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></div>
+                <span className="text-orange-600 font-arabic font-medium text-xs">
+                  {mockFactChecks.filter(fc => fc.verdict === 'misleading').length} تحقق متاح
+                </span>
+              </div>
             </div>
           </div>
           
-          {/* Special Two Column Layout */}
-          <div className="grid lg:grid-cols-3 gap-6">
-            {/* Featured Article - Left Column */}
-            <div className="lg:col-span-1">
-              {mockFactChecks.filter(fc => fc.verdict === 'confirmed').slice(0, 1).map((factCheck) => (
-                <div key={`confirmed-featured-${factCheck.id}`} className="h-full">
-                  <article 
-                    className="group bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-blue-100 cursor-pointer h-full flex flex-col"
-                    onClick={() => {
-                      setSelectedArticle(factCheck);
-                      setCurrentPage('article');
-                    }}
-                  >
-                    {/* Large Image */}
-                    <div className="relative h-64 overflow-hidden rounded-t-2xl">
+          {/* Professional Cards Grid */}
+          <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            {mockFactChecks.filter(fc => fc.verdict === 'misleading').slice(0, 4).map((factCheck, index) => (
+              <article 
+                key={`misleading-${factCheck.id}`} 
+                className="group relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 cursor-pointer transform hover:scale-[1.02] hover:-translate-y-2 overflow-hidden"
+                style={{ animationDelay: `${index * 100}ms` }}
+                onClick={() => {
+                  setSelectedArticle(factCheck);
+                  setCurrentPage('article');
+                }}
+              >
+                {/* Modern Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-600/5 via-transparent to-amber-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-3xl"></div>
+                
+                {/* Enhanced Card Content */}
+                <div className="relative z-10 p-8">
+                  <div className="flex gap-6">
+                    {/* Enhanced Image Section */}
+                    <div className="relative w-32 h-32 flex-shrink-0">
+                      <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl"></div>
                       <img 
                         src={factCheck.image}
                         alt={factCheck.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        className="relative w-full h-full object-cover rounded-2xl group-hover:scale-110 transition-transform duration-500 shadow-lg border-2 border-white"
                       />
-                      <div className="absolute top-4 right-4">
-                        <div className="bg-blue-500 text-white px-3 py-1.5 rounded-full text-sm font-bold font-arabic shadow-lg">
-                          مؤكد
+                      
+                      {/* Modern Verdict Badge */}
+                      <div className="absolute -bottom-2 -right-2 z-20">
+                        <div className="bg-orange-500 text-white px-3 py-1.5 rounded-xl text-xs font-bold shadow-lg border-2 border-white">
+                          عبث
                         </div>
                       </div>
                     </div>
                     
-                    {/* Content */}
-                    <div className="p-6 flex-1 flex flex-col">
-                      <div className="flex items-center gap-2 mb-3">
-                        <span className="text-xs text-blue-600 font-arabic font-medium">
+                    {/* Enhanced Content Section */}
+                    <div className="flex-1 min-w-0">
+                      {/* Category & Date */}
+                      <div className="flex items-center gap-3 mb-4">
+                        <span className="bg-gradient-to-r from-orange-100 to-amber-100 text-orange-800 px-3 py-1 rounded-xl text-sm font-medium font-arabic border border-orange-200 shadow-sm">
                           {factCheck.category}
                         </span>
-                        <span className="text-xs text-gray-400">•</span>
-                        <span className="text-xs text-gray-500 font-arabic">
-                          {factCheck.date}
-                        </span>
+                        <div className="flex items-center gap-2 text-gray-500 text-sm">
+                          <Clock className="w-4 h-4" />
+                          <span className="font-arabic">{factCheck.date}</span>
+                        </div>
                       </div>
                       
-                      <h3 className="text-xl font-bold text-gray-900 mb-3 leading-tight group-hover:text-blue-600 transition-colors font-arabic-heading line-clamp-3">
+                      {/* Enhanced Title */}
+                      <h4 className="text-xl font-bold text-gray-900 mb-3 leading-tight group-hover:text-orange-600 transition-colors font-arabic-heading line-clamp-2 pr-4">
                         {factCheck.title}
-                      </h3>
+                      </h4>
                       
-                      <p className="text-sm text-gray-600 line-clamp-4 leading-relaxed mb-4 font-arabic flex-1">
+                      {/* Enhanced Summary */}
+                      <p className="text-gray-600 line-clamp-2 leading-relaxed mb-4 font-arabic text-sm pr-4">
                         {factCheck.summary}
                       </p>
                       
-                      {/* Metadata */}
-                      <div className="flex items-center gap-4 text-xs text-gray-500 pt-4 border-t border-gray-100">
-                        <div className="flex items-center gap-1">
-                          <User className="w-3.5 h-3.5" />
-                          <span className="font-arabic">{factCheck.author}</span>
+                      {/* Enhanced Metadata */}
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4 text-sm text-gray-500">
+                          <div className="flex items-center gap-1">
+                            <User className="w-4 h-4" />
+                            <span className="font-arabic">{factCheck.author}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Eye className="w-4 h-4" />
+                            <span>{factCheck.views.toLocaleString()}</span>
+                          </div>
                         </div>
-                        <div className="flex items-center gap-1">
-                          <Eye className="w-3.5 h-3.5" />
-                          <span>{factCheck.views.toLocaleString()}</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                          <Clock className="w-3.5 h-3.5" />
-                          <span className="font-arabic">{factCheck.readTime}</span>
+                        
+                        {/* Read More Arrow */}
+                        <div className="text-orange-500 group-hover:text-orange-600 transition-colors">
+                          <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                          </svg>
                         </div>
                       </div>
                     </div>
-                  </article>
+                  </div>
+                  
+                  {/* Warning Indicator Line */}
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-orange-500 via-amber-500 to-orange-500 opacity-20 group-hover:opacity-60 transition-opacity duration-300"></div>
                 </div>
-              ))}
-            </div>
-            
-            {/* Three Articles - Right Column */}
-            <div className="lg:col-span-2 space-y-4">
-              {mockFactChecks.filter(fc => fc.verdict === 'confirmed').slice(1, 4).map((factCheck, index) => (
-                <div key={`confirmed-${factCheck.id}`} style={{ animationDelay: `${index * 30}ms` }} className="animate-in fade-in slide-in-from-bottom-1 duration-300">
-                  <CompactCard 
-                    factCheck={factCheck}
-                    onClick={() => {
-                      setSelectedArticle(factCheck);
-                      setCurrentPage('article');
-                    }}
-                    featured={false}
-                  />
-                </div>
-              ))}
-            </div>
+              </article>
+            ))}
           </div>
           
-          <div className="text-center mt-6">
+        </div>
+      )}
+
+      {/* مؤكد (Confirmed) Section - Enhanced */}
+      {mockFactChecks.filter(fc => fc.verdict === 'confirmed').length > 0 && (
+        <div className="mb-20">
+          {/* Compact Title Header */}
+          <div className="flex items-center justify-between mb-12">
+            {/* Read More Button - Left Side */}
             <button 
               onClick={() => {
                 setFilters(prev => ({ ...prev, verdict: 'مؤكد' }));
                 setCurrentPage('search');
               }}
-              className="text-blue-600 hover:text-blue-700 font-arabic font-medium"
+              className="group text-blue-600 hover:text-blue-700 font-arabic font-medium flex items-center gap-2 transition-colors duration-300"
             >
-              عرض جميع الأخبار المؤكدة ←
+              <span>عرض المزيد</span>
+              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
             </button>
+            
+            {/* Title Section - Right Side */}
+            <div className="text-right">
+              <div className="flex items-center justify-end gap-4 mb-2">
+                <div>
+                  <h3 className="text-2xl md:text-3xl font-bold text-gray-900 font-arabic-heading">
+                    مؤكد
+                  </h3>
+                  <p className="text-gray-600 font-arabic text-sm">أخبار مؤكدة من مصادر رسمية</p>
+                </div>
+                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl flex items-center justify-center shadow-lg">
+                  <CheckCircle className="w-6 h-6 text-white" />
+                </div>
+              </div>
+              {/* Article Count */}
+              <div className="inline-flex items-center gap-2 bg-blue-50 border border-blue-200 px-3 py-1.5 rounded-xl">
+                <div className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></div>
+                <span className="text-blue-600 font-arabic font-medium text-xs">
+                  {mockFactChecks.filter(fc => fc.verdict === 'confirmed').length} تحقق متاح
+                </span>
+              </div>
+            </div>
           </div>
+          
+          {/* Professional Cards Grid */}
+          <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            {mockFactChecks.filter(fc => fc.verdict === 'confirmed').slice(0, 4).map((factCheck, index) => (
+              <article 
+                key={`confirmed-${factCheck.id}`} 
+                className="group relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 cursor-pointer transform hover:scale-[1.02] hover:-translate-y-2 overflow-hidden"
+                style={{ animationDelay: `${index * 100}ms` }}
+                onClick={() => {
+                  setSelectedArticle(factCheck);
+                  setCurrentPage('article');
+                }}
+              >
+                {/* Modern Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-600/5 via-transparent to-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-3xl"></div>
+                
+                {/* Enhanced Card Content */}
+                <div className="relative z-10 p-8">
+                  <div className="flex gap-6">
+                    {/* Enhanced Image Section */}
+                    <div className="relative w-32 h-32 flex-shrink-0">
+                      <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl"></div>
+                      <img 
+                        src={factCheck.image}
+                        alt={factCheck.title}
+                        className="relative w-full h-full object-cover rounded-2xl group-hover:scale-110 transition-transform duration-500 shadow-lg border-2 border-white"
+                      />
+                      
+                      {/* Modern Verdict Badge */}
+                      <div className="absolute -bottom-2 -right-2 z-20">
+                        <div className="bg-blue-500 text-white px-3 py-1.5 rounded-xl text-xs font-bold shadow-lg border-2 border-white">
+                          مؤكد
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Enhanced Content Section */}
+                    <div className="flex-1 min-w-0">
+                      {/* Category & Date */}
+                      <div className="flex items-center gap-3 mb-4">
+                        <span className="bg-gradient-to-r from-blue-100 to-indigo-100 text-blue-800 px-3 py-1 rounded-xl text-sm font-medium font-arabic border border-blue-200 shadow-sm">
+                          {factCheck.category}
+                        </span>
+                        <div className="flex items-center gap-2 text-gray-500 text-sm">
+                          <Clock className="w-4 h-4" />
+                          <span className="font-arabic">{factCheck.date}</span>
+                        </div>
+                      </div>
+                      
+                      {/* Enhanced Title */}
+                      <h4 className="text-xl font-bold text-gray-900 mb-3 leading-tight group-hover:text-blue-600 transition-colors font-arabic-heading line-clamp-2 pr-4">
+                        {factCheck.title}
+                      </h4>
+                      
+                      {/* Enhanced Summary */}
+                      <p className="text-gray-600 line-clamp-2 leading-relaxed mb-4 font-arabic text-sm pr-4">
+                        {factCheck.summary}
+                      </p>
+                      
+                      {/* Enhanced Metadata */}
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4 text-sm text-gray-500">
+                          <div className="flex items-center gap-1">
+                            <User className="w-4 h-4" />
+                            <span className="font-arabic">{factCheck.author}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Eye className="w-4 h-4" />
+                            <span>{factCheck.views.toLocaleString()}</span>
+                          </div>
+                        </div>
+                        
+                        {/* Read More Arrow */}
+                        <div className="text-blue-500 group-hover:text-blue-600 transition-colors">
+                          <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Confirmation Indicator Line */}
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-indigo-500 to-blue-500 opacity-20 group-hover:opacity-60 transition-opacity duration-300"></div>
+                </div>
+              </article>
+            ))}
+          </div>
+          
         </div>
       )}
 
-      {/* إرباك (Unproven) Section */}
+      {/* إرباك (Unproven) Section - Enhanced */}
       {mockFactChecks.filter(fc => fc.verdict === 'unproven').length > 0 && (
-        <div className="mb-16">
-          <div className="flex items-center gap-4 mb-8">
-            <div className="w-12 h-12 bg-gray-500 rounded-2xl flex items-center justify-center shadow-lg">
-              <HelpCircle className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <h3 className="text-3xl font-bold text-gray-800 font-arabic-heading">
-                إرباك
-              </h3>
-              <p className="text-gray-600 font-arabic">معلومات مربكة وغير واضحة</p>
-            </div>
-            <div className="mr-auto bg-gray-100 text-gray-800 px-4 py-2 rounded-xl font-bold">
-              {mockFactChecks.filter(fc => fc.verdict === 'unproven').length} تحقق
-            </div>
-          </div>
-          <div className="grid lg:grid-cols-2 gap-4">
-            {mockFactChecks.filter(fc => fc.verdict === 'unproven').slice(0, 4).map((factCheck, index) => (
-              <div key={`unproven-${factCheck.id}`} style={{ animationDelay: `${index * 30}ms` }} className="animate-in fade-in slide-in-from-bottom-1 duration-300">
-                <CompactCard 
-                  factCheck={factCheck}
-                  onClick={() => {
-                    setSelectedArticle(factCheck);
-                    setCurrentPage('article');
-                  }}
-                  featured={factCheck.featured}
-                />
-              </div>
-            ))}
-          </div>
-          <div className="text-center mt-6">
+        <div className="mb-20">
+          {/* Compact Title Header */}
+          <div className="flex items-center justify-between mb-12">
+            {/* Read More Button - Left Side */}
             <button 
               onClick={() => {
                 setFilters(prev => ({ ...prev, verdict: 'إرباك' }));
                 setCurrentPage('search');
               }}
-              className="text-gray-600 hover:text-gray-700 font-arabic font-medium"
+              className="group text-gray-600 hover:text-gray-700 font-arabic font-medium flex items-center gap-2 transition-colors duration-300"
             >
-              عرض جميع التحققات المربكة ←
+              <span>عرض المزيد</span>
+              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+              </svg>
             </button>
+            
+            {/* Title Section - Right Side */}
+            <div className="text-right">
+              <div className="flex items-center justify-end gap-4 mb-2">
+                <div>
+                  <h3 className="text-2xl md:text-3xl font-bold text-gray-900 font-arabic-heading">
+                    إرباك
+                  </h3>
+                  <p className="text-gray-600 font-arabic text-sm">معلومات مربكة وغير واضحة</p>
+                </div>
+                <div className="w-12 h-12 bg-gradient-to-r from-gray-500 to-slate-500 rounded-2xl flex items-center justify-center shadow-lg">
+                  <HelpCircle className="w-6 h-6 text-white" />
+                </div>
+              </div>
+              {/* Article Count */}
+              <div className="inline-flex items-center gap-2 bg-gray-50 border border-gray-200 px-3 py-1.5 rounded-xl">
+                <div className="w-2 h-2 bg-gray-500 rounded-full animate-pulse"></div>
+                <span className="text-gray-600 font-arabic font-medium text-xs">
+                  {mockFactChecks.filter(fc => fc.verdict === 'unproven').length} تحقق متاح
+                </span>
+              </div>
+            </div>
           </div>
+          
+          {/* Professional Cards Grid */}
+          <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            {mockFactChecks.filter(fc => fc.verdict === 'unproven').slice(0, 4).map((factCheck, index) => (
+              <article 
+                key={`unproven-${factCheck.id}`} 
+                className="group relative bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 border border-gray-100 cursor-pointer transform hover:scale-[1.02] hover:-translate-y-2 overflow-hidden"
+                style={{ animationDelay: `${index * 100}ms` }}
+                onClick={() => {
+                  setSelectedArticle(factCheck);
+                  setCurrentPage('article');
+                }}
+              >
+                {/* Modern Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-gray-600/5 via-transparent to-slate-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-3xl"></div>
+                
+                {/* Enhanced Card Content */}
+                <div className="relative z-10 p-8">
+                  <div className="flex gap-6">
+                    {/* Enhanced Image Section */}
+                    <div className="relative w-32 h-32 flex-shrink-0">
+                      <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 rounded-2xl"></div>
+                      <img 
+                        src={factCheck.image}
+                        alt={factCheck.title}
+                        className="relative w-full h-full object-cover rounded-2xl group-hover:scale-110 transition-transform duration-500 shadow-lg border-2 border-white"
+                      />
+                      
+                      {/* Modern Verdict Badge */}
+                      <div className="absolute -bottom-2 -right-2 z-20">
+                        <div className="bg-gray-500 text-white px-3 py-1.5 rounded-xl text-xs font-bold shadow-lg border-2 border-white">
+                          إرباك
+                        </div>
+                      </div>
+                    </div>
+                    
+                    {/* Enhanced Content Section */}
+                    <div className="flex-1 min-w-0">
+                      {/* Category & Date */}
+                      <div className="flex items-center gap-3 mb-4">
+                        <span className="bg-gradient-to-r from-gray-100 to-slate-100 text-gray-800 px-3 py-1 rounded-xl text-sm font-medium font-arabic border border-gray-200 shadow-sm">
+                          {factCheck.category}
+                        </span>
+                        <div className="flex items-center gap-2 text-gray-500 text-sm">
+                          <Clock className="w-4 h-4" />
+                          <span className="font-arabic">{factCheck.date}</span>
+                        </div>
+                      </div>
+                      
+                      {/* Enhanced Title */}
+                      <h4 className="text-xl font-bold text-gray-900 mb-3 leading-tight group-hover:text-gray-600 transition-colors font-arabic-heading line-clamp-2 pr-4">
+                        {factCheck.title}
+                      </h4>
+                      
+                      {/* Enhanced Summary */}
+                      <p className="text-gray-600 line-clamp-2 leading-relaxed mb-4 font-arabic text-sm pr-4">
+                        {factCheck.summary}
+                      </p>
+                      
+                      {/* Enhanced Metadata */}
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-4 text-sm text-gray-500">
+                          <div className="flex items-center gap-1">
+                            <User className="w-4 h-4" />
+                            <span className="font-arabic">{factCheck.author}</span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Eye className="w-4 h-4" />
+                            <span>{factCheck.views.toLocaleString()}</span>
+                          </div>
+                        </div>
+                        
+                        {/* Read More Arrow */}
+                        <div className="text-gray-500 group-hover:text-gray-600 transition-colors">
+                          <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Unclear Indicator Line */}
+                  <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-gray-500 via-slate-500 to-gray-500 opacity-20 group-hover:opacity-60 transition-opacity duration-300"></div>
+                </div>
+              </article>
+            ))}
+          </div>
+          
         </div>
       )}
       
@@ -585,88 +1034,170 @@ const HomePage: React.FC<HomePageProps> = ({
       )}
     </section>
 
-    {/* Enhanced Featured Fact Check */}
+    {/* Enhanced Professional Featured Fact Check */}
     {mockFactChecks.find(fc => fc.featured) && (
-      <section className="container mx-auto px-4 py-16">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4 font-arabic-heading">
-            ⭐ التحقق المميز
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto font-arabic leading-relaxed">
-            التحقق الأكثر أهمية وتأثيراً، يستحق اهتمامك الخاص
-          </p>
+      <section className="container mx-auto px-4 py-16" style={{paddingLeft: '70px', paddingRight: '70px'}}>
+        {/* Compact Title Header */}
+        <div className="flex items-center justify-between mb-12">
+          {/* Read Article Button - Left Side */}
+          <button 
+            onClick={() => {
+              setSelectedArticle(mockFactChecks.find(fc => fc.featured)!);
+              setCurrentPage('article');
+            }}
+            className="group text-yellow-600 hover:text-yellow-700 font-arabic font-medium flex items-center gap-2 transition-colors duration-300"
+          >
+            <span>قراءة المقال</span>
+            <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+            </svg>
+          </button>
+          
+          {/* Title Section - Right Side */}
+          <div className="text-right">
+            <div className="flex items-center justify-end gap-4 mb-2">
+              <div>
+                <h2 className="text-2xl md:text-3xl font-bold text-gray-900 font-arabic-heading">
+                  التحقق المميز
+                </h2>
+                <p className="text-gray-600 font-arabic text-sm">التحقق الأكثر أهمية وتأثيراً</p>
+              </div>
+              <div className="w-12 h-12 bg-gradient-to-r from-yellow-500 to-amber-500 rounded-2xl flex items-center justify-center shadow-lg">
+                <Star className="w-6 h-6 text-white fill-current" />
+              </div>
+            </div>
+            {/* Special Indicator */}
+            <div className="inline-flex items-center gap-2 bg-yellow-50 border border-yellow-200 px-3 py-1.5 rounded-xl">
+              <div className="w-2 h-2 bg-yellow-500 rounded-full animate-pulse"></div>
+              <span className="text-yellow-600 font-arabic font-medium text-xs">يستحق اهتمامك الخاص</span>
+            </div>
+          </div>
         </div>
         
-        <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border-2 border-primary-100">
-          <div className="lg:flex">
-            <div className="lg:w-1/2 relative">
-              <LazyImage 
-                src={mockFactChecks.find(fc => fc.featured)!.image} 
-                alt=""
-                className="w-full h-80 lg:h-full object-cover"
-              />
-              {/* Featured Badge Overlay */}
-              <div className="absolute top-6 right-6">
-                <div className="bg-warning-500 text-white px-4 py-2 rounded-2xl font-bold shadow-lg backdrop-blur-sm">
-                  <Star className="inline w-5 h-5 ml-2 fill-current" />
-                  مميز
+        {/* Enhanced Professional Card */}
+        <div className="max-w-7xl mx-auto">
+          <article className="group bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100 transform hover:scale-[1.01] hover:-translate-y-2 transition-all duration-500 relative">
+            {/* Premium Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 via-transparent to-amber-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-3xl"></div>
+            
+            {/* Featured Floating Badge */}
+            <div className="absolute -top-4 -right-4 z-20">
+              <div className="bg-gradient-to-r from-yellow-500 via-amber-500 to-orange-500 text-white p-4 rounded-2xl shadow-2xl border-4 border-white transform rotate-12 hover:rotate-0 transition-transform duration-300">
+                <div className="flex items-center gap-2">
+                  <Star className="w-6 h-6 fill-current animate-pulse" />
+                  <span className="text-sm font-bold font-arabic">مميز</span>
                 </div>
               </div>
             </div>
             
-            <div className="lg:w-1/2 p-10">
-              <div className="flex items-center gap-4 mb-6">
-                <VerdictBadge verdict={mockFactChecks.find(fc => fc.featured)!.verdict} size="lg" />
-                <span className="bg-primary-100 text-primary-800 px-4 py-2 rounded-2xl text-sm font-medium font-arabic">
-                  {mockFactChecks.find(fc => fc.featured)!.category}
-                </span>
+            <div className="lg:flex h-full">
+              {/* Enhanced Image Section */}
+              <div className="lg:w-1/2 relative overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-yellow-100/20 to-amber-100/20"></div>
+                <img 
+                  src={mockFactChecks.find(fc => fc.featured)!.image}
+                  alt={mockFactChecks.find(fc => fc.featured)!.title}
+                  className="w-full h-80 lg:h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+                
+                {/* Enhanced Verdict Badge */}
+                <div className="absolute bottom-6 right-6">
+                  <VerdictBadge verdict={mockFactChecks.find(fc => fc.featured)!.verdict} size="lg" />
+                </div>
+                
+                {/* Decorative Elements */}
+                <div className="absolute top-6 left-6">
+                  <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-3 border border-white/30 shadow-lg animate-float">
+                    <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                </div>
               </div>
               
-              <h2 className="text-3xl font-bold text-gray-900 mb-6 leading-tight font-arabic-heading">
-                {mockFactChecks.find(fc => fc.featured)!.title}
-              </h2>
-              
-              <p className="text-lg text-gray-600 mb-8 leading-relaxed font-arabic">
-                {mockFactChecks.find(fc => fc.featured)!.summary}
-              </p>
+              {/* Enhanced Content Section */}
+              <div className="lg:w-1/2 p-10 lg:p-12 relative z-10">
+                {/* Category and Date Header */}
+                <div className="flex items-center gap-4 mb-6">
+                  <span className="bg-gradient-to-r from-yellow-100 to-amber-100 text-yellow-800 px-4 py-2 rounded-2xl text-sm font-medium font-arabic border border-yellow-200 shadow-sm">
+                    {mockFactChecks.find(fc => fc.featured)!.category}
+                  </span>
+                  <div className="flex items-center gap-2 text-gray-500 text-sm">
+                    <Clock className="w-4 h-4" />
+                    <span className="font-arabic">{mockFactChecks.find(fc => fc.featured)!.date}</span>
+                  </div>
+                </div>
+                
+                {/* Enhanced Title */}
+                <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6 leading-tight group-hover:text-amber-600 transition-colors font-arabic-heading">
+                  {mockFactChecks.find(fc => fc.featured)!.title}
+                </h2>
+                
+                {/* Enhanced Summary */}
+                <p className="text-lg text-gray-600 mb-8 leading-relaxed font-arabic">
+                  {mockFactChecks.find(fc => fc.featured)!.summary}
+                </p>
 
-              {/* Enhanced Metadata */}
-              <div className="grid grid-cols-3 gap-4 mb-8">
-                <div className="text-center bg-gray-50 rounded-2xl p-4">
-                  <User className="w-5 h-5 text-primary-600 mx-auto mb-2" />
-                  <div className="text-sm font-medium text-gray-900 font-arabic">
-                    {mockFactChecks.find(fc => fc.featured)!.author}
+                {/* Enhanced Professional Metadata Grid */}
+                <div className="grid grid-cols-3 gap-4 mb-10">
+                  <div className="text-center bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-5 group-hover:shadow-lg transition-shadow duration-300 border border-gray-200">
+                    <div className="w-10 h-10 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-300">
+                      <User className="w-5 h-5 text-blue-600" />
+                    </div>
+                    <div className="text-sm font-bold text-gray-900 font-arabic mb-1">
+                      {mockFactChecks.find(fc => fc.featured)!.author}
+                    </div>
+                    <div className="text-xs text-gray-500 font-arabic">المحقق</div>
                   </div>
-                  <div className="text-xs text-gray-500 font-arabic">المحقق</div>
-                </div>
-                <div className="text-center bg-gray-50 rounded-2xl p-4">
-                  <Eye className="w-5 h-5 text-success-600 mx-auto mb-2" />
-                  <div className="text-sm font-bold text-gray-900">
-                    {mockFactChecks.find(fc => fc.featured)!.views.toLocaleString()}
+                  
+                  <div className="text-center bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-5 group-hover:shadow-lg transition-shadow duration-300 border border-gray-200">
+                    <div className="w-10 h-10 bg-gradient-to-br from-green-100 to-green-200 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-300">
+                      <Eye className="w-5 h-5 text-green-600" />
+                    </div>
+                    <div className="text-sm font-bold text-gray-900 mb-1">
+                      {mockFactChecks.find(fc => fc.featured)!.views.toLocaleString()}
+                    </div>
+                    <div className="text-xs text-gray-500 font-arabic">مشاهدة</div>
                   </div>
-                  <div className="text-xs text-gray-500 font-arabic">مشاهدة</div>
-                </div>
-                <div className="text-center bg-gray-50 rounded-2xl p-4">
-                  <Clock className="w-5 h-5 text-warning-600 mx-auto mb-2" />
-                  <div className="text-sm font-medium text-gray-900 font-arabic">
-                    {mockFactChecks.find(fc => fc.featured)!.readTime}
+                  
+                  <div className="text-center bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-5 group-hover:shadow-lg transition-shadow duration-300 border border-gray-200">
+                    <div className="w-10 h-10 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl flex items-center justify-center mx-auto mb-3 group-hover:scale-110 transition-transform duration-300">
+                      <Clock className="w-5 h-5 text-orange-600" />
+                    </div>
+                    <div className="text-sm font-bold text-gray-900 mb-1 font-arabic">
+                      {mockFactChecks.find(fc => fc.featured)!.readTime}
+                    </div>
+                    <div className="text-xs text-gray-500 font-arabic">للقراءة</div>
                   </div>
-                  <div className="text-xs text-gray-500 font-arabic">للقراءة</div>
                 </div>
+                
+                {/* Enhanced Premium CTA Button */}
+                <button 
+                  onClick={() => {
+                    setSelectedArticle(mockFactChecks.find(fc => fc.featured)!);
+                    setCurrentPage('article');
+                  }}
+                  className="group w-full bg-gradient-to-r from-yellow-500 via-amber-500 to-orange-500 text-white px-10 py-5 rounded-3xl hover:from-yellow-600 hover:via-amber-600 hover:to-orange-600 transition-all duration-300 font-bold text-lg flex items-center justify-center gap-4 shadow-2xl hover:shadow-3xl transform hover:scale-105 font-arabic border border-yellow-400/20 relative overflow-hidden"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/10 via-transparent to-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="relative z-10 flex items-center gap-4">
+                    <div className="w-8 h-8 bg-white/20 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                      <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                    <span>📖 اقرأ التحقق كاملاً</span>
+                    <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                    </svg>
+                  </div>
+                </button>
               </div>
-              
-              <button 
-                onClick={() => {
-                  setSelectedArticle(mockFactChecks.find(fc => fc.featured)!);
-                  setCurrentPage('article');
-                }}
-                className="group w-full bg-gradient-to-r from-primary-600 to-primary-700 text-white px-8 py-4 rounded-2xl hover:from-primary-700 hover:to-primary-800 transition-all duration-300 font-bold text-lg flex items-center justify-center gap-3 shadow-sm hover:shadow-md transform hover:scale-105 font-arabic"
-              >
-                📖 اقرأ التحقق كاملاً
-                <ExternalLink className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
             </div>
-          </div>
+            
+            {/* Premium Indicator Line */}
+            <div className="absolute bottom-0 left-0 right-0 h-1.5 bg-gradient-to-r from-yellow-500 via-amber-500 to-orange-500 opacity-30 group-hover:opacity-70 transition-opacity duration-300"></div>
+          </article>
         </div>
       </section>
     )}
