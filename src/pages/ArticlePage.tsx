@@ -470,18 +470,34 @@ const ArticlePage: React.FC<ArticlePageProps> = ({ selectedArticle, setCurrentPa
           
           {/* Compact Hero Section */}
           <div className="bg-white rounded-2xl shadow-lg overflow-hidden mb-6" data-hero-section>
-            {/* Verdict Header - More Compact */}
-            <div className={`${verdictConfig.headerBg} text-white px-6 py-4 text-center`}>
-              <div className="flex items-center justify-center gap-3 mb-2">
-                <VerdictBadge verdict={article.verdict} size="md" />
-                <div className="flex items-center gap-2 text-white/90">
-                  <Shield className="w-3 h-3" />
-                  <span className="font-arabic font-medium text-sm">IFCN معتمد</span>
+            {/* Enhanced Header with Better Typography */}
+            <div className={`${verdictConfig.headerBg} text-white px-6 py-6 text-center relative overflow-hidden`}>
+              {/* Background Pattern */}
+              <div className="absolute inset-0 opacity-10">
+                <div className="absolute top-4 right-4 w-20 h-20 border border-white/20 rounded-full"></div>
+                <div className="absolute bottom-4 left-4 w-16 h-16 border border-white/20 rounded-full"></div>
+                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 border border-white/10 rounded-full"></div>
+              </div>
+              
+              <div className="relative z-10">
+                <div className="flex items-center justify-center gap-4 mb-3">
+                  {/* Enhanced Verdict Badge with White Background */}
+                  <div className="bg-white/15 backdrop-blur-sm rounded-2xl px-4 py-2 border border-white/20">
+                    <VerdictBadge verdict={article.verdict} size="md" />
+                  </div>
+                  <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-3 py-1">
+                    <Shield className="w-3 h-3" />
+                    <span className="font-arabic font-medium text-sm">IFCN معتمد</span>
+                  </div>
+                </div>
+                
+                {/* Enhanced Title with Better Contrast */}
+                <div className="bg-black/20 backdrop-blur-sm rounded-2xl px-6 py-4 border border-white/20">
+                  <h2 className="text-2xl lg:text-3xl font-black font-arabic-heading leading-tight text-white drop-shadow-lg">
+                    {article.title}
+                  </h2>
                 </div>
               </div>
-              <h2 className="text-2xl lg:text-3xl font-black font-arabic-heading leading-tight">
-                {article.title}
-              </h2>
             </div>
 
             {/* Compact Content Section */}
@@ -560,9 +576,6 @@ const ArticlePage: React.FC<ArticlePageProps> = ({ selectedArticle, setCurrentPa
             {/* Main Content Column */}
             <div className="lg:col-span-2 space-y-4">
               
-              {/* Compact Audio Player */}
-              <AudioPlayer text={`${article.title}. ${article.summary}. الادعاء المنتشر: انتشر عبر وسائل التواصل الاجتماعي ادعاء يفيد بأن شرب الماء الدافئ مع الليمون في الصباح يساعد بشكل كبير في إنقاص الوزن وحرق الدهون، وأنه يمكن الاعتماد عليه كحل سحري للتخسيس.`} />
-
               {/* Article Content - Compact */}
               <div className="bg-white rounded-xl shadow-md p-6">
                 <h2 className="text-2xl font-black mb-6 font-arabic-heading text-gray-900">تفاصيل التحقق</h2>
@@ -616,6 +629,9 @@ const ArticlePage: React.FC<ArticlePageProps> = ({ selectedArticle, setCurrentPa
 
             {/* Sidebar Column */}
             <div className="lg:col-span-1 space-y-4">
+              
+              {/* Audio Player in Sidebar */}
+              <AudioPlayer text={`${article.title}. ${article.summary}. الادعاء المنتشر: انتشر عبر وسائل التواصل الاجتماعي ادعاء يفيد بأن شرب الماء الدافئ مع الليمون في الصباح يساعد بشكل كبير في إنقاص الوزن وحرق الدهون، وأنه يمكن الاعتماد عليه كحل سحري للتخسيس.`} />
               
               {/* Compact Verdict Analysis */}
               <div className={`${verdictConfig.bg} ${verdictConfig.border} border rounded-xl overflow-hidden shadow-md`}>
