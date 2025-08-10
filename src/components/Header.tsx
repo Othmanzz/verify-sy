@@ -18,13 +18,13 @@ const Header: React.FC<HeaderProps> = ({
 }) => (
   <header className="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm" dir="rtl">
     <div className="container mx-auto px-4">
-      <div className="flex items-center justify-between py-4">
+      <div className="flex items-center justify-between py-2">
         {/* Logo - Right side in RTL */}
         <button 
           onClick={() => setCurrentPage('home')}
           className="flex items-center gap-3 order-1 cursor-pointer group"
         >
-          <div className="w-20 h-20 rounded-2xl flex items-center justify-center bg-white hover:bg-gray-50 transition-all duration-300 group-hover:scale-105 shadow-lg group-hover:shadow-xl p-2">
+          <div className="w-16 h-16 rounded-xl flex items-center justify-center bg-white hover:bg-gray-50 transition-all duration-300 group-hover:scale-105 shadow-md group-hover:shadow-lg p-2">
             <img 
               src="/logo_ar.png" 
               alt="تأكد - لأن الخبر أمانة" 
@@ -40,7 +40,7 @@ const Header: React.FC<HeaderProps> = ({
         <nav className="hidden lg:flex items-center gap-1 order-2">
           <button 
             onClick={() => setCurrentPage('home')}
-            className={`font-medium font-arabic transition-all duration-300 relative px-5 py-4 rounded-xl ${
+            className={`font-medium font-arabic transition-all duration-300 relative px-3 py-2 rounded-lg text-sm ${
               currentPage === 'home' 
                 ? 'text-blue-600 bg-blue-50 shadow-sm' 
                 : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50/50'
@@ -51,7 +51,7 @@ const Header: React.FC<HeaderProps> = ({
           
           <button 
             onClick={() => setCurrentPage('search')}
-            className={`font-medium font-arabic transition-all duration-300 relative px-5 py-4 rounded-xl ${
+            className={`font-medium font-arabic transition-all duration-300 relative px-3 py-2 rounded-lg text-sm ${
               currentPage === 'search' 
                 ? 'text-blue-600 bg-blue-50 shadow-sm' 
                 : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50/50'
@@ -62,7 +62,7 @@ const Header: React.FC<HeaderProps> = ({
           
           <button 
             onClick={() => setCurrentPage('academy')}
-            className={`font-medium font-arabic transition-all duration-300 relative px-5 py-4 rounded-xl ${
+            className={`font-medium font-arabic transition-all duration-300 relative px-3 py-2 rounded-lg text-sm ${
               currentPage === 'academy' 
                 ? 'text-blue-600 bg-blue-50 shadow-sm' 
                 : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50/50'
@@ -75,7 +75,7 @@ const Header: React.FC<HeaderProps> = ({
           
           <button 
             onClick={() => setCurrentPage('about')}
-            className={`font-medium font-arabic transition-all duration-300 relative px-5 py-4 rounded-xl ${
+            className={`font-medium font-arabic transition-all duration-300 relative px-3 py-2 rounded-lg text-sm ${
               currentPage === 'about' 
                 ? 'text-blue-600 bg-blue-50 shadow-sm' 
                 : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50/50'
@@ -86,7 +86,7 @@ const Header: React.FC<HeaderProps> = ({
           
           <button 
             onClick={() => setCurrentPage('contact')}
-            className={`font-medium font-arabic transition-all duration-300 relative px-5 py-4 rounded-xl ${
+            className={`font-medium font-arabic transition-all duration-300 relative px-3 py-2 rounded-lg text-sm ${
               currentPage === 'contact' 
                 ? 'text-blue-600 bg-blue-50 shadow-sm' 
                 : 'text-gray-700 hover:text-blue-600 hover:bg-blue-50/50'
@@ -99,12 +99,12 @@ const Header: React.FC<HeaderProps> = ({
         {/* Action Buttons - Left side in RTL - Enhanced Design */}
         <div className="hidden lg:flex items-center gap-3 order-3">
           <div className="flex items-center gap-2 bg-gray-50 rounded-2xl p-1">
-            <button className="p-3 text-gray-600 hover:text-blue-600 hover:bg-white rounded-xl transition-all duration-300 shadow-sm hover:shadow-md" title="الإشعارات">
-              <Bell className="w-5 h-5" />
+            <button className="p-2 text-gray-600 hover:text-blue-600 hover:bg-white rounded-lg transition-all duration-300 shadow-sm hover:shadow-md" title="الإشعارات">
+              <Bell className="w-4 h-4" />
             </button>
 
-            <button className="p-3 text-gray-600 hover:text-blue-600 hover:bg-white rounded-xl transition-all duration-300 shadow-sm hover:shadow-md" title="اللغة">
-              <Globe className="w-5 h-5" />
+            <button className="p-2 text-gray-600 hover:text-blue-600 hover:bg-white rounded-lg transition-all duration-300 shadow-sm hover:shadow-md" title="اللغة">
+              <Globe className="w-4 h-4" />
             </button>
           </div>
           
@@ -114,17 +114,17 @@ const Header: React.FC<HeaderProps> = ({
             href="https://wa.me/963123456789" 
             target="_blank" 
             rel="noopener noreferrer"
-            className="bg-gradient-to-r from-green-600 to-green-700 text-white px-5 py-4 rounded-2xl hover:from-green-700 hover:to-green-800 transition-all duration-300 flex items-center gap-2 font-medium font-arabic shadow-lg hover:shadow-xl hover:scale-105 transform"
+            className="bg-gradient-to-r from-green-600 to-green-700 text-white px-3 py-2 rounded-xl hover:from-green-700 hover:to-green-800 transition-all duration-300 flex items-center gap-1.5 font-medium font-arabic text-sm shadow-md hover:shadow-lg hover:scale-105 transform"
           >
-            <MessageCircle className="w-4 h-4" />
+            <MessageCircle className="w-3.5 h-3.5" />
             واتساب
           </a>
 
           <button 
             onClick={() => setIsSubmissionModalOpen(true)}
-            className="bg-gradient-to-r from-red-600 to-red-700 text-white px-6 py-4 rounded-2xl hover:from-red-700 hover:to-red-800 transition-all duration-300 flex items-center gap-2 font-medium font-arabic hover:scale-105 shadow-lg hover:shadow-xl transform relative z-50"
+            className="bg-gradient-to-r from-red-600 to-red-700 text-white px-4 py-2 rounded-xl hover:from-red-700 hover:to-red-800 transition-all duration-300 flex items-center gap-1.5 font-medium font-arabic text-sm hover:scale-105 shadow-md hover:shadow-lg transform relative z-50"
           >
-            <Plus className="w-4 h-4" />
+            <Plus className="w-3.5 h-3.5" />
             تقرير كاذب
           </button>
         </div>

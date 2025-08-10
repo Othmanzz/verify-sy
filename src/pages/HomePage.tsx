@@ -68,7 +68,7 @@ const HomePage: React.FC<HomePageProps> = ({
                 <svg className="w-6 h-6 text-red-400 animate-x-mark-draw" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M6 18L18 6M6 6l12 12" />
                 </svg>
-                <div className="text-red-300 text-xs font-bold font-arabic">زائف</div>
+                <div className="text-red-300 text-xs font-bold font-arabic">احتيال</div>
               </div>
             </div>
           </div>
@@ -79,7 +79,7 @@ const HomePage: React.FC<HomePageProps> = ({
                 <svg className="w-6 h-6 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.664-.833-2.464 0L5.34 16.5c-.77.833.192 2.5 1.732 2.5z" />
                 </svg>
-                <div className="text-yellow-300 text-xs font-bold font-arabic">مضلل</div>
+                <div className="text-yellow-300 text-xs font-bold font-arabic">عبث</div>
               </div>
             </div>
           </div>
@@ -295,7 +295,7 @@ const HomePage: React.FC<HomePageProps> = ({
         </div>
       )}
 
-      {/* زائف (False) Section */}
+      {/* احتيال (False) Section */}
       {mockFactChecks.filter(fc => fc.verdict === 'false').length > 0 && (
         <div className="mb-16">
           <div className="flex items-center gap-4 mb-8">
@@ -304,9 +304,9 @@ const HomePage: React.FC<HomePageProps> = ({
             </div>
             <div>
               <h3 className="text-3xl font-bold text-red-800 font-arabic-heading">
-                زائف
+                احتيال
               </h3>
-              <p className="text-red-600 font-arabic">معلومات غير صحيحة ومضللة</p>
+              <p className="text-red-600 font-arabic">معلومات احتيالية ومضللة</p>
             </div>
             <div className="mr-auto bg-red-100 text-red-800 px-4 py-2 rounded-xl font-bold">
               {mockFactChecks.filter(fc => fc.verdict === 'false').length} تحقق
@@ -329,18 +329,18 @@ const HomePage: React.FC<HomePageProps> = ({
           <div className="text-center mt-6">
             <button 
               onClick={() => {
-                setFilters(prev => ({ ...prev, verdict: 'زائف' }));
+                setFilters(prev => ({ ...prev, verdict: 'احتيال' }));
                 setCurrentPage('search');
               }}
               className="text-red-600 hover:text-red-700 font-arabic font-medium"
             >
-              عرض جميع التحققات الزائفة ←
+              عرض جميع التحققات الاحتيالية ←
             </button>
           </div>
         </div>
       )}
 
-      {/* مضلل (Misleading) Section */}
+      {/* عبث (Misleading) Section */}
       {mockFactChecks.filter(fc => fc.verdict === 'misleading').length > 0 && (
         <div className="mb-16">
           <div className="flex items-center gap-4 mb-8">
@@ -349,9 +349,9 @@ const HomePage: React.FC<HomePageProps> = ({
             </div>
             <div>
               <h3 className="text-3xl font-bold text-orange-800 font-arabic-heading">
-                مضلل
+                عبث
               </h3>
-              <p className="text-orange-600 font-arabic">معلومات جزئية أو مضللة</p>
+              <p className="text-orange-600 font-arabic">معلومات عابثة أو مضللة</p>
             </div>
             <div className="mr-auto bg-orange-100 text-orange-800 px-4 py-2 rounded-xl font-bold">
               {mockFactChecks.filter(fc => fc.verdict === 'misleading').length} تحقق
@@ -374,18 +374,18 @@ const HomePage: React.FC<HomePageProps> = ({
           <div className="text-center mt-6">
             <button 
               onClick={() => {
-                setFilters(prev => ({ ...prev, verdict: 'مضلل' }));
+                setFilters(prev => ({ ...prev, verdict: 'عبث' }));
                 setCurrentPage('search');
               }}
               className="text-orange-600 hover:text-orange-700 font-arabic font-medium"
             >
-              عرض جميع التحققات المضللة ←
+              عرض جميع التحققات العابثة ←
             </button>
           </div>
         </div>
       )}
 
-      {/* غير مثبت (Unproven) Section */}
+      {/* إرباك (Unproven) Section */}
       {mockFactChecks.filter(fc => fc.verdict === 'unproven').length > 0 && (
         <div className="mb-16">
           <div className="flex items-center gap-4 mb-8">
@@ -394,9 +394,9 @@ const HomePage: React.FC<HomePageProps> = ({
             </div>
             <div>
               <h3 className="text-3xl font-bold text-gray-800 font-arabic-heading">
-                غير مثبت
+                إرباك
               </h3>
-              <p className="text-gray-600 font-arabic">معلومات بحاجة إرشاد</p>
+              <p className="text-gray-600 font-arabic">معلومات مربكة وغير واضحة</p>
             </div>
             <div className="mr-auto bg-gray-100 text-gray-800 px-4 py-2 rounded-xl font-bold">
               {mockFactChecks.filter(fc => fc.verdict === 'unproven').length} تحقق
@@ -419,12 +419,12 @@ const HomePage: React.FC<HomePageProps> = ({
           <div className="text-center mt-6">
             <button 
               onClick={() => {
-                setFilters(prev => ({ ...prev, verdict: 'غير مثبت' }));
+                setFilters(prev => ({ ...prev, verdict: 'إرباك' }));
                 setCurrentPage('search');
               }}
               className="text-gray-600 hover:text-gray-700 font-arabic font-medium"
             >
-              عرض جميع التحققات غير المثبتة ←
+              عرض جميع التحققات المربكة ←
             </button>
           </div>
         </div>

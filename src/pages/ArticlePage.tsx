@@ -21,21 +21,21 @@ const VerdictBadge: React.FC<{ verdict: string; size?: 'sm' | 'md' | 'lg' }> = (
       bg: 'bg-gradient-to-r from-red-500 to-rose-600', 
       text: 'text-white', 
       icon: '✗', 
-      label: 'زائف',
+      label: 'احتيال',
       glow: 'shadow-red-500/25'
     },
     'misleading': { 
       bg: 'bg-gradient-to-r from-orange-500 to-amber-600', 
       text: 'text-white', 
       icon: '⚠', 
-      label: 'مضلل',
+      label: 'عبث',
       glow: 'shadow-orange-500/25'
     },
     'unproven': { 
       bg: 'bg-gradient-to-r from-gray-500 to-slate-600', 
       text: 'text-white', 
       icon: '?', 
-      label: 'غير مثبت',
+      label: 'إرباك',
       glow: 'shadow-gray-500/25'
     }
   }[verdict] || { bg: 'bg-gray-400', text: 'text-white', icon: '?', label: 'غير محدد', glow: 'shadow-gray-500/25' };
@@ -191,8 +191,8 @@ const ArticlePage: React.FC<ArticlePageProps> = ({ selectedArticle, setCurrentPa
           border: 'border-red-200',
           icon: XCircle, 
           iconColor: 'text-red-600',
-          title: 'معلومة زائفة ✗',
-          description: 'هذه المعلومة غير صحيحة ومضللة وقد تم دحضها بالأدلة العلمية',
+          title: 'معلومة احتيالية ✗',
+          description: 'هذه المعلومة احتيالية وغير صحيحة وقد تم دحضها بالأدلة العلمية',
           headerBg: 'bg-gradient-to-r from-red-500 to-rose-600'
         };
       case 'misleading':
@@ -201,8 +201,8 @@ const ArticlePage: React.FC<ArticlePageProps> = ({ selectedArticle, setCurrentPa
           border: 'border-orange-200',
           icon: AlertCircle, 
           iconColor: 'text-orange-600',
-          title: 'معلومة مضللة ⚠',
-          description: 'تحتوي على معلومات صحيحة جزئياً ولكنها مضللة في السياق العام',
+          title: 'معلومة عابثة ⚠',
+          description: 'تحتوي على معلومات عابثة وغير دقيقة في السياق العام',
           headerBg: 'bg-gradient-to-r from-orange-500 to-amber-600'
         };
       default:
@@ -211,8 +211,8 @@ const ArticlePage: React.FC<ArticlePageProps> = ({ selectedArticle, setCurrentPa
           border: 'border-gray-200',
           icon: HelpCircle, 
           iconColor: 'text-gray-600',
-          title: 'معلومة غير مثبتة ?',
-          description: 'لا توجد أدلة كافية للتحقق من صحة هذه المعلومة في الوقت الحالي',
+          title: 'معلومة مربكة ?',
+          description: 'هذه المعلومة مربكة وغير واضحة وتحتاج لمزيد من التحقق',
           headerBg: 'bg-gradient-to-r from-gray-500 to-slate-600'
         };
     }

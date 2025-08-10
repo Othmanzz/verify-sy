@@ -25,9 +25,10 @@ import { User, Eye, Clock, Star } from 'lucide-react';
 const VerdictBadge: React.FC<{ verdict: string; size?: 'sm' | 'md' | 'lg' }> = ({ verdict, size = 'md' }) => {
   const config = {
     'true': { bg: 'bg-success-100', text: 'text-success-700', icon: '✓', label: 'صحيح' },
-    'false': { bg: 'bg-danger-100', text: 'text-danger-700', icon: '✗', label: 'زائف' },
-    'misleading': { bg: 'bg-warning-100', text: 'text-warning-700', icon: '⚠', label: 'مضلل' },
-    'unproven': { bg: 'bg-gray-100', text: 'text-gray-700', icon: '?', label: 'غير مثبت' }
+    'false': { bg: 'bg-danger-100', text: 'text-danger-700', icon: '✗', label: 'احتيال' },
+    'misleading': { bg: 'bg-warning-100', text: 'text-warning-700', icon: '⚠', label: 'عبث' },
+    'unproven': { bg: 'bg-gray-100', text: 'text-gray-700', icon: '?', label: 'إرباك' },
+    'confirmed': { bg: 'bg-info-100', text: 'text-info-700', icon: '✓', label: 'مؤكد' }
   }[verdict] || { bg: 'bg-gray-100', text: 'text-gray-700', icon: '?', label: 'غير محدد' };
 
   const sizes = {
@@ -51,11 +52,13 @@ const CompactCard: React.FC<{ factCheck: FactCheck; onClick: () => void; feature
       case 'true':
         return { bg: 'bg-green-100', text: 'text-green-800', dot: 'bg-green-500', label: 'صحيح' };
       case 'false':
-        return { bg: 'bg-red-100', text: 'text-red-800', dot: 'bg-red-500', label: 'زائف' };
+        return { bg: 'bg-red-100', text: 'text-red-800', dot: 'bg-red-500', label: 'احتيال' };
       case 'misleading':
-        return { bg: 'bg-orange-100', text: 'text-orange-800', dot: 'bg-orange-500', label: 'مضلل' };
+        return { bg: 'bg-orange-100', text: 'text-orange-800', dot: 'bg-orange-500', label: 'عبث' };
       case 'unproven':
-        return { bg: 'bg-gray-100', text: 'text-gray-800', dot: 'bg-gray-500', label: 'غير مثبت' };
+        return { bg: 'bg-gray-100', text: 'text-gray-800', dot: 'bg-gray-500', label: 'إرباك' };
+      case 'confirmed':
+        return { bg: 'bg-blue-100', text: 'text-blue-800', dot: 'bg-blue-500', label: 'مؤكد' };
       default:
         return { bg: 'bg-gray-100', text: 'text-gray-800', dot: 'bg-gray-500', label: 'غير محدد' };
     }
@@ -261,9 +264,10 @@ const AppLayout: React.FC = () => {
     const verdictMapping: { [key: string]: string } = {
       'جميع التصنيفات': 'all',
       'صحيح': 'true',
-      'زائف': 'false', 
-      'مضلل': 'misleading',
-      'غير مثبت': 'unproven'
+      'احتيال': 'false', 
+      'عبث': 'misleading',
+      'إرباك': 'unproven',
+      'مؤكد': 'confirmed'
     };
     
     const matchesVerdict = filters.verdict === 'جميع التصنيفات' || 

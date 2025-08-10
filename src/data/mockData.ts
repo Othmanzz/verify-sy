@@ -177,9 +177,10 @@ export const categories = [
 export const verdictOptions = [
   'جميع التصنيفات',
   'صحيح',
-  'زائف',
-  'مضلل',
-  'غير مثبت'
+  'احتيال',
+  'عبث',
+  'إرباك',
+  'مؤكد'
 ];
 
 export const dateRanges = [
