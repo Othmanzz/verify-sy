@@ -1,4 +1,4 @@
-import ArticlePage from '../components/ArticlePage'
+import { redirect } from 'next/navigation'
 
 export const metadata = {
   title: 'مقال - تأكد',
@@ -6,5 +6,5 @@ export const metadata = {
 }
 
 export default function Article() {
-  return <ArticlePage />
+  redirect('/')
 }

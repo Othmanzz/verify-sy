@@ -3,9 +3,9 @@ import { mockFactChecks } from '../../lib/mockData'
 import ArticlePage from '../../components/ArticlePage'
 
 interface PageProps {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
 export async function generateStaticParams() {
