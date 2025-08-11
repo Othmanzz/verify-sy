@@ -15,7 +15,10 @@
       "Bash(npx tsc:*)",
       "Bash(grep:*)",
       "mcp__ide__getDiagnostics",
-      "Bash(rm:*)"
+      "Bash(rm:*)",
+      "Bash(npm install:*)",
+      "Bash(curl:*)",
+      "WebFetch(domain:localhost)"
     ],
     "deny": []
   }
