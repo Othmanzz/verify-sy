@@ -150,24 +150,33 @@ const SearchPage: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Debug state changes
+  React.useEffect(() => {
+    console.log('📊 showFilterDropdown state changed to:', showFilterDropdown);
+  }, [showFilterDropdown]);
+
   // Handle click outside to close filter dropdown
   React.useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       const target = event.target as Element;
-      if (showFilterDropdown && !target.closest('[data-filter-dropdown]')) {
+      if (showFilterDropdown && !target.closest('[data-filter-dropdown]') && !target.closest('[data-filter-content]')) {
+        console.log('👆 Clicked outside dropdown, closing...');
         setShowFilterDropdown(false);
       }
     };
 
-    // Use a small delay to prevent immediate closure when opening
-    const timeoutId = setTimeout(() => {
-      document.addEventListener('mousedown', handleClickOutside);
-    }, 100);
+    if (showFilterDropdown) {
+      console.log('🎯 Setting up click outside listener...');
+      // Use a small delay to prevent immediate closure when opening
+      const timeoutId = setTimeout(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+      }, 200);
 
-    return () => {
-      clearTimeout(timeoutId);
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
+      return () => {
+        clearTimeout(timeoutId);
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }
   }, [showFilterDropdown]);
 
   // Enhanced AI Search functionality with mock responses
@@ -290,10 +299,16 @@ const SearchPage: React.FC = () => {
                   {/* Compact Filter Dropdown Button */}
                   <div className="relative" data-filter-dropdown>
                     <button
+                      type="button"
                       onClick={(e) => {
                         e.preventDefault();
                         e.stopPropagation();
-                        setShowFilterDropdown(prev => !prev);
+                        console.log('🔥 Filter button clicked, current state:', showFilterDropdown);
+                        setShowFilterDropdown(prev => {
+                          const newState = !prev;
+                          console.log('🔄 Toggling from', prev, 'to', newState);
+                          return newState;
+                        });
                       }}
                       className="flex items-center gap-2 px-4 py-4 bg-gradient-to-r from-gray-50 to-gray-100 hover:from-blue-50 hover:to-blue-100 transition-all duration-300 border-r border-gray-200"
                     >
@@ -302,342 +317,6 @@ const SearchPage: React.FC = () => {
                       <ChevronDown className={`w-4 h-4 text-gray-500 transition-transform duration-300 ${showFilterDropdown ? 'rotate-180' : ''}`} />
                     </button>
                     
-                    {/* Modern Filter Dropdown */}
-                    {showFilterDropdown && (
-                      <div 
-                        style={{
-                          position: 'absolute',
-                          top: '100%',
-                          right: '0',
-                          width: '380px',
-                          backgroundColor: 'white',
-                          border: '1px solid #e2e8f0',
-                          borderRadius: '16px',
-                          padding: '0',
-                          zIndex: 99999,
-                          boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
-                          marginTop: '8px',
-                          backdropFilter: 'blur(10px)',
-                          background: 'linear-gradient(145deg, rgba(255,255,255,0.95), rgba(248,250,252,0.95))'
-                        }}
-                      >
-                        {/* Modern Header */}
-                        <div style={{
-                          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                          padding: '20px',
-                          borderRadius: '16px 16px 0 0',
-                          color: 'white',
-                          position: 'relative',
-                          overflow: 'hidden'
-                        }}>
-                          <div style={{
-                            position: 'absolute',
-                            top: '-50%',
-                            right: '-20%',
-                            width: '100px',
-                            height: '100px',
-                            background: 'rgba(255,255,255,0.1)',
-                            borderRadius: '50%',
-                            animation: 'pulse 2s infinite'
-                          }}></div>
-                          <div style={{position: 'relative', zIndex: 2}}>
-                            <h3 style={{fontSize: '20px', fontWeight: '700', margin: '0 0 6px 0', textShadow: '0 2px 4px rgba(0,0,0,0.1)'}}>🎯 فلترة ذكية</h3>
-                            <p style={{fontSize: '14px', margin: '0', opacity: '0.9'}}>اختر المعايير المناسبة للحصول على أفضل النتائج</p>
-                          </div>
-                        </div>
-                        
-                        {/* Content */}
-                        <div style={{padding: '24px', direction: 'rtl'}}>
-                          {/* Category Filter with Colors */}
-                          <div style={{marginBottom: '24px'}}>
-                            <div style={{display: 'flex', alignItems: 'center', marginBottom: '12px'}}>
-                              <div style={{
-                                width: '20px',
-                                height: '20px',
-                                background: 'linear-gradient(45deg, #3b82f6, #1d4ed8)',
-                                borderRadius: '6px',
-                                marginLeft: '8px',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center'
-                              }}>
-                                📂
-                              </div>
-                              <label style={{
-                                fontSize: '16px', 
-                                fontWeight: '600', 
-                                color: '#1f2937'
-                              }}>الفئة</label>
-                            </div>
-                            
-                            {/* Category Grid */}
-                            <div style={{
-                              display: 'grid',
-                              gridTemplateColumns: 'repeat(2, 1fr)',
-                              gap: '8px',
-                              marginBottom: '12px'
-                            }}>
-                              {categories.map((category, index) => {
-                                const categoryColors = [
-                                  { bg: 'linear-gradient(45deg, #6366f1, #8b5cf6)', emoji: '📊' },
-                                  { bg: 'linear-gradient(45deg, #ef4444, #dc2626)', emoji: '🏛️' },
-                                  { bg: 'linear-gradient(45deg, #10b981, #059669)', emoji: '📰' },
-                                  { bg: 'linear-gradient(45deg, #f59e0b, #d97706)', emoji: '🌱' },
-                                  { bg: 'linear-gradient(45deg, #8b5cf6, #7c3aed)', emoji: '🎓' },
-                                  { bg: 'linear-gradient(45deg, #06b6d4, #0891b2)', emoji: '💻' },
-                                  { bg: 'linear-gradient(45deg, #84cc16, #65a30d)', emoji: '⚽' },
-                                  { bg: 'linear-gradient(45deg, #f97316, #ea580c)', emoji: '🎨' }
-                                ];
-                                const config = categoryColors[index] || categoryColors[0];
-                                const isSelected = filters.category === category;
-                                
-                                return (
-                                  <button
-                                    key={category}
-                                    onClick={() => setFilters(prev => ({ ...prev, category }))}
-                                    style={{
-                                      padding: '12px',
-                                      borderRadius: '12px',
-                                      border: isSelected ? '2px solid #3b82f6' : '1px solid #e5e7eb',
-                                      background: isSelected ? 'linear-gradient(145deg, #dbeafe, #bfdbfe)' : 'white',
-                                      cursor: 'pointer',
-                                      transition: 'all 0.2s ease',
-                                      display: 'flex',
-                                      alignItems: 'center',
-                                      gap: '8px',
-                                      fontSize: '13px',
-                                      fontWeight: isSelected ? '600' : '500',
-                                      color: isSelected ? '#1d4ed8' : '#374151',
-                                      boxShadow: isSelected ? '0 4px 12px rgba(59, 130, 246, 0.15)' : '0 2px 4px rgba(0,0,0,0.05)',
-                                      transform: isSelected ? 'scale(1.02)' : 'scale(1)'
-                                    }}
-                                    onMouseEnter={(e) => {
-                                      if (!isSelected) {
-                                        e.currentTarget.style.transform = 'scale(1.02)';
-                                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
-                                      }
-                                    }}
-                                    onMouseLeave={(e) => {
-                                      if (!isSelected) {
-                                        e.currentTarget.style.transform = 'scale(1)';
-                                        e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.05)';
-                                      }
-                                    }}
-                                  >
-                                    <div style={{
-                                      width: '24px',
-                                      height: '24px',
-                                      background: config.bg,
-                                      borderRadius: '6px',
-                                      display: 'flex',
-                                      alignItems: 'center',
-                                      justifyContent: 'center',
-                                      fontSize: '12px'
-                                    }}>
-                                      {config.emoji}
-                                    </div>
-                                    <span style={{flex: 1, textAlign: 'right'}}>{category}</span>
-                                    {isSelected && (
-                                      <div style={{
-                                        width: '16px',
-                                        height: '16px',
-                                        background: '#10b981',
-                                        borderRadius: '50%',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        fontSize: '10px'
-                                      }}>
-                                        ✓
-                                      </div>
-                                    )}
-                                  </button>
-                                );
-                              })}
-                            </div>
-                          </div>
-                          
-                          {/* Verdict Filter with Colors */}
-                          <div style={{marginBottom: '24px'}}>
-                            <div style={{display: 'flex', alignItems: 'center', marginBottom: '12px'}}>
-                              <div style={{
-                                width: '20px',
-                                height: '20px',
-                                background: 'linear-gradient(45deg, #10b981, #059669)',
-                                borderRadius: '6px',
-                                marginLeft: '8px',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center'
-                              }}>
-                                ✅
-                              </div>
-                              <label style={{
-                                fontSize: '16px', 
-                                fontWeight: '600', 
-                                color: '#1f2937'
-                              }}>نوع التحقق</label>
-                            </div>
-                            
-                            {/* Verdict Buttons */}
-                            <div style={{display: 'flex', flexDirection: 'column', gap: '8px'}}>
-                              {verdictOptions.map((verdict, index) => {
-                                const verdictColors = [
-                                  { bg: 'linear-gradient(45deg, #6b7280, #4b5563)', emoji: '📋', desc: 'جميع الأنواع' },
-                                  { bg: 'linear-gradient(45deg, #10b981, #059669)', emoji: '✅', desc: 'معلومات صحيحة' },
-                                  { bg: 'linear-gradient(45deg, #ef4444, #dc2626)', emoji: '❌', desc: 'معلومات خاطئة' },
-                                  { bg: 'linear-gradient(45deg, #f59e0b, #d97706)', emoji: '⚠️', desc: 'مشكوك فيها' },
-                                  { bg: 'linear-gradient(45deg, #8b5cf6, #7c3aed)', emoji: '❓', desc: 'غير مؤكدة' },
-                                  { bg: 'linear-gradient(45deg, #06b6d4, #0891b2)', emoji: '🔍', desc: 'مؤكدة رسمياً' }
-                                ];
-                                const config = verdictColors[index] || verdictColors[0];
-                                const isSelected = filters.verdict === verdict;
-                                
-                                return (
-                                  <button
-                                    key={verdict}
-                                    onClick={() => setFilters(prev => ({ ...prev, verdict }))}
-                                    style={{
-                                      padding: '14px 16px',
-                                      borderRadius: '12px',
-                                      border: isSelected ? '2px solid #10b981' : '1px solid #e5e7eb',
-                                      background: isSelected ? 'linear-gradient(145deg, #d1fae5, #a7f3d0)' : 'white',
-                                      cursor: 'pointer',
-                                      transition: 'all 0.2s ease',
-                                      display: 'flex',
-                                      alignItems: 'center',
-                                      gap: '12px',
-                                      fontSize: '14px',
-                                      fontWeight: isSelected ? '600' : '500',
-                                      color: isSelected ? '#065f46' : '#374151',
-                                      boxShadow: isSelected ? '0 4px 12px rgba(16, 185, 129, 0.15)' : '0 2px 4px rgba(0,0,0,0.05)',
-                                      transform: isSelected ? 'scale(1.01)' : 'scale(1)'
-                                    }}
-                                    onMouseEnter={(e) => {
-                                      if (!isSelected) {
-                                        e.currentTarget.style.transform = 'scale(1.01)';
-                                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
-                                      }
-                                    }}
-                                    onMouseLeave={(e) => {
-                                      if (!isSelected) {
-                                        e.currentTarget.style.transform = 'scale(1)';
-                                        e.currentTarget.style.boxShadow = '0 2px 4px rgba(0,0,0,0.05)';
-                                      }
-                                    }}
-                                  >
-                                    <div style={{
-                                      width: '28px',
-                                      height: '28px',
-                                      background: config.bg,
-                                      borderRadius: '8px',
-                                      display: 'flex',
-                                      alignItems: 'center',
-                                      justifyContent: 'center',
-                                      fontSize: '14px'
-                                    }}>
-                                      {config.emoji}
-                                    </div>
-                                    <div style={{flex: 1, textAlign: 'right'}}>
-                                      <div style={{fontWeight: '600'}}>{verdict}</div>
-                                      <div style={{fontSize: '12px', opacity: '0.7', marginTop: '2px'}}>{config.desc}</div>
-                                    </div>
-                                    {isSelected && (
-                                      <div style={{
-                                        width: '18px',
-                                        height: '18px',
-                                        background: '#10b981',
-                                        borderRadius: '50%',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        fontSize: '12px',
-                                        color: 'white'
-                                      }}>
-                                        ✓
-                                      </div>
-                                    )}
-                                  </button>
-                                );
-                              })}
-                            </div>
-                          </div>
-                          
-                          {/* Modern Action Buttons */}
-                          <div style={{
-                            display: 'flex', 
-                            gap: '12px', 
-                            paddingTop: '16px',
-                            borderTop: '1px solid #f3f4f6'
-                          }}>
-                            <button
-                              onClick={() => setFilters({
-                                category: 'جميع الفئات',
-                                verdict: 'جميع التصنيفات',
-                                dateRange: 'جميع التواريخ',
-                                sortBy: 'الأحدث'
-                              })}
-                              style={{
-                                flex: 1,
-                                padding: '12px 20px',
-                                background: 'linear-gradient(145deg, #f8fafc, #e2e8f0)',
-                                color: '#475569',
-                                border: '1px solid #cbd5e1',
-                                borderRadius: '12px',
-                                fontSize: '14px',
-                                cursor: 'pointer',
-                                fontWeight: '600',
-                                transition: 'all 0.2s ease',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                gap: '8px'
-                              }}
-                              onMouseEnter={(e) => {
-                                e.currentTarget.style.transform = 'translateY(-1px)';
-                                e.currentTarget.style.boxShadow = '0 4px 12px rgba(0,0,0,0.1)';
-                              }}
-                              onMouseLeave={(e) => {
-                                e.currentTarget.style.transform = 'translateY(0)';
-                                e.currentTarget.style.boxShadow = 'none';
-                              }}
-                            >
-                              🗑️ <span>مسح الكل</span>
-                            </button>
-                            <button
-                              onClick={() => setShowFilterDropdown(false)}
-                              style={{
-                                flex: 1,
-                                padding: '12px 20px',
-                                background: 'linear-gradient(135deg, #667eea, #764ba2)',
-                                color: 'white',
-                                border: 'none',
-                                borderRadius: '12px',
-                                fontSize: '14px',
-                                cursor: 'pointer',
-                                fontWeight: '600',
-                                transition: 'all 0.2s ease',
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
-                                gap: '8px',
-                                boxShadow: '0 4px 12px rgba(102, 126, 234, 0.25)'
-                              }}
-                              onMouseEnter={(e) => {
-                                e.currentTarget.style.transform = 'translateY(-1px)';
-                                e.currentTarget.style.boxShadow = '0 6px 20px rgba(102, 126, 234, 0.4)';
-                              }}
-                              onMouseLeave={(e) => {
-                                e.currentTarget.style.transform = 'translateY(0)';
-                                e.currentTarget.style.boxShadow = '0 4px 12px rgba(102, 126, 234, 0.25)';
-                              }}
-                            >
-                              ✨ <span>تطبيق الآن</span>
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    )}
                   </div>
                 </div>
                   
@@ -734,6 +413,120 @@ const SearchPage: React.FC = () => {
                 )}
               </div>
             </div>
+            
+            {/* Compact Filter Interface */}
+            {showFilterDropdown && (
+              <div 
+                className="w-full max-w-4xl mx-auto mt-4 animate-in slide-in-from-top-2 duration-300"
+                data-filter-content
+              >
+                <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-4" dir="rtl">
+                  {/* Compact Header */}
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                        <Filter className="w-4 h-4 text-white" />
+                      </div>
+                      <h3 className="text-lg font-bold text-gray-900 font-arabic-heading">فلترة النتائج</h3>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <span className="text-sm text-gray-600 font-arabic">
+                        <span className="font-bold text-blue-600">{filteredFactChecks.length}</span> نتيجة
+                      </span>
+                      <button 
+                        onClick={() => setShowFilterDropdown(false)}
+                        className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors"
+                      >
+                        <X className="w-4 h-4 text-gray-400" />
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-6">
+                    {/* Compact Category Filter */}
+                    <div>
+                      <h4 className="font-medium text-gray-700 font-arabic mb-2 text-sm">الفئة</h4>
+                      <div className="grid grid-cols-2 gap-1.5">
+                        {categories.map((category, index) => {
+                          const isSelected = filters.category === category;
+                          return (
+                            <button
+                              key={category}
+                              onClick={() => setFilters(prev => ({ ...prev, category }))}
+                              className={`p-2 rounded-lg text-xs font-medium font-arabic transition-all duration-200 text-center ${
+                                isSelected 
+                                  ? 'border-2 border-blue-500 bg-blue-50 text-blue-700' 
+                                  : 'border border-gray-200 bg-gray-50 text-gray-700 hover:border-blue-300 hover:bg-blue-50'
+                              }`}
+                            >
+                              {category}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+
+                    {/* Compact Verdict Filter */}
+                    <div>
+                      <h4 className="font-medium text-gray-700 font-arabic mb-2 text-sm">نوع التحقق</h4>
+                      <div className="grid grid-cols-2 gap-1.5">
+                        {verdictOptions.map((verdict) => {
+                          const isSelected = filters.verdict === verdict;
+                          const getVerdictStyle = (verdict: string) => {
+                            if (verdict === 'صحيح') return isSelected ? 'border-green-500 bg-green-50 text-green-700' : 'hover:border-green-300 hover:bg-green-50';
+                            if (verdict === 'احتيال') return isSelected ? 'border-red-500 bg-red-50 text-red-700' : 'hover:border-red-300 hover:bg-red-50';
+                            if (verdict === 'عبث') return isSelected ? 'border-orange-500 bg-orange-50 text-orange-700' : 'hover:border-orange-300 hover:bg-orange-50';
+                            if (verdict === 'إرباك') return isSelected ? 'border-gray-500 bg-gray-50 text-gray-700' : 'hover:border-gray-300 hover:bg-gray-50';
+                            if (verdict === 'مؤكد') return isSelected ? 'border-blue-500 bg-blue-50 text-blue-700' : 'hover:border-blue-300 hover:bg-blue-50';
+                            return isSelected ? 'border-gray-500 bg-gray-50 text-gray-700' : 'hover:border-gray-300 hover:bg-gray-50';
+                          };
+                          
+                          return (
+                            <button
+                              key={verdict}
+                              onClick={() => setFilters(prev => ({ ...prev, verdict }))}
+                              className={`p-2 rounded-lg text-xs font-medium font-arabic transition-all duration-200 text-center ${
+                                isSelected 
+                                  ? `border-2 ${getVerdictStyle(verdict)}` 
+                                  : `border border-gray-200 bg-gray-50 text-gray-700 ${getVerdictStyle(verdict)}`
+                              }`}
+                            >
+                              {verdict}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Compact Action Bar */}
+                  <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
+                    <div className="text-xs text-gray-600 font-arabic">
+                      {filteredFactChecks.length} من {mockFactChecks.length} مقال
+                    </div>
+                    <div className="flex gap-2">
+                      <button
+                        onClick={() => setFilters({
+                          category: 'جميع الفئات',
+                          verdict: 'جميع التصنيفات',
+                          dateRange: 'جميع التواريخ',
+                          sortBy: 'الأحدث'
+                        })}
+                        className="px-3 py-1.5 text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg text-xs font-medium font-arabic transition-colors"
+                      >
+                        مسح
+                      </button>
+                      <button
+                        onClick={() => setShowFilterDropdown(false)}
+                        className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-medium font-arabic transition-colors"
+                      >
+                        تطبيق
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
             
             {/* Compact Statistics */}
             <div className="flex flex-wrap justify-center gap-4 text-sm">
