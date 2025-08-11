@@ -15,7 +15,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: PageProps) {
-  const article = mockFactChecks.find(article => article.id === params.id)
+  const resolvedParams = await params
+  const article = mockFactChecks.find(article => article.id === resolvedParams.id)
   
   if (!article) {
     return {
@@ -57,8 +58,9 @@ export async function generateMetadata({ params }: PageProps) {
   }
 }
 
-export default function ArticlePageRoute({ params }: PageProps) {
-  const article = mockFactChecks.find(article => article.id === params.id)
+export default async function ArticlePageRoute({ params }: PageProps) {
+  const resolvedParams = await params
+  const article = mockFactChecks.find(article => article.id === resolvedParams.id)
 
   if (!article) {
     notFound()

@@ -391,7 +391,7 @@ const HomePage: React.FC = () => {
             </div>
             
             {/* Horizontal Cards Grid - 2x4 layout */}
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid md:grid-cols-2 gap-6 px-8">
               {mockFactChecks.filter(fc => fc.verdict === 'confirmed').slice(0, 8).map((factCheck, index) => (
                 <article 
                   key={`confirmed-${factCheck.id}`}
@@ -483,7 +483,7 @@ const HomePage: React.FC = () => {
             </div>
             
             {/* Cards Grid - Red Theme */}
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid md:grid-cols-2 gap-6 px-8">
               {mockFactChecks.filter(fc => fc.verdict === 'false').slice(0, 8).map((factCheck, index) => (
                 <article 
                   key={`false-${factCheck.id}`}
@@ -575,7 +575,7 @@ const HomePage: React.FC = () => {
             </div>
             
             {/* Cards Grid - Orange Theme */}
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid md:grid-cols-2 gap-6 px-8">
               {mockFactChecks.filter(fc => fc.verdict === 'misleading').slice(0, 8).map((factCheck, index) => (
                 <article 
                   key={`misleading-${factCheck.id}`}
@@ -667,7 +667,7 @@ const HomePage: React.FC = () => {
             </div>
             
             {/* Cards Grid - Yellow Theme */}
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid md:grid-cols-2 gap-6 px-8">
               {mockFactChecks.filter(fc => fc.verdict === 'unproven').slice(0, 8).map((factCheck, index) => (
                 <article 
                   key={`unproven-${factCheck.id}`}
