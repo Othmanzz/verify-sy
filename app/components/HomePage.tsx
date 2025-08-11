@@ -119,11 +119,14 @@ const HomePage: React.FC = () => {
             {/* Animated Main Headline */}
             <div className="text-center mb-6 sm:mb-8">
               <div className="relative inline-block mb-3 sm:mb-4 px-2 sm:px-4 pt-2 sm:pt-4">
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight font-arabic-heading group">
-                  <span className="bg-gradient-to-r from-white via-cyan-100 to-blue-100 bg-clip-text text-transparent drop-shadow-lg group-hover:from-cyan-200 group-hover:via-white group-hover:to-blue-200 transition-all duration-500">
-                    منصة تأكد
-                  </span>
-                </h1>
+                {/* White Logo */}
+                <div className="flex justify-center items-center mb-4">
+                  <img 
+                    src="/logo_ar.png" 
+                    alt="تأكد" 
+                    className="h-16 sm:h-20 md:h-24 lg:h-28 w-auto filter brightness-0 invert drop-shadow-2xl hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
                 {/* Animated underline - responsive */}
                 <div className="absolute -bottom-2 sm:-bottom-3 left-1/2 transform -translate-x-1/2 w-24 sm:w-32 h-1 sm:h-1.5 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full opacity-80 animate-pulse"></div>
                 <div className="absolute -bottom-1 sm:-bottom-2 left-1/2 transform -translate-x-1/2 w-32 sm:w-40 h-0.5 bg-gradient-to-r from-transparent via-white/30 to-transparent rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
