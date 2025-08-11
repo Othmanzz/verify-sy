@@ -380,33 +380,95 @@ const SearchPage: React.FC = () => {
                     </div>
                   )}
 
-                {/* Active Filters Display */}
-                {(filters.category !== 'جميع الفئات' || filters.verdict !== 'جميع التصنيفات') && (
-                  <div className="border-t border-gray-100 pt-4 mt-2">
-                    <div className="flex flex-wrap items-center gap-2 justify-center">
-                      <span className="text-sm text-gray-600 font-arabic font-medium">المرشحات النشطة:</span>
+                {/* Enhanced Active Filters Display */}
+                {(filters.category !== 'جميع الفئات' || filters.verdict !== 'جميع التصنيفات' || searchQuery) && (
+                  <div className="bg-blue-50/50 border border-blue-100 rounded-lg p-3 mt-3">
+                    <div className="flex flex-wrap items-center gap-2 justify-between">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span className="text-xs text-blue-700 font-arabic font-medium flex items-center gap-1">
+                          <Filter className="w-3 h-3" />
+                          المرشحات النشطة:
+                        </span>
+                        
+                        {searchQuery && (
+                          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-gray-600 text-white rounded-md text-xs font-arabic">
+                            <Search className="w-3 h-3" />
+                            <span>"{searchQuery}"</span>
+                            <button
+                              onClick={() => setSearchQuery('')}
+                              className="hover:bg-gray-700 rounded-sm p-0.5 transition-colors"
+                            >
+                              <X className="w-2.5 h-2.5" />
+                            </button>
+                          </div>
+                        )}
+                        
+                        {filters.category !== 'جميع الفئات' && (
+                          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-blue-600 text-white rounded-md text-xs font-arabic">
+                            <span className="font-medium">فئة:</span>
+                            <span>{filters.category}</span>
+                            <button
+                              onClick={() => setFilters(prev => ({ ...prev, category: 'جميع الفئات' }))}
+                              className="hover:bg-blue-700 rounded-sm p-0.5 transition-colors"
+                            >
+                              <X className="w-2.5 h-2.5" />
+                            </button>
+                          </div>
+                        )}
+                        
+                        {filters.verdict !== 'جميع التصنيفات' && (
+                          <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-arabic text-white ${
+                            filters.verdict === 'صحيح' ? 'bg-green-600' :
+                            filters.verdict === 'احتيال' ? 'bg-red-600' :
+                            filters.verdict === 'عبث' ? 'bg-orange-600' :
+                            filters.verdict === 'إرباك' ? 'bg-gray-600' :
+                            filters.verdict === 'مؤكد' ? 'bg-blue-600' : 'bg-gray-600'
+                          }`}>
+                            <span className="font-medium">حالة:</span>
+                            <span>{filters.verdict}</span>
+                            <button
+                              onClick={() => setFilters(prev => ({ ...prev, verdict: 'جميع التصنيفات' }))}
+                              className={`rounded-sm p-0.5 transition-colors ${
+                                filters.verdict === 'صحيح' ? 'hover:bg-green-700' :
+                                filters.verdict === 'احتيال' ? 'hover:bg-red-700' :
+                                filters.verdict === 'عبث' ? 'hover:bg-orange-700' :
+                                filters.verdict === 'إرباك' ? 'hover:bg-gray-700' :
+                                filters.verdict === 'مؤكد' ? 'hover:bg-blue-700' : 'hover:bg-gray-700'
+                              }`}
+                            >
+                              <X className="w-2.5 h-2.5" />
+                            </button>
+                          </div>
+                        )}
+                      </div>
                       
-                      {filters.category !== 'جميع الفئات' && (
-                        <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-100 text-blue-700 rounded-full text-sm font-arabic font-medium">
-                          <span>{filters.category}</span>
-                          <button
-                            onClick={() => setFilters(prev => ({ ...prev, category: 'جميع الفئات' }))}
-                            className="hover:bg-blue-200 rounded-full p-0.5"
-                          >
-                            <X className="w-3 h-3" />
-                          </button>
-                        </div>
-                      )}
-                      
-                      {filters.verdict !== 'جميع التصنيفات' && (
-                        <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-green-100 text-green-700 rounded-full text-sm font-arabic font-medium">
-                          <span>{filters.verdict}</span>
-                          <button
-                            onClick={() => setFilters(prev => ({ ...prev, verdict: 'جميع التصنيفات' }))}
-                            className="hover:bg-green-200 rounded-full p-0.5"
-                          >
-                            <X className="w-3 h-3" />
-                          </button>
+                      {/* Clear All Filters */}
+                      <button
+                        onClick={() => {
+                          setSearchQuery('');
+                          setFilters({
+                            category: 'جميع الفئات',
+                            verdict: 'جميع التصنيفات',
+                            dateRange: 'جميع التواريخ',
+                            sortBy: 'الأحدث'
+                          });
+                        }}
+                        className="flex items-center gap-1 px-2 py-1 text-xs text-blue-700 hover:text-blue-900 hover:bg-blue-100 rounded-md transition-colors font-arabic"
+                      >
+                        <RotateCcw className="w-3 h-3" />
+                        مسح الكل
+                      </button>
+                    </div>
+                    
+                    {/* Results Summary */}
+                    <div className="mt-2 pt-2 border-t border-blue-200 flex items-center justify-between">
+                      <div className="text-xs text-blue-600 font-arabic">
+                        عرض <span className="font-bold text-blue-700">{filteredFactChecks.length}</span> من أصل <span className="font-medium">{mockFactChecks.length}</span> نتيجة
+                      </div>
+                      {filteredFactChecks.length > 0 && (
+                        <div className="flex items-center gap-1 text-xs text-green-600 font-arabic">
+                          <CheckCircle className="w-3 h-3" />
+                          <span>نتائج متطابقة</span>
                         </div>
                       )}
                     </div>
@@ -415,118 +477,99 @@ const SearchPage: React.FC = () => {
               </div>
             </div>
             
-            {/* Mobile Filter Interface */}
+            {/* Modern Overlay Filter Interface */}
             {showFilterDropdown && (
-              <div 
-                className="w-full max-w-4xl mx-auto mt-3 sm:mt-4 animate-in slide-in-from-top-2 duration-300"
-                data-filter-content
-              >
-                <div className="bg-white rounded-lg sm:rounded-xl shadow-lg border border-gray-100 p-3 sm:p-4" dir="rtl">
-                  {/* Compact Header */}
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                        <Filter className="w-4 h-4 text-white" />
-                      </div>
-                      <h3 className="text-lg font-bold text-gray-900 font-arabic-heading">فلترة النتائج</h3>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <span className="text-sm text-gray-600 font-arabic">
-                        <span className="font-bold text-blue-600">{filteredFactChecks.length}</span> نتيجة
-                      </span>
-                      <button 
-                        onClick={() => setShowFilterDropdown(false)}
-                        className="p-1.5 hover:bg-gray-100 rounded-lg transition-colors"
-                      >
-                        <X className="w-4 h-4 text-gray-400" />
-                      </button>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                    {/* Compact Category Filter */}
-                    <div>
-                      <h4 className="font-medium text-gray-700 font-arabic mb-2 text-xs sm:text-sm">الفئة</h4>
-                      <div className="grid grid-cols-2 gap-1 sm:gap-1.5">
-                        {categories.map((category, index) => {
-                          const isSelected = filters.category === category;
-                          return (
-                            <button
-                              key={category}
-                              onClick={() => setFilters(prev => ({ ...prev, category }))}
-                              className={`p-1.5 sm:p-2 rounded-md sm:rounded-lg text-[10px] sm:text-xs font-medium font-arabic transition-all duration-200 text-center ${
-                                isSelected 
-                                  ? 'border-2 border-blue-500 bg-blue-50 text-blue-700' 
-                                  : 'border border-gray-200 bg-gray-50 text-gray-700 hover:border-blue-300 hover:bg-blue-50'
-                              }`}
-                            >
-                              {category}
-                            </button>
-                          );
-                        })}
+              <>
+                {/* Backdrop Overlay */}
+                <div 
+                  className="fixed inset-0 bg-black/20 backdrop-blur-sm z-30 animate-in fade-in duration-300"
+                  onClick={() => setShowFilterDropdown(false)}
+                />
+                
+                {/* Filter Dropdown */}
+                <div 
+                  className="absolute top-full left-0 right-0 z-40 mt-2 animate-in fade-in slide-in-from-top-2 duration-300"
+                  data-filter-content
+                >
+                  <div className="mx-3 sm:mx-0">
+                  <div className="bg-white rounded-lg shadow-lg border border-gray-300" dir="rtl">
+                    {/* Professional Header */}
+                    <div className="px-4 py-3 border-b border-gray-200">
+                      <div className="flex items-center justify-between">
+                        <h3 className="text-sm font-medium text-gray-900 font-arabic">فلترة النتائج</h3>
+                        <button 
+                          onClick={() => setShowFilterDropdown(false)}
+                          className="text-gray-400 hover:text-gray-600 transition-colors"
+                        >
+                          <X className="w-4 h-4" />
+                        </button>
                       </div>
                     </div>
 
-                    {/* Compact Verdict Filter */}
-                    <div>
-                      <h4 className="font-medium text-gray-700 font-arabic mb-2 text-xs sm:text-sm">نوع التحقق</h4>
-                      <div className="grid grid-cols-2 gap-1 sm:gap-1.5">
-                        {verdictOptions.map((verdict) => {
-                          const isSelected = filters.verdict === verdict;
-                          const getVerdictStyle = (verdict: string) => {
-                            if (verdict === 'صحيح') return isSelected ? 'border-green-500 bg-green-50 text-green-700' : 'hover:border-green-300 hover:bg-green-50';
-                            if (verdict === 'احتيال') return isSelected ? 'border-red-500 bg-red-50 text-red-700' : 'hover:border-red-300 hover:bg-red-50';
-                            if (verdict === 'عبث') return isSelected ? 'border-orange-500 bg-orange-50 text-orange-700' : 'hover:border-orange-300 hover:bg-orange-50';
-                            if (verdict === 'إرباك') return isSelected ? 'border-gray-500 bg-gray-50 text-gray-700' : 'hover:border-gray-300 hover:bg-gray-50';
-                            if (verdict === 'مؤكد') return isSelected ? 'border-blue-500 bg-blue-50 text-blue-700' : 'hover:border-blue-300 hover:bg-blue-50';
-                            return isSelected ? 'border-gray-500 bg-gray-50 text-gray-700' : 'hover:border-gray-300 hover:bg-gray-50';
-                          };
-                          
-                          return (
-                            <button
-                              key={verdict}
-                              onClick={() => setFilters(prev => ({ ...prev, verdict }))}
-                              className={`p-1.5 sm:p-2 rounded-md sm:rounded-lg text-[10px] sm:text-xs font-medium font-arabic transition-all duration-200 text-center ${
-                                isSelected 
-                                  ? `border-2 ${getVerdictStyle(verdict)}` 
-                                  : `border border-gray-200 bg-gray-50 text-gray-700 ${getVerdictStyle(verdict)}`
-                              }`}
-                            >
-                              {verdict}
-                            </button>
-                          );
-                        })}
+                    {/* Simple Filter Content */}
+                    <div className="p-4">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {/* Categories */}
+                        <div>
+                          <label className="block text-xs font-medium text-gray-600 font-arabic mb-2">الفئة</label>
+                          <select 
+                            value={filters.category}
+                            onChange={(e) => setFilters(prev => ({ ...prev, category: e.target.value }))}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm font-arabic bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          >
+                            {categories.map((category) => (
+                              <option key={category} value={category}>{category}</option>
+                            ))}
+                          </select>
+                        </div>
+
+                        {/* Verdicts */}
+                        <div>
+                          <label className="block text-xs font-medium text-gray-600 font-arabic mb-2">حالة التحقق</label>
+                          <select 
+                            value={filters.verdict}
+                            onChange={(e) => setFilters(prev => ({ ...prev, verdict: e.target.value }))}
+                            className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm font-arabic bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          >
+                            {verdictOptions.map((verdict) => (
+                              <option key={verdict} value={verdict}>{verdict}</option>
+                            ))}
+                          </select>
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* Compact Action Bar */}
-                  <div className="flex items-center justify-between mt-4 pt-4 border-t border-gray-100">
-                    <div className="text-xs text-gray-600 font-arabic">
-                      {filteredFactChecks.length} من {mockFactChecks.length} مقال
+                    {/* Professional Footer */}
+                    <div className="px-4 py-3 border-t border-gray-200 bg-gray-50">
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs text-gray-500 font-arabic">
+                          {filteredFactChecks.length} نتيجة
+                        </span>
+                        <div className="flex gap-2">
+                          <button
+                            onClick={() => setFilters({
+                              category: 'جميع الفئات',
+                              verdict: 'جميع التصنيفات',
+                              dateRange: 'جميع التواريخ',
+                              sortBy: 'الأحدث'
+                            })}
+                            className="px-3 py-1.5 text-xs font-arabic text-gray-600 hover:text-gray-800 transition-colors"
+                          >
+                            إعادة تعيين
+                          </button>
+                          <button
+                            onClick={() => setShowFilterDropdown(false)}
+                            className="px-4 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs font-arabic transition-colors"
+                          >
+                            تطبيق
+                          </button>
+                        </div>
+                      </div>
                     </div>
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => setFilters({
-                          category: 'جميع الفئات',
-                          verdict: 'جميع التصنيفات',
-                          dateRange: 'جميع التواريخ',
-                          sortBy: 'الأحدث'
-                        })}
-                        className="px-3 py-1.5 text-gray-600 bg-gray-100 hover:bg-gray-200 rounded-lg text-xs font-medium font-arabic transition-colors"
-                      >
-                        مسح
-                      </button>
-                      <button
-                        onClick={() => setShowFilterDropdown(false)}
-                        className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-medium font-arabic transition-colors"
-                      >
-                        تطبيق
-                      </button>
                     </div>
                   </div>
                 </div>
-              </div>
+              </>
             )}
             
             {/* Mobile Statistics */}
