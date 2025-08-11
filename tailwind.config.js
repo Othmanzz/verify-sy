@@ -68,8 +68,9 @@ export default {
         },
       },
       fontFamily: {
-        'arabic': ['Tajwal', 'sans-serif'],
-        'sans': ['Tajwal', 'sans-serif'],
+        'tajawal': ['Tajawal', 'sans-serif'],
+        'arabic': ['Tajawal', 'sans-serif'],
+        'sans': ['Tajawal', 'sans-serif'],
       },
     },
   },

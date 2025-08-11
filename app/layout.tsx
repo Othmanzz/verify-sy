@@ -1,9 +1,6 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
 import './globals.css'
 import ClientLayout from './components/ClientLayout'
-
-const inter = Inter({ subsets: ['latin'] })
 
 export const viewport = 'width=device-width, initial-scale=1'
 
@@ -35,7 +32,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ar" dir="rtl">
-      <body className={inter.className}>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap" rel="stylesheet" />
+      </head>
+      <body style={{ fontFamily: 'Tajawal, sans-serif' }}>
         <ClientLayout>
           {children}
         </ClientLayout>
