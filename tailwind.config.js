@@ -68,8 +68,8 @@ export default {
         },
       },
       fontFamily: {
-        'arabic': ['Cairo', 'Tajawal', 'system-ui', 'sans-serif'],
-        'sans': ['Inter', 'system-ui', 'sans-serif'],
+        'arabic': ['Tajwal', 'sans-serif'],
+        'sans': ['Tajwal', 'sans-serif'],
       },
     },
   },
