@@ -18,7 +18,10 @@
       "Bash(rm:*)",
       "Bash(npm install:*)",
       "Bash(curl:*)",
-      "WebFetch(domain:localhost)"
+      "WebFetch(domain:localhost)",
+      "Bash(git rm:*)",
+      "Bash(git check-ignore:*)",
+      "Bash(lsof:*)"
     ],
     "deny": []
   }

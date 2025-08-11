@@ -392,7 +392,7 @@ const HomePage: React.FC = () => {
             
             {/* Horizontal Cards Grid - 2x4 layout */}
             <div className="grid md:grid-cols-2 gap-6 px-4 md:px-8 lg:px-12 xl:px-16">
-              {mockFactChecks.filter(fc => fc.verdict === 'confirmed').slice(0, 8).map((factCheck, index) => (
+              {mockFactChecks.filter(fc => fc.verdict === 'confirmed').slice(0, 6).map((factCheck, index) => (
                 <article 
                   key={`confirmed-${factCheck.id}`}
                   className="group relative bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 cursor-pointer transform hover:scale-[1.01] hover:-translate-y-1 overflow-hidden"
@@ -484,7 +484,7 @@ const HomePage: React.FC = () => {
             
             {/* Cards Grid - Red Theme */}
             <div className="grid md:grid-cols-2 gap-6 px-4 md:px-8 lg:px-12 xl:px-16">
-              {mockFactChecks.filter(fc => fc.verdict === 'false').slice(0, 8).map((factCheck, index) => (
+              {mockFactChecks.filter(fc => fc.verdict === 'false').slice(0, 6).map((factCheck, index) => (
                 <article 
                   key={`false-${factCheck.id}`}
                   className="group relative bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 cursor-pointer transform hover:scale-[1.01] hover:-translate-y-1 overflow-hidden"
@@ -576,7 +576,7 @@ const HomePage: React.FC = () => {
             
             {/* Cards Grid - Orange Theme */}
             <div className="grid md:grid-cols-2 gap-6 px-4 md:px-8 lg:px-12 xl:px-16">
-              {mockFactChecks.filter(fc => fc.verdict === 'misleading').slice(0, 8).map((factCheck, index) => (
+              {mockFactChecks.filter(fc => fc.verdict === 'misleading').slice(0, 6).map((factCheck, index) => (
                 <article 
                   key={`misleading-${factCheck.id}`}
                   className="group relative bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 cursor-pointer transform hover:scale-[1.01] hover:-translate-y-1 overflow-hidden"
@@ -668,7 +668,7 @@ const HomePage: React.FC = () => {
             
             {/* Cards Grid - Yellow Theme */}
             <div className="grid md:grid-cols-2 gap-6 px-4 md:px-8 lg:px-12 xl:px-16">
-              {mockFactChecks.filter(fc => fc.verdict === 'unproven').slice(0, 8).map((factCheck, index) => (
+              {mockFactChecks.filter(fc => fc.verdict === 'unproven').slice(0, 6).map((factCheck, index) => (
                 <article 
                   key={`unproven-${factCheck.id}`}
                   className="group relative bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 cursor-pointer transform hover:scale-[1.01] hover:-translate-y-1 overflow-hidden"

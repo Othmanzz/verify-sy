@@ -1,11 +1,8 @@
 import React from 'react';
+import Link from 'next/link';
 import { Mail, Phone, MapPin, Twitter, Facebook, Instagram, Youtube, Shield, BookOpen, FileText, Users } from 'lucide-react';
 
-interface FooterProps {
-  setCurrentPage: (page: string) => void;
-}
-
-const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => (
+const Footer: React.FC = () => (
   <footer className="bg-gradient-to-br from-primary-900 via-primary-800 to-primary-900 text-white" dir="rtl">
     <div className="container mx-auto px-4 py-16">
       {/* Main Footer Content */}
@@ -45,49 +42,49 @@ const Footer: React.FC<FooterProps> = ({ setCurrentPage }) => (
           <h4 className="text-2xl font-bold text-white mb-6 font-arabic-heading">روابط سريعة</h4>
           <ul className="space-y-2">
             <li>
-              <button 
-                onClick={() => setCurrentPage('home')}
+              <Link 
+                href="/"
                 className="text-primary-100 hover:text-white transition-all duration-300 flex items-center gap-3 font-arabic hover:translate-x-2 transform group py-2 px-3 rounded-xl hover:bg-white/10 w-full text-right"
               >
                 <div className="w-2 h-2 bg-blue-400 rounded-full group-hover:scale-150 transition-transform duration-300"></div>
                 الرئيسية
-              </button>
+              </Link>
             </li>
             <li>
-              <button 
-                onClick={() => setCurrentPage('search')}
+              <Link 
+                href="/search"
                 className="text-primary-100 hover:text-white transition-all duration-300 flex items-center gap-3 font-arabic hover:translate-x-2 transform group py-2 px-3 rounded-xl hover:bg-white/10 w-full text-right"
               >
                 <div className="w-2 h-2 bg-blue-400 rounded-full group-hover:scale-150 transition-transform duration-300"></div>
                 قاعدة البيانات
-              </button>
+              </Link>
             </li>
             <li>
-              <button 
-                onClick={() => setCurrentPage('academy')}
+              <Link 
+                href="/academy"
                 className="text-primary-100 hover:text-white transition-all duration-300 flex items-center gap-3 font-arabic hover:translate-x-2 transform group py-2 px-3 rounded-xl hover:bg-white/10 w-full text-right"
               >
                 <div className="w-2 h-2 bg-blue-400 rounded-full group-hover:scale-150 transition-transform duration-300"></div>
                 أكاديمية التحقق
-              </button>
+              </Link>
             </li>
             <li>
-              <button 
-                onClick={() => setCurrentPage('about')}
+              <Link 
+                href="/about"
                 className="text-primary-100 hover:text-white transition-all duration-300 flex items-center gap-3 font-arabic hover:translate-x-2 transform group py-2 px-3 rounded-xl hover:bg-white/10 w-full text-right"
               >
                 <div className="w-2 h-2 bg-blue-400 rounded-full group-hover:scale-150 transition-transform duration-300"></div>
                 من نحن
-              </button>
+              </Link>
             </li>
             <li>
-              <button 
-                onClick={() => setCurrentPage('contact')}
+              <Link 
+                href="/contact"
                 className="text-primary-100 hover:text-white transition-all duration-300 flex items-center gap-3 font-arabic hover:translate-x-2 transform group py-2 px-3 rounded-xl hover:bg-white/10 w-full text-right"
               >
                 <div className="w-2 h-2 bg-blue-400 rounded-full group-hover:scale-150 transition-transform duration-300"></div>
                 اتصل بنا
-              </button>
+              </Link>
             </li>
           </ul>
         </div>
