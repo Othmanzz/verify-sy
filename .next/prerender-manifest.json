@@ -1,11 +1,1 @@
-{
-  "version": 4,
-  "routes": {},
-  "dynamicRoutes": {},
-  "notFoundRoutes": [],
-  "preview": {
-    "previewModeId": "e1d208451b5f78360d2c0891fc0bd8bc",
-    "previewModeSigningKey": "63954433fb56880fe0366c216370c56ae91adae1727515cde91b98e6b457dcb6",
-    "previewModeEncryptionKey": "ec4c4ff710ffcc8c5486dc784a87f73ae74d396e2c26401aae7f2d26097c2306"
-  }
-}
+{"version":4,"routes":{"/article/2508011650":{},"/article/2507230629":{},"/article/3":{},"/article/2507141324":{},"/article/5":{},"/article/6":{},"/article/7":{},"/article/8":{},"/article/9":{},"/article/10":{},"/article/11":{},"/article/13":{},"/article/14":{},"/article/15":{},"/article/2508071245":{},"/article/2508061130":{}},"dynamicRoutes":{"/article/[id]":{"fallback":null}},"notFoundRoutes":[],"preview":{"previewModeId":"e1d208451b5f78360d2c0891fc0bd8bc","previewModeSigningKey":"63954433fb56880fe0366c216370c56ae91adae1727515cde91b98e6b457dcb6","previewModeEncryptionKey":"ec4c4ff710ffcc8c5486dc784a87f73ae74d396e2c26401aae7f2d26097c2306"}}

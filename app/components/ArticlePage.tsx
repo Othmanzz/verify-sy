@@ -357,28 +357,14 @@ const StickySocialBar: React.FC<{ article: FactCheck; show: boolean }> = ({ arti
   );
 };
 
-export default function ArticlePage() {
+interface ArticlePageProps {
+  article: FactCheck;
+}
+
+export default function ArticlePage({ article }: ArticlePageProps) {
   const router = useRouter();
   const [showStickySocial, setShowStickySocial] = useState(false);
   const [activeSection, setActiveSection] = useState('overview');
-
-  // Mock article data
-  const mockArticle: FactCheck = {
-    id: '1',
-    title: 'هل شرب الماء الدافئ مع الليمون يساعد في إنقاص الوزن؟',
-    summary: 'ادعاء يقول أن شرب الماء الدافئ مع الليمون يساعد بشكل كبير في إنقاص الوزن وحرق الدهون',
-    verdict: 'misleading',
-    category: 'الصحة',
-    author: 'د. أحمد سالم',
-    date: '2024-01-15',
-    views: 15420,
-    readTime: '5 دقائق',
-    image: 'https://images.unsplash.com/photo-1506619216599-9d16d0903dfd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-    tags: ['تغذية', 'إنقاص الوزن', 'صحة عامة'],
-    featured: false
-  };
-
-  const article = mockArticle;
 
   // Handle scroll to show/hide sticky social bar and track active section
   useEffect(() => {

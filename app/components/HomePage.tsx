@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 import { Search, CheckCircle, XCircle, AlertCircle, HelpCircle, ChevronDown, Star, User, Eye, Clock, ExternalLink, FileText, Users, GraduationCap, Award, Globe, BookOpen, TrendingUp, ChevronLeft, ChevronRight } from 'lucide-react'
 import { FactCheck } from '../types'
 import { mockFactChecks, categories } from '../lib/mockData'
@@ -10,6 +11,7 @@ import VerdictBadge from './VerdictBadge'
 import LazyImage from './LazyImage'
 
 const HomePage: React.FC = () => {
+  const router = useRouter()
   const [isSubmissionModalOpen, setIsSubmissionModalOpen] = useState(false)
   const filteredFactChecks = mockFactChecks
 
@@ -395,7 +397,7 @@ const HomePage: React.FC = () => {
                   key={`confirmed-${factCheck.id}`}
                   className="group relative bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 cursor-pointer transform hover:scale-[1.01] hover:-translate-y-1 overflow-hidden"
                   style={{ animationDelay: `${index * 50}ms` }}
-                  onClick={() => console.log('Selected article:', factCheck.id)}
+                  onClick={() => router.push(`/article/${factCheck.id}`)}
                 >
                   {/* Enhanced Card Content */}
                   <div className="relative z-10 p-6">
@@ -487,7 +489,7 @@ const HomePage: React.FC = () => {
                   key={`false-${factCheck.id}`}
                   className="group relative bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 cursor-pointer transform hover:scale-[1.01] hover:-translate-y-1 overflow-hidden"
                   style={{ animationDelay: `${index * 50}ms` }}
-                  onClick={() => console.log('Selected article:', factCheck.id)}
+                  onClick={() => router.push(`/article/${factCheck.id}`)}
                 >
                   {/* Enhanced Card Content */}
                   <div className="relative z-10 p-6">
@@ -579,7 +581,7 @@ const HomePage: React.FC = () => {
                   key={`misleading-${factCheck.id}`}
                   className="group relative bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 cursor-pointer transform hover:scale-[1.01] hover:-translate-y-1 overflow-hidden"
                   style={{ animationDelay: `${index * 50}ms` }}
-                  onClick={() => console.log('Selected article:', factCheck.id)}
+                  onClick={() => router.push(`/article/${factCheck.id}`)}
                 >
                   {/* Enhanced Card Content */}
                   <div className="relative z-10 p-6">
@@ -671,7 +673,7 @@ const HomePage: React.FC = () => {
                   key={`unproven-${factCheck.id}`}
                   className="group relative bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 cursor-pointer transform hover:scale-[1.01] hover:-translate-y-1 overflow-hidden"
                   style={{ animationDelay: `${index * 50}ms` }}
-                  onClick={() => console.log('Selected article:', factCheck.id)}
+                  onClick={() => router.push(`/article/${factCheck.id}`)}
                 >
                   {/* Enhanced Card Content */}
                   <div className="relative z-10 p-6">
