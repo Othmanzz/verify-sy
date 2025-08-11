@@ -193,7 +193,7 @@ const HomePage: React.FC = () => {
       {/* Modern Horizontal Scrollable Trending News Section */}
       <section className="container mx-auto px-4 pt-8 pb-16" style={{paddingLeft: '70px', paddingRight: '70px'}}>
         {/* Enhanced Modern Header */}
-        <div className="flex items-center justify-between mb-12">
+        <div className="flex items-center justify-between mb-16">
           {/* Title Section - Left Side */}
           <div className="text-left">
             <div className="flex items-center justify-start gap-4 mb-2">
@@ -372,10 +372,10 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Simple Categories Section - Exactly Like Original */}
-      <section className="container mx-auto px-4 py-12" style={{paddingLeft: '70px', paddingRight: '70px'}}>
+      <section className="container mx-auto px-4 py-16" style={{paddingLeft: '70px', paddingRight: '70px'}}>
         {/* مؤكد (Confirmed) Section - Horizontal Cards */}
         {mockFactChecks.filter(fc => fc.verdict === 'confirmed').length > 0 && (
-          <div className="mb-12">
+          <div className="mb-20">
             {/* Section Header */}
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center gap-3">
@@ -467,7 +467,7 @@ const HomePage: React.FC = () => {
 
         {/* احتيال (False) Section - Red Theme */}
         {mockFactChecks.filter(fc => fc.verdict === 'false').length > 0 && (
-          <div className="mb-12">
+          <div className="mb-20">
             {/* Section Header */}
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center gap-3">
@@ -559,7 +559,7 @@ const HomePage: React.FC = () => {
 
         {/* عبث (Misleading) Section - Orange Theme */}
         {mockFactChecks.filter(fc => fc.verdict === 'misleading').length > 0 && (
-          <div className="mb-12">
+          <div className="mb-20">
             {/* Section Header */}
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center gap-3">
@@ -651,7 +651,7 @@ const HomePage: React.FC = () => {
 
         {/* إرباك (Unproven) Section - Yellow Theme */}
         {mockFactChecks.filter(fc => fc.verdict === 'unproven').length > 0 && (
-          <div className="mb-12">
+          <div className="mb-20">
             {/* Section Header */}
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center gap-3">
@@ -747,7 +747,7 @@ const HomePage: React.FC = () => {
       {mockFactChecks.find(fc => fc.featured) && (
         <section className="container mx-auto px-4 py-16" style={{paddingLeft: '70px', paddingRight: '70px'}}>
           {/* Compact Title Header */}
-          <div className="flex items-center justify-between mb-12">
+          <div className="flex items-center justify-between mb-16">
             {/* Title Section - Left Side */}
             <div className="text-left">
               <div className="flex items-center justify-start gap-4 mb-2">
