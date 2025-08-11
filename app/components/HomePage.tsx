@@ -69,12 +69,12 @@ const HomePage: React.FC = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-50" dir="rtl">
       {/* Creative Animated Hero Section */}
-      <section className="container mx-auto px-4 pt-8 pb-12">
-        <div className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 rounded-3xl p-12 shadow-2xl border border-blue-700/30 overflow-hidden">
+      <section className="container mx-auto px-4 pt-4 sm:pt-8 pb-8 sm:pb-12">
+        <div className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-blue-900 rounded-2xl sm:rounded-3xl p-6 sm:p-12 shadow-2xl border border-blue-700/30 overflow-hidden">
           {/* Creative News Animation Background */}
           <div className="absolute inset-0 overflow-hidden">
-            {/* Animated floating news cards */}
-            <div className="absolute top-8 right-8 animate-floating-news">
+            {/* Animated floating news cards - Hidden on mobile */}
+            <div className="hidden sm:block absolute top-8 right-8 animate-floating-news">
               <div className="bg-green-500/20 backdrop-blur-sm rounded-xl p-3 border border-green-400/30 animate-news-verified">
                 <div className="flex items-center gap-2">
                   <svg className="w-6 h-6 text-green-400 animate-checkmark-draw" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -85,7 +85,7 @@ const HomePage: React.FC = () => {
               </div>
             </div>
             
-            <div className="absolute top-20 left-8 animate-floating-news" style={{animationDelay: '1s'}}>
+            <div className="hidden sm:block absolute top-20 left-8 animate-floating-news" style={{animationDelay: '1s'}}>
               <div className="bg-red-500/20 backdrop-blur-sm rounded-xl p-3 border border-red-400/30 animate-news-fake">
                 <div className="flex items-center gap-2">
                   <svg className="w-6 h-6 text-red-400 animate-x-mark-draw" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -101,11 +101,11 @@ const HomePage: React.FC = () => {
           <div className="relative z-10 text-center text-white">
               
             {/* Enhanced Trust Badge with Animation */}
-            <div className="text-center mb-6">
-              <div className="inline-flex items-center gap-3 bg-white/12 backdrop-blur-md px-6 py-3 rounded-xl border border-white/25 shadow-lg hover:bg-white/18 transition-all duration-300 group relative animate-scan-line">
-                <div className="flex items-center gap-2">
+            <div className="text-center mb-4 sm:mb-6">
+              <div className="inline-flex items-center gap-2 sm:gap-3 bg-white/12 backdrop-blur-md px-3 sm:px-6 py-2 sm:py-3 rounded-xl border border-white/25 shadow-lg hover:bg-white/18 transition-all duration-300 group relative animate-scan-line">
+                <div className="flex items-center gap-1 sm:gap-2">
                   <div className="w-3 h-3 bg-green-400 rounded-full animate-verification-pulse shadow-lg shadow-green-400/50"></div>
-                  <span className="text-sm font-medium font-arabic">منصة مستقلة ومحايدة • معتمدة IFCN</span>
+                  <span className="text-xs sm:text-sm font-medium font-arabic">منصة مستقلة ومحايدة • معتمدة IFCN</span>
                 </div>
                 {/* Verification badge */}
                 <div className="ml-2">
@@ -117,36 +117,36 @@ const HomePage: React.FC = () => {
             </div>
                 
             {/* Animated Main Headline */}
-            <div className="text-center mb-8">
-              <div className="relative inline-block mb-4 px-4 pt-4">
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight font-arabic-heading group whitespace-nowrap">
+            <div className="text-center mb-6 sm:mb-8">
+              <div className="relative inline-block mb-3 sm:mb-4 px-2 sm:px-4 pt-2 sm:pt-4">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight font-arabic-heading group">
                   <span className="bg-gradient-to-r from-white via-cyan-100 to-blue-100 bg-clip-text text-transparent drop-shadow-lg group-hover:from-cyan-200 group-hover:via-white group-hover:to-blue-200 transition-all duration-500">
                     منصة تأكد
                   </span>
                 </h1>
-                {/* Animated underline - made wider for longer text */}
-                <div className="absolute -bottom-3 left-1/2 transform -translate-x-1/2 w-32 h-1.5 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full opacity-80 animate-pulse"></div>
-                <div className="absolute -bottom-2 left-1/2 transform -translate-x-1/2 w-40 h-0.5 bg-gradient-to-r from-transparent via-white/30 to-transparent rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
+                {/* Animated underline - responsive */}
+                <div className="absolute -bottom-2 sm:-bottom-3 left-1/2 transform -translate-x-1/2 w-24 sm:w-32 h-1 sm:h-1.5 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full opacity-80 animate-pulse"></div>
+                <div className="absolute -bottom-1 sm:-bottom-2 left-1/2 transform -translate-x-1/2 w-32 sm:w-40 h-0.5 bg-gradient-to-r from-transparent via-white/30 to-transparent rounded-full animate-pulse" style={{animationDelay: '0.5s'}}></div>
               </div>
               
-              <div className="max-w-3xl mx-auto mb-6">
-                <p className="text-xl md:text-2xl font-medium leading-relaxed font-arabic text-white/90 mb-3">
+              <div className="max-w-3xl mx-auto mb-4 sm:mb-6">
+                <p className="text-lg sm:text-xl md:text-2xl font-medium leading-relaxed font-arabic text-white/90 mb-2 sm:mb-3 px-2">
                   <span className="font-semibold text-cyan-200 animate-pulse">منصة مستقلة ومحايدة</span> متخصصة في التحقق من الأخبار والمعلومات
                 </p>
-                <p className="text-base md:text-lg opacity-80 font-arabic">
+                <p className="text-sm sm:text-base md:text-lg opacity-80 font-arabic px-2">
                   معتمدة من الشبكة الدولية لفحص الحقائق (IFCN) • أكثر من 2.8 مليون تحقق
                 </p>
               </div>
             </div>
 
             {/* Animated CTA Buttons */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-6 sm:mb-8 px-4">
               <Link 
                 href="/search"
-                className="group relative bg-white text-blue-900 px-10 py-4 rounded-xl font-bold text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 font-arabic overflow-hidden inline-block"
+                className="group relative bg-white text-blue-900 px-6 sm:px-10 py-3 sm:py-4 rounded-xl font-bold text-sm sm:text-lg shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 font-arabic overflow-hidden w-full sm:w-auto text-center"
               >
-                <span className="relative z-10 flex items-center gap-3">
-                  <Search className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
+                <span className="relative z-10 flex items-center justify-center gap-2 sm:gap-3">
+                  <Search className="w-4 sm:w-5 h-4 sm:h-5 group-hover:rotate-12 transition-transform duration-300" />
                   ابحث في قاعدة البيانات
                 </span>
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-50 to-cyan-50 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -154,10 +154,10 @@ const HomePage: React.FC = () => {
 
               <button 
                 onClick={() => setIsSubmissionModalOpen(true)}
-                className="group relative border-2 border-white/60 text-white px-10 py-4 rounded-xl font-bold text-lg backdrop-blur-sm hover:bg-white/10 transition-all duration-300 transform hover:scale-105 font-arabic shadow-lg hover:shadow-xl overflow-hidden"
+                className="group relative border-2 border-white/60 text-white px-6 sm:px-10 py-3 sm:py-4 rounded-xl font-bold text-sm sm:text-lg backdrop-blur-sm hover:bg-white/10 transition-all duration-300 transform hover:scale-105 font-arabic shadow-lg hover:shadow-xl overflow-hidden w-full sm:w-auto"
               >
-                <span className="relative z-10 flex items-center gap-3">
-                  <ExternalLink className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
+                <span className="relative z-10 flex items-center justify-center gap-2 sm:gap-3">
+                  <ExternalLink className="w-4 sm:w-5 h-4 sm:h-5 group-hover:rotate-12 transition-transform duration-300" />
                   أرسل معلومة للتحقق
                 </span>
                 <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -191,20 +191,20 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* Modern Horizontal Scrollable Trending News Section */}
-      <section className="container mx-auto px-4 pt-8 pb-16" style={{paddingLeft: '70px', paddingRight: '70px'}}>
-        {/* Enhanced Modern Header */}
-        <div className="flex items-center justify-between mb-16">
-          {/* Title Section - Left Side */}
-          <div className="text-left">
-            <div className="flex items-center justify-start gap-4 mb-2">
-              <div className="w-12 h-12 bg-gradient-to-r from-red-500 to-orange-500 rounded-2xl flex items-center justify-center shadow-lg">
-                <TrendingUp className="w-6 h-6 text-white" />
+      <section className="container mx-auto px-4 pt-6 sm:pt-8 pb-12 sm:pb-16" style={{paddingLeft: '20px', paddingRight: '20px'}}>
+        {/* Enhanced Modern Header - Mobile Responsive */}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-0 mb-8 sm:mb-16">
+          {/* Title Section */}
+          <div className="text-center sm:text-left">
+            <div className="flex items-center justify-center sm:justify-start gap-3 sm:gap-4 mb-2">
+              <div className="w-10 sm:w-12 h-10 sm:h-12 bg-gradient-to-r from-red-500 to-orange-500 rounded-2xl flex items-center justify-center shadow-lg">
+                <TrendingUp className="w-5 sm:w-6 h-5 sm:h-6 text-white" />
               </div>
               <div>
-                <h2 className="text-2xl md:text-3xl font-bold text-gray-900 font-arabic-heading">
+                <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 font-arabic-heading">
                   الأخبار الرائجة
                 </h2>
-                <p className="text-gray-600 font-arabic text-sm">أهم القضايا المتداولة اليوم</p>
+                <p className="text-gray-600 font-arabic text-xs sm:text-sm">أهم القضايا المتداولة اليوم</p>
               </div>
             </div>
             {/* Live Indicator */}
@@ -216,10 +216,10 @@ const HomePage: React.FC = () => {
             </div>
           </div>
           
-          {/* Read More Button - Right Side */}
+          {/* Read More Button */}
           <Link 
             href="/search"
-            className="group text-red-600 hover:text-red-700 font-arabic font-medium flex items-center gap-2 transition-colors duration-300"
+            className="group text-red-600 hover:text-red-700 font-arabic font-medium flex items-center justify-center sm:justify-start gap-2 transition-colors duration-300 text-sm sm:text-base"
           >
             <svg className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 17l-5-5m0 0l5-5m-5 5h12" />
@@ -229,8 +229,8 @@ const HomePage: React.FC = () => {
         </div>
         
         {/* Horizontal Scrollable Carousel with External Navigation */}
-        <div className="relative px-16">
-          {/* External Navigation Buttons */}
+        <div className="relative px-2 sm:px-8 md:px-16">
+          {/* External Navigation Buttons - Hidden on Mobile */}
           <button
             onClick={() => {
               const container = document.getElementById('trending-scroll-container');
@@ -238,10 +238,10 @@ const HomePage: React.FC = () => {
                 container.scrollBy({ left: 400, behavior: 'smooth' });
               }
             }}
-            className="absolute -right-2 top-1/2 -translate-y-1/2 z-20 bg-gradient-to-r from-red-500 to-orange-500 text-white p-4 rounded-full shadow-xl hover:shadow-2xl hover:scale-110 transition-all duration-300 border-2 border-white group"
+            className="hidden sm:block absolute -right-2 top-1/2 -translate-y-1/2 z-20 bg-gradient-to-r from-red-500 to-orange-500 text-white p-3 sm:p-4 rounded-full shadow-xl hover:shadow-2xl hover:scale-110 transition-all duration-300 border-2 border-white group"
             aria-label="Scroll Right"
           >
-            <ChevronRight className="w-6 h-6 group-hover:scale-110 transition-all duration-300" />
+            <ChevronRight className="w-5 sm:w-6 h-5 sm:h-6 group-hover:scale-110 transition-all duration-300" />
           </button>
           
           <button
@@ -251,16 +251,16 @@ const HomePage: React.FC = () => {
                 container.scrollBy({ left: -400, behavior: 'smooth' });
               }
             }}
-            className="absolute -left-2 top-1/2 -translate-y-1/2 z-20 bg-gradient-to-r from-orange-500 to-red-500 text-white p-4 rounded-full shadow-xl hover:shadow-2xl hover:scale-110 transition-all duration-300 border-2 border-white group"
+            className="hidden sm:block absolute -left-2 top-1/2 -translate-y-1/2 z-20 bg-gradient-to-r from-orange-500 to-red-500 text-white p-3 sm:p-4 rounded-full shadow-xl hover:shadow-2xl hover:scale-110 transition-all duration-300 border-2 border-white group"
             aria-label="Scroll Left"
           >
-            <ChevronLeft className="w-6 h-6 group-hover:scale-110 transition-all duration-300" />
+            <ChevronLeft className="w-5 sm:w-6 h-5 sm:h-6 group-hover:scale-110 transition-all duration-300" />
           </button>
           
           {/* Horizontal Scroll Container */}
           <div 
             id="trending-scroll-container"
-            className="flex gap-6 overflow-x-auto py-4 px-2 scroll-smooth"
+            className="flex gap-4 sm:gap-6 overflow-x-auto py-4 px-1 sm:px-2 scroll-smooth"
             style={{
               scrollbarWidth: 'none',
               msOverflowStyle: 'none',
@@ -269,7 +269,7 @@ const HomePage: React.FC = () => {
             {mockFactChecks.slice(0, 12).map((factCheck, index) => (
               <div 
                 key={`trending-${factCheck.id}`}
-                className="flex-none w-80"
+                className="flex-none w-72 sm:w-80"
               >
                 <article 
                   className={`group relative bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 cursor-pointer transform hover:scale-[1.02] hover:-translate-y-1 overflow-hidden h-full ${getVerdictInfo(factCheck.verdict).cardBorder}`}
@@ -371,27 +371,29 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
-      {/* Simple Categories Section - Exactly Like Original */}
-      <section className="container mx-auto px-4 py-16" style={{paddingLeft: '70px', paddingRight: '70px'}}>
+      {/* Simple Categories Section - Mobile Responsive */}
+      <section className="container mx-auto px-4 py-12 sm:py-16">
         {/* مؤكد (Confirmed) Section - Horizontal Cards */}
         {mockFactChecks.filter(fc => fc.verdict === 'confirmed').length > 0 && (
-          <div className="mb-20">
+          <div className="mb-12 sm:mb-20">
             {/* Section Header */}
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-0 mb-6 sm:mb-8">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-blue-500 rounded-xl flex items-center justify-center">
-                  <CheckCircle className="w-5 h-5 text-white" />
+                <div className="w-8 sm:w-10 h-8 sm:h-10 bg-blue-500 rounded-xl flex items-center justify-center">
+                  <CheckCircle className="w-4 sm:w-5 h-4 sm:h-5 text-white" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 font-arabic-heading">مؤكد</h3>
-                <span className="text-sm text-gray-500 font-arabic">أخبار مؤكدة من مصادر رسمية</span>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:gap-3">
+                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900 font-arabic-heading">مؤكد</h3>
+                  <span className="text-xs sm:text-sm text-gray-500 font-arabic">أخبار مؤكدة من مصادر رسمية</span>
+                </div>
               </div>
-              <Link href="/search" className="text-blue-500 hover:text-blue-600 font-arabic text-sm transition-colors">
+              <Link href="/search" className="text-blue-500 hover:text-blue-600 font-arabic text-sm transition-colors self-start sm:self-auto">
                 عرض المزيد ←
               </Link>
             </div>
             
-            {/* Horizontal Cards Grid - 2x4 layout */}
-            <div className="grid md:grid-cols-2 gap-6 px-4 md:px-8 lg:px-12 xl:px-16">
+            {/* Mobile-First Cards Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 px-2 sm:px-4 md:px-8 lg:px-12 xl:px-16">
               {mockFactChecks.filter(fc => fc.verdict === 'confirmed').slice(0, 6).map((factCheck, index) => (
                 <article 
                   key={`confirmed-${factCheck.id}`}
@@ -399,11 +401,11 @@ const HomePage: React.FC = () => {
                   style={{ animationDelay: `${index * 50}ms` }}
                   onClick={() => router.push(`/article/${factCheck.id}`)}
                 >
-                  {/* Enhanced Card Content */}
-                  <div className="relative z-10 p-6">
-                    <div className="flex gap-4">
+                  {/* Enhanced Card Content - Mobile Responsive */}
+                  <div className="relative z-10 p-4 sm:p-6">
+                    <div className="flex gap-3 sm:gap-4">
                       {/* Compact Image Section */}
-                      <div className="relative w-24 h-24 flex-shrink-0">
+                      <div className="relative w-20 sm:w-24 h-20 sm:h-24 flex-shrink-0">
                         <img 
                           src={factCheck.image}
                           alt={factCheck.title}
@@ -412,7 +414,7 @@ const HomePage: React.FC = () => {
                         
                         {/* Compact Verdict Badge */}
                         <div className="absolute -bottom-1 -right-1 z-20">
-                          <div className="bg-blue-500 text-white px-2 py-1 rounded-lg text-xs font-bold shadow-md border border-white">
+                          <div className="bg-blue-500 text-white px-1.5 sm:px-2 py-1 rounded-lg text-xs font-bold shadow-md border border-white">
                             مؤكد
                           </div>
                         </div>
@@ -421,27 +423,27 @@ const HomePage: React.FC = () => {
                       {/* Compact Content Section */}
                       <div className="flex-1 min-w-0">
                         {/* Category & Date */}
-                        <div className="flex items-center gap-2 mb-3">
-                          <span className="bg-blue-50 text-blue-700 px-2 py-1 rounded-lg text-xs font-medium font-arabic border border-blue-100">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-2 sm:mb-3">
+                          <span className="bg-blue-50 text-blue-700 px-2 py-1 rounded-lg text-xs font-medium font-arabic border border-blue-100 self-start">
                             {factCheck.category}
                           </span>
                           <div className="flex items-center gap-1 text-gray-500 text-xs">
                             <Clock className="w-3 h-3" />
-                            <span className="font-arabic">{factCheck.publishDate}</span>
+                            <span className="font-arabic">{factCheck.date}</span>
                           </div>
                         </div>
                         
                         {/* Compact Title */}
-                        <h3 className="text-lg font-bold text-gray-900 mb-2 leading-tight group-hover:text-blue-600 transition-colors font-arabic-heading line-clamp-2">
+                        <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-2 leading-tight group-hover:text-blue-600 transition-colors font-arabic-heading line-clamp-2">
                           {factCheck.title}
                         </h3>
                         
                         {/* Compact Metadata */}
                         <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-3 text-xs text-gray-500">
+                          <div className="flex items-center gap-2 sm:gap-3 text-xs text-gray-500">
                             <div className="flex items-center gap-1">
                               <User className="w-3 h-3" />
-                              <span className="font-arabic">{factCheck.author}</span>
+                              <span className="font-arabic truncate">{factCheck.author}</span>
                             </div>
                             <div className="flex items-center gap-1">
                               <Eye className="w-3 h-3" />
@@ -467,23 +469,25 @@ const HomePage: React.FC = () => {
 
         {/* احتيال (False) Section - Red Theme */}
         {mockFactChecks.filter(fc => fc.verdict === 'false').length > 0 && (
-          <div className="mb-20">
+          <div className="mb-12 sm:mb-20">
             {/* Section Header */}
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-0 mb-6 sm:mb-8">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-red-500 rounded-xl flex items-center justify-center">
-                  <XCircle className="w-5 h-5 text-white" />
+                <div className="w-8 sm:w-10 h-8 sm:h-10 bg-red-500 rounded-xl flex items-center justify-center">
+                  <XCircle className="w-4 sm:w-5 h-4 sm:h-5 text-white" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 font-arabic-heading">احتيال</h3>
-                <span className="text-sm text-gray-500 font-arabic">معلومات احتيالية ومضللة</span>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:gap-3">
+                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900 font-arabic-heading">احتيال</h3>
+                  <span className="text-xs sm:text-sm text-gray-500 font-arabic">معلومات احتيالية ومضللة</span>
+                </div>
               </div>
-              <Link href="/search" className="text-red-500 hover:text-red-600 font-arabic text-sm transition-colors">
+              <Link href="/search" className="text-red-500 hover:text-red-600 font-arabic text-sm transition-colors self-start sm:self-auto">
                 عرض المزيد ←
               </Link>
             </div>
             
-            {/* Cards Grid - Red Theme */}
-            <div className="grid md:grid-cols-2 gap-6 px-4 md:px-8 lg:px-12 xl:px-16">
+            {/* Mobile-First Cards Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 px-2 sm:px-4 md:px-8 lg:px-12 xl:px-16">
               {mockFactChecks.filter(fc => fc.verdict === 'false').slice(0, 6).map((factCheck, index) => (
                 <article 
                   key={`false-${factCheck.id}`}
@@ -491,11 +495,11 @@ const HomePage: React.FC = () => {
                   style={{ animationDelay: `${index * 50}ms` }}
                   onClick={() => router.push(`/article/${factCheck.id}`)}
                 >
-                  {/* Enhanced Card Content */}
-                  <div className="relative z-10 p-6">
-                    <div className="flex gap-4">
+                  {/* Enhanced Card Content - Mobile Responsive */}
+                  <div className="relative z-10 p-4 sm:p-6">
+                    <div className="flex gap-3 sm:gap-4">
                       {/* Compact Image Section */}
-                      <div className="relative w-24 h-24 flex-shrink-0">
+                      <div className="relative w-20 sm:w-24 h-20 sm:h-24 flex-shrink-0">
                         <img 
                           src={factCheck.image}
                           alt={factCheck.title}
@@ -504,7 +508,7 @@ const HomePage: React.FC = () => {
                         
                         {/* Compact Verdict Badge */}
                         <div className="absolute -bottom-1 -right-1 z-20">
-                          <div className="bg-red-500 text-white px-2 py-1 rounded-lg text-xs font-bold shadow-md border border-white">
+                          <div className="bg-red-500 text-white px-1.5 sm:px-2 py-1 rounded-lg text-xs font-bold shadow-md border border-white">
                             احتيال
                           </div>
                         </div>
@@ -513,27 +517,27 @@ const HomePage: React.FC = () => {
                       {/* Compact Content Section */}
                       <div className="flex-1 min-w-0">
                         {/* Category & Date */}
-                        <div className="flex items-center gap-2 mb-3">
-                          <span className="bg-red-50 text-red-700 px-2 py-1 rounded-lg text-xs font-medium font-arabic border border-red-100">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-2 sm:mb-3">
+                          <span className="bg-red-50 text-red-700 px-2 py-1 rounded-lg text-xs font-medium font-arabic border border-red-100 self-start">
                             {factCheck.category}
                           </span>
                           <div className="flex items-center gap-1 text-gray-500 text-xs">
                             <Clock className="w-3 h-3" />
-                            <span className="font-arabic">{factCheck.publishDate}</span>
+                            <span className="font-arabic">{factCheck.date}</span>
                           </div>
                         </div>
                         
                         {/* Compact Title */}
-                        <h3 className="text-lg font-bold text-gray-900 mb-2 leading-tight group-hover:text-red-600 transition-colors font-arabic-heading line-clamp-2">
+                        <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-2 leading-tight group-hover:text-red-600 transition-colors font-arabic-heading line-clamp-2">
                           {factCheck.title}
                         </h3>
                         
                         {/* Compact Metadata */}
                         <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-3 text-xs text-gray-500">
+                          <div className="flex items-center gap-2 sm:gap-3 text-xs text-gray-500">
                             <div className="flex items-center gap-1">
                               <User className="w-3 h-3" />
-                              <span className="font-arabic">{factCheck.author}</span>
+                              <span className="font-arabic truncate">{factCheck.author}</span>
                             </div>
                             <div className="flex items-center gap-1">
                               <Eye className="w-3 h-3" />
@@ -559,23 +563,25 @@ const HomePage: React.FC = () => {
 
         {/* عبث (Misleading) Section - Orange Theme */}
         {mockFactChecks.filter(fc => fc.verdict === 'misleading').length > 0 && (
-          <div className="mb-20">
+          <div className="mb-12 sm:mb-20">
             {/* Section Header */}
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-0 mb-6 sm:mb-8">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-orange-500 rounded-xl flex items-center justify-center">
-                  <AlertCircle className="w-5 h-5 text-white" />
+                <div className="w-8 sm:w-10 h-8 sm:h-10 bg-orange-500 rounded-xl flex items-center justify-center">
+                  <AlertCircle className="w-4 sm:w-5 h-4 sm:h-5 text-white" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 font-arabic-heading">عبث</h3>
-                <span className="text-sm text-gray-500 font-arabic">معلومات مضللة جزئياً</span>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:gap-3">
+                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900 font-arabic-heading">عبث</h3>
+                  <span className="text-xs sm:text-sm text-gray-500 font-arabic">معلومات مضللة جزئياً</span>
+                </div>
               </div>
-              <Link href="/search" className="text-orange-500 hover:text-orange-600 font-arabic text-sm transition-colors">
+              <Link href="/search" className="text-orange-500 hover:text-orange-600 font-arabic text-sm transition-colors self-start sm:self-auto">
                 عرض المزيد ←
               </Link>
             </div>
             
-            {/* Cards Grid - Orange Theme */}
-            <div className="grid md:grid-cols-2 gap-6 px-4 md:px-8 lg:px-12 xl:px-16">
+            {/* Mobile-First Cards Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 px-2 sm:px-4 md:px-8 lg:px-12 xl:px-16">
               {mockFactChecks.filter(fc => fc.verdict === 'misleading').slice(0, 6).map((factCheck, index) => (
                 <article 
                   key={`misleading-${factCheck.id}`}
@@ -583,11 +589,11 @@ const HomePage: React.FC = () => {
                   style={{ animationDelay: `${index * 50}ms` }}
                   onClick={() => router.push(`/article/${factCheck.id}`)}
                 >
-                  {/* Enhanced Card Content */}
-                  <div className="relative z-10 p-6">
-                    <div className="flex gap-4">
+                  {/* Enhanced Card Content - Mobile Responsive */}
+                  <div className="relative z-10 p-4 sm:p-6">
+                    <div className="flex gap-3 sm:gap-4">
                       {/* Compact Image Section */}
-                      <div className="relative w-24 h-24 flex-shrink-0">
+                      <div className="relative w-20 sm:w-24 h-20 sm:h-24 flex-shrink-0">
                         <img 
                           src={factCheck.image}
                           alt={factCheck.title}
@@ -596,7 +602,7 @@ const HomePage: React.FC = () => {
                         
                         {/* Compact Verdict Badge */}
                         <div className="absolute -bottom-1 -right-1 z-20">
-                          <div className="bg-orange-500 text-white px-2 py-1 rounded-lg text-xs font-bold shadow-md border border-white">
+                          <div className="bg-orange-500 text-white px-1.5 sm:px-2 py-1 rounded-lg text-xs font-bold shadow-md border border-white">
                             عبث
                           </div>
                         </div>
@@ -605,27 +611,27 @@ const HomePage: React.FC = () => {
                       {/* Compact Content Section */}
                       <div className="flex-1 min-w-0">
                         {/* Category & Date */}
-                        <div className="flex items-center gap-2 mb-3">
-                          <span className="bg-orange-50 text-orange-700 px-2 py-1 rounded-lg text-xs font-medium font-arabic border border-orange-100">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-2 sm:mb-3">
+                          <span className="bg-orange-50 text-orange-700 px-2 py-1 rounded-lg text-xs font-medium font-arabic border border-orange-100 self-start">
                             {factCheck.category}
                           </span>
                           <div className="flex items-center gap-1 text-gray-500 text-xs">
                             <Clock className="w-3 h-3" />
-                            <span className="font-arabic">{factCheck.publishDate}</span>
+                            <span className="font-arabic">{factCheck.date}</span>
                           </div>
                         </div>
                         
                         {/* Compact Title */}
-                        <h3 className="text-lg font-bold text-gray-900 mb-2 leading-tight group-hover:text-orange-600 transition-colors font-arabic-heading line-clamp-2">
+                        <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-2 leading-tight group-hover:text-orange-600 transition-colors font-arabic-heading line-clamp-2">
                           {factCheck.title}
                         </h3>
                         
                         {/* Compact Metadata */}
                         <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-3 text-xs text-gray-500">
+                          <div className="flex items-center gap-2 sm:gap-3 text-xs text-gray-500">
                             <div className="flex items-center gap-1">
                               <User className="w-3 h-3" />
-                              <span className="font-arabic">{factCheck.author}</span>
+                              <span className="font-arabic truncate">{factCheck.author}</span>
                             </div>
                             <div className="flex items-center gap-1">
                               <Eye className="w-3 h-3" />
@@ -651,23 +657,25 @@ const HomePage: React.FC = () => {
 
         {/* إرباك (Unproven) Section - Yellow Theme */}
         {mockFactChecks.filter(fc => fc.verdict === 'unproven').length > 0 && (
-          <div className="mb-20">
+          <div className="mb-12 sm:mb-20">
             {/* Section Header */}
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-0 mb-6 sm:mb-8">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-yellow-500 rounded-xl flex items-center justify-center">
-                  <HelpCircle className="w-5 h-5 text-white" />
+                <div className="w-8 sm:w-10 h-8 sm:h-10 bg-yellow-500 rounded-xl flex items-center justify-center">
+                  <HelpCircle className="w-4 sm:w-5 h-4 sm:h-5 text-white" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 font-arabic-heading">إرباك</h3>
-                <span className="text-sm text-gray-500 font-arabic">معلومات غير مؤكدة</span>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:gap-3">
+                  <h3 className="text-xl sm:text-2xl font-bold text-gray-900 font-arabic-heading">إرباك</h3>
+                  <span className="text-xs sm:text-sm text-gray-500 font-arabic">معلومات غير مؤكدة</span>
+                </div>
               </div>
-              <Link href="/search" className="text-yellow-500 hover:text-yellow-600 font-arabic text-sm transition-colors">
+              <Link href="/search" className="text-yellow-500 hover:text-yellow-600 font-arabic text-sm transition-colors self-start sm:self-auto">
                 عرض المزيد ←
               </Link>
             </div>
             
-            {/* Cards Grid - Yellow Theme */}
-            <div className="grid md:grid-cols-2 gap-6 px-4 md:px-8 lg:px-12 xl:px-16">
+            {/* Mobile-First Cards Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 px-2 sm:px-4 md:px-8 lg:px-12 xl:px-16">
               {mockFactChecks.filter(fc => fc.verdict === 'unproven').slice(0, 6).map((factCheck, index) => (
                 <article 
                   key={`unproven-${factCheck.id}`}
@@ -675,11 +683,11 @@ const HomePage: React.FC = () => {
                   style={{ animationDelay: `${index * 50}ms` }}
                   onClick={() => router.push(`/article/${factCheck.id}`)}
                 >
-                  {/* Enhanced Card Content */}
-                  <div className="relative z-10 p-6">
-                    <div className="flex gap-4">
+                  {/* Enhanced Card Content - Mobile Responsive */}
+                  <div className="relative z-10 p-4 sm:p-6">
+                    <div className="flex gap-3 sm:gap-4">
                       {/* Compact Image Section */}
-                      <div className="relative w-24 h-24 flex-shrink-0">
+                      <div className="relative w-20 sm:w-24 h-20 sm:h-24 flex-shrink-0">
                         <img 
                           src={factCheck.image}
                           alt={factCheck.title}
@@ -688,7 +696,7 @@ const HomePage: React.FC = () => {
                         
                         {/* Compact Verdict Badge */}
                         <div className="absolute -bottom-1 -right-1 z-20">
-                          <div className="bg-yellow-500 text-white px-2 py-1 rounded-lg text-xs font-bold shadow-md border border-white">
+                          <div className="bg-yellow-500 text-white px-1.5 sm:px-2 py-1 rounded-lg text-xs font-bold shadow-md border border-white">
                             إرباك
                           </div>
                         </div>
@@ -697,27 +705,27 @@ const HomePage: React.FC = () => {
                       {/* Compact Content Section */}
                       <div className="flex-1 min-w-0">
                         {/* Category & Date */}
-                        <div className="flex items-center gap-2 mb-3">
-                          <span className="bg-yellow-50 text-yellow-700 px-2 py-1 rounded-lg text-xs font-medium font-arabic border border-yellow-100">
+                        <div className="flex flex-col sm:flex-row sm:items-center gap-2 mb-2 sm:mb-3">
+                          <span className="bg-yellow-50 text-yellow-700 px-2 py-1 rounded-lg text-xs font-medium font-arabic border border-yellow-100 self-start">
                             {factCheck.category}
                           </span>
                           <div className="flex items-center gap-1 text-gray-500 text-xs">
                             <Clock className="w-3 h-3" />
-                            <span className="font-arabic">{factCheck.publishDate}</span>
+                            <span className="font-arabic">{factCheck.date}</span>
                           </div>
                         </div>
                         
                         {/* Compact Title */}
-                        <h3 className="text-lg font-bold text-gray-900 mb-2 leading-tight group-hover:text-yellow-600 transition-colors font-arabic-heading line-clamp-2">
+                        <h3 className="text-base sm:text-lg font-bold text-gray-900 mb-2 leading-tight group-hover:text-yellow-600 transition-colors font-arabic-heading line-clamp-2">
                           {factCheck.title}
                         </h3>
                         
                         {/* Compact Metadata */}
                         <div className="flex items-center justify-between">
-                          <div className="flex items-center gap-3 text-xs text-gray-500">
+                          <div className="flex items-center gap-2 sm:gap-3 text-xs text-gray-500">
                             <div className="flex items-center gap-1">
                               <User className="w-3 h-3" />
-                              <span className="font-arabic">{factCheck.author}</span>
+                              <span className="font-arabic truncate">{factCheck.author}</span>
                             </div>
                             <div className="flex items-center gap-1">
                               <Eye className="w-3 h-3" />
@@ -745,20 +753,20 @@ const HomePage: React.FC = () => {
 
       {/* Featured Article Section */}
       {mockFactChecks.find(fc => fc.featured) && (
-        <section className="container mx-auto px-4 py-16" style={{paddingLeft: '70px', paddingRight: '70px'}}>
-          {/* Compact Title Header */}
-          <div className="flex items-center justify-between mb-16">
-            {/* Title Section - Left Side */}
-            <div className="text-left">
-              <div className="flex items-center justify-start gap-4 mb-2">
-                <div className="w-12 h-12 bg-gradient-to-r from-yellow-500 to-amber-500 rounded-2xl flex items-center justify-center shadow-lg">
-                  <Star className="w-6 h-6 text-white fill-current" />
+        <section className="container mx-auto px-4 py-12 sm:py-16">
+          {/* Compact Title Header - Mobile Responsive */}
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-0 mb-8 sm:mb-16">
+            {/* Title Section */}
+            <div className="text-center sm:text-left">
+              <div className="flex items-center justify-center sm:justify-start gap-3 sm:gap-4 mb-2">
+                <div className="w-10 sm:w-12 h-10 sm:h-12 bg-gradient-to-r from-yellow-500 to-amber-500 rounded-2xl flex items-center justify-center shadow-lg">
+                  <Star className="w-5 sm:w-6 h-5 sm:h-6 text-white fill-current" />
                 </div>
                 <div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-gray-900 font-arabic-heading">
+                  <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 font-arabic-heading">
                     التحقق المميز
                   </h2>
-                  <p className="text-gray-600 font-arabic text-sm">التحقق الأكثر أهمية وتأثيراً</p>
+                  <p className="text-gray-600 font-arabic text-xs sm:text-sm">التحقق الأكثر أهمية وتأثيراً</p>
                 </div>
               </div>
               {/* Special Indicator */}
@@ -768,12 +776,12 @@ const HomePage: React.FC = () => {
               </div>
             </div>
             
-            {/* Read Article Button - Right Side */}
+            {/* Read Article Button */}
             <button 
               onClick={() => {
                 console.log('Featured article clicked');
               }}
-              className="group text-yellow-600 hover:text-yellow-700 font-arabic font-medium flex items-center gap-2 transition-colors duration-300"
+              className="group text-yellow-600 hover:text-yellow-700 font-arabic font-medium flex items-center justify-center sm:justify-start gap-2 transition-colors duration-300 text-sm sm:text-base"
             >
               <svg className="w-4 h-4 group-hover:-translate-x-1 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 17l-5-5m0 0l5-5m-5 5h12" />
@@ -782,39 +790,39 @@ const HomePage: React.FC = () => {
             </button>
           </div>
           
-          {/* Enhanced Professional Card */}
+          {/* Enhanced Professional Card - Mobile Responsive */}
           <div className="max-w-7xl mx-auto">
-            <article className="group bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100 transform hover:scale-[1.01] hover:-translate-y-2 transition-all duration-500 relative">
+            <article className="group bg-white rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden border border-gray-100 transform hover:scale-[1.01] hover:-translate-y-2 transition-all duration-500 relative">
               {/* Premium Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 via-transparent to-amber-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-3xl"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-yellow-500/5 via-transparent to-amber-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl sm:rounded-3xl"></div>
               
-              {/* Featured Floating Badge */}
-              <div className="absolute -top-4 -right-4 z-20">
-                <div className="bg-gradient-to-r from-yellow-500 via-amber-500 to-orange-500 text-white p-4 rounded-2xl shadow-2xl border-4 border-white transform rotate-12 hover:rotate-0 transition-transform duration-300">
-                  <div className="flex items-center gap-2">
-                    <Star className="w-6 h-6 fill-current animate-pulse" />
-                    <span className="text-sm font-bold font-arabic">مميز</span>
+              {/* Featured Floating Badge - Mobile Responsive */}
+              <div className="absolute -top-2 sm:-top-4 -right-2 sm:-right-4 z-20">
+                <div className="bg-gradient-to-r from-yellow-500 via-amber-500 to-orange-500 text-white p-2 sm:p-4 rounded-xl sm:rounded-2xl shadow-2xl border-2 sm:border-4 border-white transform rotate-12 hover:rotate-0 transition-transform duration-300">
+                  <div className="flex items-center gap-1 sm:gap-2">
+                    <Star className="w-4 sm:w-6 h-4 sm:h-6 fill-current animate-pulse" />
+                    <span className="text-xs sm:text-sm font-bold font-arabic">مميز</span>
                   </div>
                 </div>
               </div>
               
-              <div className="lg:flex h-full">
+              <div className="flex flex-col lg:flex-row h-full">
                 {/* Enhanced Image Section */}
                 <div className="lg:w-1/2 relative overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-yellow-100/20 to-amber-100/20"></div>
                   <LazyImage 
                     src={mockFactChecks.find(fc => fc.featured)!.image}
                     alt={mockFactChecks.find(fc => fc.featured)!.title}
-                    className="w-full h-80 lg:h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    className="w-full h-64 sm:h-80 lg:h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
                   
                   {/* Enhanced Verdict Badge */}
-                  <div className="absolute bottom-6 right-6">
+                  <div className="absolute bottom-4 sm:bottom-6 right-4 sm:right-6">
                     <VerdictBadge verdict={mockFactChecks.find(fc => fc.featured)!.verdict} size="lg" />
                   </div>
                   
-                  {/* Decorative Elements */}
-                  <div className="absolute top-6 left-6">
+                  {/* Decorative Elements - Hidden on Mobile */}
+                  <div className="hidden sm:block absolute top-6 left-6">
                     <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-3 border border-white/30 shadow-lg animate-float">
                       <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 20 20">
                         <path fillRule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
@@ -824,7 +832,7 @@ const HomePage: React.FC = () => {
                 </div>
                 
                 {/* Enhanced Content Section */}
-                <div className="lg:w-1/2 p-10 lg:p-12 relative z-10">
+                <div className="lg:w-1/2 p-6 sm:p-10 lg:p-12 relative z-10">
                   {/* Category and Date Header */}
                   <div className="flex items-center gap-4 mb-6">
                     <span className="bg-gradient-to-r from-yellow-100 to-amber-100 text-yellow-800 px-4 py-2 rounded-2xl text-sm font-medium font-arabic border border-yellow-200 shadow-sm">
