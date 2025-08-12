@@ -11,8 +11,6 @@ import { mockFactChecks, categories, verdictOptions } from '../lib/mockData'
 const CompactCard: React.FC<{ factCheck: FactCheck; onClick: () => void; featured?: boolean }> = ({ factCheck, onClick, featured = false }) => {
   const getVerdictConfig = (verdict: string) => {
     switch (verdict) {
-      case 'true':
-        return { bg: 'bg-green-500', label: 'صحيح', hoverColor: 'group-hover:text-green-600' };
       case 'false':
         return { bg: 'bg-red-500', label: 'احتيال', hoverColor: 'group-hover:text-red-600' };
       case 'misleading':
@@ -66,7 +64,6 @@ const CompactCard: React.FC<{ factCheck: FactCheck; onClick: () => void; feature
             {/* Category & Date */}
             <div className="flex items-center gap-2 mb-2 sm:mb-3">
               <span className={`px-1.5 py-0.5 sm:px-2 sm:py-1 rounded-md sm:rounded-lg text-[10px] sm:text-xs font-medium font-arabic border ${
-                factCheck.verdict === 'true' ? 'bg-green-50 text-green-700 border-green-100' :
                 factCheck.verdict === 'false' ? 'bg-red-50 text-red-700 border-red-100' :
                 factCheck.verdict === 'misleading' ? 'bg-orange-50 text-orange-700 border-orange-100' :
                 factCheck.verdict === 'confirmed' ? 'bg-blue-50 text-blue-700 border-blue-100' :
@@ -205,7 +202,6 @@ const SearchPage: React.FC = () => {
     
     const verdictMapping: { [key: string]: string } = {
       'جميع التصنيفات': 'all',
-      'صحيح': 'true',
       'احتيال': 'false',
       'عبث': 'misleading',
       'إرباك': 'unproven',
@@ -329,7 +325,6 @@ const SearchPage: React.FC = () => {
                         {verdictOptions.map((verdict) => {
                           const getVerdictColor = (verdict: string) => {
                             switch (verdict) {
-                              case 'صحيح': return filters.verdict === verdict ? 'bg-green-600 text-white border-green-600' : 'hover:bg-green-50 hover:border-green-300 hover:text-green-700';
                               case 'احتيال': return filters.verdict === verdict ? 'bg-red-600 text-white border-red-600' : 'hover:bg-red-50 hover:border-red-300 hover:text-red-700';
                               case 'عبث': return filters.verdict === verdict ? 'bg-orange-600 text-white border-orange-600' : 'hover:bg-orange-50 hover:border-orange-300 hover:text-orange-700';
                               case 'إرباك': return filters.verdict === verdict ? 'bg-gray-600 text-white border-gray-600' : 'hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700';
@@ -435,7 +430,6 @@ const SearchPage: React.FC = () => {
                         
                         {filters.verdict !== 'جميع التصنيفات' && (
                           <div className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-arabic text-white ${
-                            filters.verdict === 'صحيح' ? 'bg-green-600' :
                             filters.verdict === 'احتيال' ? 'bg-red-600' :
                             filters.verdict === 'عبث' ? 'bg-orange-600' :
                             filters.verdict === 'إرباك' ? 'bg-gray-600' :
@@ -446,7 +440,6 @@ const SearchPage: React.FC = () => {
                             <button
                               onClick={() => setFilters(prev => ({ ...prev, verdict: 'جميع التصنيفات' }))}
                               className={`rounded-sm p-0.5 transition-colors ${
-                                filters.verdict === 'صحيح' ? 'hover:bg-green-700' :
                                 filters.verdict === 'احتيال' ? 'hover:bg-red-700' :
                                 filters.verdict === 'عبث' ? 'hover:bg-orange-700' :
                                 filters.verdict === 'إرباك' ? 'hover:bg-gray-700' :
@@ -572,9 +565,10 @@ const SearchPage: React.FC = () => {
                       <button
                         onClick={() => setFilters(prev => ({ ...prev, verdict: 'جميع التصنيفات' }))}
                         className={`px-2 py-0.5 text-white rounded-full text-[9px] font-arabic font-medium flex items-center gap-1 ${
-                          filters.verdict === 'صحيح' ? 'bg-green-600' :
                           filters.verdict === 'احتيال' ? 'bg-red-600' :
-                          filters.verdict === 'عبث' ? 'bg-orange-600' : 'bg-gray-600'
+                          filters.verdict === 'عبث' ? 'bg-orange-600' :
+                          filters.verdict === 'إرباك' ? 'bg-gray-600' :
+                          filters.verdict === 'مؤكد' ? 'bg-blue-600' : 'bg-gray-600'
                         }`}
                       >
                         {filters.verdict}

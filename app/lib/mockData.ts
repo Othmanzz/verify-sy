@@ -457,7 +457,6 @@ export const categories = [
 
 export const verdictOptions = [
   'جميع التصنيفات',
-  'صحيح',
   'احتيال',
   'عبث',
   'إرباك',
