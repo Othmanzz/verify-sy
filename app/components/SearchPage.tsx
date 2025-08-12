@@ -1,7 +1,8 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
 import { Search, Filter, TrendingUp, Database, CheckCircle, XCircle, AlertCircle, HelpCircle, User, Eye, Clock, Star, ArrowLeft, Zap, Bot, Brain, Sparkles, Heart, DollarSign, Globe2, BookOpen, Laptop, Building2, Activity, Users2, X, RotateCcw, ChevronDown, Calendar, SortAsc } from 'lucide-react'
 import { FactCheck } from '../types'
 import { mockFactChecks, categories, verdictOptions } from '../lib/mockData'
@@ -121,6 +122,7 @@ const CompactCard: React.FC<{ factCheck: FactCheck; onClick: () => void; feature
 };
 
 const SearchPage: React.FC = () => {
+  const searchParams = useSearchParams()
   const [searchQuery, setSearchQuery] = useState('');
   const [showSearchSuggestions, setShowSearchSuggestions] = useState(false);
   const [showStickySearch, setShowStickySearch] = useState(false);
@@ -129,9 +131,24 @@ const SearchPage: React.FC = () => {
   const [filters, setFilters] = useState({
     category: 'جميع الفئات',
     verdict: 'جميع التصنيفات',
+    subcategory: '',
     dateRange: 'جميع التواريخ',
     sortBy: 'الأحدث'
   });
+
+  // Handle URL parameters
+  useEffect(() => {
+    const verdictParam = searchParams.get('verdict')
+    const subcategoryParam = searchParams.get('subcategory')
+    
+    if (verdictParam || subcategoryParam) {
+      setFilters(prev => ({
+        ...prev,
+        verdict: verdictParam || prev.verdict,
+        subcategory: subcategoryParam || ''
+      }))
+    }
+  }, [searchParams])
 
   // Handle scroll to show sticky search when main search bar is out of view
   React.useEffect(() => {

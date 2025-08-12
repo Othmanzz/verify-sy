@@ -3,7 +3,8 @@
 import React from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Bell, Globe, MessageCircle, Plus, Menu, X } from 'lucide-react'
+import { Bell, Globe, MessageCircle, Plus, Menu, X, ChevronDown, XCircle, AlertCircle, HelpCircle, CheckCircle } from 'lucide-react'
+import { verdictSubcategories } from '../lib/mockData'
 
 interface HeaderProps {
   setIsSubmissionModalOpen: (open: boolean) => void
@@ -12,8 +13,41 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ setIsSubmissionModalOpen }) => {
   const pathname = usePathname()
   const [isHeaderMenuOpen, setIsHeaderMenuOpen] = React.useState(false)
+  const [openDropdown, setOpenDropdown] = React.useState<string | null>(null)
 
   const isActive = (path: string) => pathname === path
+
+  const getVerdictIcon = (verdict: string) => {
+    switch (verdict) {
+      case 'احتيال': return <XCircle className="w-4 h-4 text-red-600" />
+      case 'عبث': return <AlertCircle className="w-4 h-4 text-orange-600" />
+      case 'إرباك': return <HelpCircle className="w-4 h-4 text-gray-600" />
+      case 'مؤكد': return <CheckCircle className="w-4 h-4 text-blue-600" />
+      default: return null
+    }
+  }
+
+  const getVerdictColor = (verdict: string) => {
+    switch (verdict) {
+      case 'احتيال': return 'text-red-600 hover:bg-red-50'
+      case 'عبث': return 'text-orange-600 hover:bg-orange-50'
+      case 'إرباك': return 'text-gray-600 hover:bg-gray-50'
+      case 'مؤكد': return 'text-blue-600 hover:bg-blue-50'
+      default: return 'text-gray-600 hover:bg-gray-50'
+    }
+  }
+
+  // Close dropdown when clicking outside
+  React.useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (openDropdown && !(event.target as Element).closest('.relative')) {
+        setOpenDropdown(null)
+      }
+    }
+
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [openDropdown])
 
   return (
     <header className="bg-white border-b border-gray-200 sticky top-0 z-40 shadow-sm" dir="rtl">
@@ -70,6 +104,53 @@ const Header: React.FC<HeaderProps> = ({ setIsSubmissionModalOpen }) => {
             >
               أكاديمية التحقق
             </Link>
+            
+            <div className="w-px h-8 bg-gray-200 mx-2"></div>
+            
+            {/* Verdict Dropdown Menus */}
+            {Object.entries(verdictSubcategories).map(([verdict, subcategories]) => {
+              // If no subcategories, show as a regular link
+              if (subcategories.length === 0) {
+                return (
+                  <Link
+                    key={verdict}
+                    href={`/search?verdict=${verdict}`}
+                    className={`font-medium font-arabic transition-all duration-300 relative px-3 py-2 rounded-lg text-sm flex items-center gap-1 ${getVerdictColor(verdict)}`}
+                  >
+                    {getVerdictIcon(verdict)}
+                    {verdict}
+                  </Link>
+                );
+              }
+              
+              return (
+                <div key={verdict} className="relative">
+                  <button
+                    onClick={() => setOpenDropdown(openDropdown === verdict ? null : verdict)}
+                    className={`font-medium font-arabic transition-all duration-300 relative px-3 py-2 rounded-lg text-sm flex items-center gap-1 ${getVerdictColor(verdict)}`}
+                  >
+                    {getVerdictIcon(verdict)}
+                    {verdict}
+                    <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${openDropdown === verdict ? 'rotate-180' : ''}`} />
+                  </button>
+                  
+                  {openDropdown === verdict && (
+                    <div className="absolute top-full right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-100 py-2 z-50">
+                      {subcategories.map((subcategory) => (
+                        <Link
+                          key={subcategory}
+                          href={`/search?verdict=${verdict}&subcategory=${subcategory}`}
+                          className="block px-4 py-2 text-sm font-arabic text-gray-700 hover:bg-gray-50 hover:text-gray-900 transition-colors duration-200"
+                          onClick={() => setOpenDropdown(null)}
+                        >
+                          {subcategory}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              );
+            })}
             
             <div className="w-px h-8 bg-gray-200 mx-2"></div>
             
