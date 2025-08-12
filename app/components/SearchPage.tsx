@@ -127,7 +127,6 @@ const SearchPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [showSearchSuggestions, setShowSearchSuggestions] = useState(false);
   const [showStickySearch, setShowStickySearch] = useState(false);
-  const [showFilterDropdown, setShowFilterDropdown] = useState(false);
   const [filters, setFilters] = useState({
     category: 'جميع الفئات',
     verdict: 'جميع التصنيفات',
@@ -150,34 +149,6 @@ const SearchPage: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Debug state changes
-  React.useEffect(() => {
-    console.log('📊 showFilterDropdown state changed to:', showFilterDropdown);
-  }, [showFilterDropdown]);
-
-  // Handle click outside to close filter dropdown
-  React.useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      const target = event.target as Element;
-      if (showFilterDropdown && !target.closest('[data-filter-dropdown]') && !target.closest('[data-filter-content]')) {
-        console.log('👆 Clicked outside dropdown, closing...');
-        setShowFilterDropdown(false);
-      }
-    };
-
-    if (showFilterDropdown) {
-      console.log('🎯 Setting up click outside listener...');
-      // Use a small delay to prevent immediate closure when opening
-      const timeoutId = setTimeout(() => {
-        document.addEventListener('mousedown', handleClickOutside);
-      }, 200);
-
-      return () => {
-        clearTimeout(timeoutId);
-        document.removeEventListener('mousedown', handleClickOutside);
-      };
-    }
-  }, [showFilterDropdown]);
 
   // Enhanced AI Search functionality with mock responses
   const aiSuggestions = [
@@ -236,7 +207,7 @@ const SearchPage: React.FC = () => {
   });
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-indigo-50/50" dir="rtl">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-indigo-50/50 overflow-x-hidden" dir="rtl">
       {/* Mobile-Optimized Header */}
       <div className="bg-white/80 backdrop-blur-sm border-b border-gray-200/50">
         <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-4">
@@ -267,11 +238,11 @@ const SearchPage: React.FC = () => {
         <div className="container mx-auto px-3 sm:px-4 relative z-10">
           <div className="max-w-4xl mx-auto">
             
-            {/* Mobile-Optimized Search Bar */}
-            <div className="relative mb-3 sm:mb-4 z-20">
-              <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg border border-gray-100 overflow-hidden">
+            {/* Mobile-Optimized Search Bar with Integrated Filters */}
+            <div className="relative mb-3 sm:mb-4 z-20 max-w-full">
+              <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg border border-gray-100 overflow-hidden max-w-full">
                 {/* Search Input Container */}
-                <div className="flex items-center">
+                <div className="flex items-center border-b border-gray-100">
                   {/* Main Search Input */}
                   <div className="flex-1 relative">
                     <input
@@ -296,28 +267,81 @@ const SearchPage: React.FC = () => {
                       </div>
                     </div>
                   </div>
-                  
-                  {/* Compact Filter Dropdown Button */}
-                  <div className="relative" data-filter-dropdown>
+                </div>
+                
+                {/* Integrated Filter Tags */}
+                <div className="px-3 py-2.5 bg-gray-50/50 overflow-hidden">
+                  <div className="flex flex-wrap gap-1.5 items-center">
+                    <span className="text-[10px] sm:text-xs text-gray-500 font-arabic font-medium flex-shrink-0">الفلترة:</span>
+                    
+                    {/* Category Filters */}
+                    {categories.slice(1, 4).map((category) => (
+                      <button
+                        key={category}
+                        type="button"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          setFilters(prev => ({ 
+                            ...prev, 
+                            category: prev.category === category ? 'جميع الفئات' : category 
+                          }));
+                        }}
+                        className={`inline-block px-2 py-1 rounded-full text-[10px] sm:text-xs font-arabic font-medium transition-colors duration-200 flex-shrink-0 ${
+                          filters.category === category
+                            ? 'bg-blue-600 text-white shadow-sm'
+                            : 'bg-white text-gray-600 hover:bg-blue-50 hover:text-blue-700 border border-gray-200'
+                        }`}
+                      >
+                        {category}
+                      </button>
+                    ))}
+                    
+                    <span className="text-gray-300 mx-0.5 flex-shrink-0">|</span>
+                    
+                    {/* Verdict Filters */}
+                    {verdictOptions.slice(1, 4).map((verdict) => {
+                      const getVerdictStyle = () => {
+                        if (filters.verdict !== verdict) return 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200';
+                        switch (verdict) {
+                          case 'صحيح': return 'bg-green-600 text-white shadow-sm';
+                          case 'احتيال': return 'bg-red-600 text-white shadow-sm';
+                          case 'عبث': return 'bg-orange-600 text-white shadow-sm';
+                          default: return 'bg-gray-600 text-white shadow-sm';
+                        }
+                      };
+                      
+                      return (
+                        <button
+                          key={verdict}
+                          type="button"
+                          onClick={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            setFilters(prev => ({ 
+                              ...prev, 
+                              verdict: prev.verdict === verdict ? 'جميع التصنيفات' : verdict 
+                            }));
+                          }}
+                          className={`inline-block px-2 py-1 rounded-full text-[10px] sm:text-xs font-arabic font-medium transition-colors duration-200 flex-shrink-0 ${getVerdictStyle()}`}
+                        >
+                          {verdict}
+                        </button>
+                      );
+                    })}
+                    
+                    {/* More Filters Button */}
                     <button
                       type="button"
                       onClick={(e) => {
                         e.preventDefault();
                         e.stopPropagation();
-                        console.log('🔥 Filter button clicked, current state:', showFilterDropdown);
-                        setShowFilterDropdown(prev => {
-                          const newState = !prev;
-                          console.log('🔄 Toggling from', prev, 'to', newState);
-                          return newState;
-                        });
+                        /* Will implement if needed */
                       }}
-                      className="flex items-center gap-1 sm:gap-2 px-3 sm:px-4 py-3 sm:py-4 bg-gradient-to-r from-gray-50 to-gray-100 hover:from-blue-50 hover:to-blue-100 transition-all duration-300 border-r border-gray-200"
+                      className="inline-block px-2 py-1 text-[10px] sm:text-xs text-gray-500 hover:text-gray-700 font-arabic font-medium flex-shrink-0"
                     >
-                      <Filter className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-600" />
-                      <span className="font-arabic font-medium text-gray-700 text-xs sm:text-sm hidden sm:inline">فلترة</span>
-                      <ChevronDown className={`w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-500 transition-transform duration-300 ${showFilterDropdown ? 'rotate-180' : ''}`} />
+                      المزيد...
                     </button>
-                    
                   </div>
                 </div>
                   
@@ -477,101 +501,6 @@ const SearchPage: React.FC = () => {
               </div>
             </div>
             
-            {/* Modern Overlay Filter Interface */}
-            {showFilterDropdown && (
-              <>
-                {/* Backdrop Overlay */}
-                <div 
-                  className="fixed inset-0 bg-black/20 backdrop-blur-sm z-30 animate-in fade-in duration-300"
-                  onClick={() => setShowFilterDropdown(false)}
-                />
-                
-                {/* Filter Dropdown */}
-                <div 
-                  className="absolute top-full left-0 right-0 z-40 mt-2 animate-in fade-in slide-in-from-top-2 duration-300"
-                  data-filter-content
-                >
-                  <div className="mx-3 sm:mx-0">
-                  <div className="bg-white rounded-lg shadow-lg border border-gray-300" dir="rtl">
-                    {/* Professional Header */}
-                    <div className="px-4 py-3 border-b border-gray-200">
-                      <div className="flex items-center justify-between">
-                        <h3 className="text-sm font-medium text-gray-900 font-arabic">فلترة النتائج</h3>
-                        <button 
-                          onClick={() => setShowFilterDropdown(false)}
-                          className="text-gray-400 hover:text-gray-600 transition-colors"
-                        >
-                          <X className="w-4 h-4" />
-                        </button>
-                      </div>
-                    </div>
-
-                    {/* Simple Filter Content */}
-                    <div className="p-4">
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        {/* Categories */}
-                        <div>
-                          <label className="block text-xs font-medium text-gray-600 font-arabic mb-2">الفئة</label>
-                          <select 
-                            value={filters.category}
-                            onChange={(e) => setFilters(prev => ({ ...prev, category: e.target.value }))}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm font-arabic bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                          >
-                            {categories.map((category) => (
-                              <option key={category} value={category}>{category}</option>
-                            ))}
-                          </select>
-                        </div>
-
-                        {/* Verdicts */}
-                        <div>
-                          <label className="block text-xs font-medium text-gray-600 font-arabic mb-2">حالة التحقق</label>
-                          <select 
-                            value={filters.verdict}
-                            onChange={(e) => setFilters(prev => ({ ...prev, verdict: e.target.value }))}
-                            className="w-full px-3 py-2 border border-gray-300 rounded-md text-sm font-arabic bg-white focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                          >
-                            {verdictOptions.map((verdict) => (
-                              <option key={verdict} value={verdict}>{verdict}</option>
-                            ))}
-                          </select>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Professional Footer */}
-                    <div className="px-4 py-3 border-t border-gray-200 bg-gray-50">
-                      <div className="flex items-center justify-between">
-                        <span className="text-xs text-gray-500 font-arabic">
-                          {filteredFactChecks.length} نتيجة
-                        </span>
-                        <div className="flex gap-2">
-                          <button
-                            onClick={() => setFilters({
-                              category: 'جميع الفئات',
-                              verdict: 'جميع التصنيفات',
-                              dateRange: 'جميع التواريخ',
-                              sortBy: 'الأحدث'
-                            })}
-                            className="px-3 py-1.5 text-xs font-arabic text-gray-600 hover:text-gray-800 transition-colors"
-                          >
-                            إعادة تعيين
-                          </button>
-                          <button
-                            onClick={() => setShowFilterDropdown(false)}
-                            className="px-4 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded text-xs font-arabic transition-colors"
-                          >
-                            تطبيق
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                    </div>
-                  </div>
-                </div>
-              </>
-            )}
-            
             {/* Mobile Statistics */}
             <div className="flex flex-wrap justify-center gap-2 sm:gap-4 text-xs sm:text-sm">
               <div className="inline-flex items-center gap-1.5 sm:gap-2 bg-white/70 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full border border-gray-200/50 shadow-sm">
@@ -604,7 +533,7 @@ const SearchPage: React.FC = () => {
         showStickySearch ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'
       }`}>
         <div className="bg-white/95 backdrop-blur-md shadow-2xl border-b border-gray-200">
-          <div className="container mx-auto px-3 sm:px-4 py-2.5 sm:py-3">
+          <div className="container mx-auto px-3 sm:px-4 py-2 sm:py-2.5">
             <div className="max-w-4xl mx-auto">
               <div className="flex items-center gap-2 sm:gap-3">
                 {/* Compact Search Input */}
@@ -614,31 +543,53 @@ const SearchPage: React.FC = () => {
                     placeholder="بحث ذكي في قاعدة البيانات..."
                     value={searchQuery}
                     onChange={handleSearchChange}
-                    className="w-full pl-12 sm:pl-14 pr-3 sm:pr-4 py-2.5 sm:py-3 bg-gray-50 rounded-xl sm:rounded-2xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white text-right text-gray-900 font-arabic border border-gray-200 text-sm sm:text-base"
+                    className="w-full pl-10 sm:pl-12 pr-3 sm:pr-4 py-2 sm:py-2.5 bg-gray-50 rounded-lg sm:rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white text-right text-gray-900 font-arabic border border-gray-200 text-xs sm:text-sm"
                     dir="rtl"
                   />
-                  <div className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2">
+                  <div className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2">
                     <div className="w-6 h-6 sm:w-7 sm:h-7 bg-gradient-to-r from-blue-500 to-purple-600 rounded-md sm:rounded-lg flex items-center justify-center">
                       <Bot className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-white" />
                     </div>
                   </div>
                 </div>
 
-                {/* Mobile Filter Button */}
-                <button
-                  onClick={() => setShowFilterDropdown(!showFilterDropdown)}
-                  className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2.5 sm:py-3 bg-gray-50 hover:bg-gray-100 rounded-xl sm:rounded-2xl transition-colors border border-gray-200"
-                >
-                  <Filter className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-600" />
-                  <span className="text-xs sm:text-sm font-arabic font-medium text-gray-700 hidden sm:inline">فلترة</span>
-                  <ChevronDown className={`w-3 h-3 sm:w-3.5 sm:h-3.5 text-gray-500 transition-transform duration-300 ${showFilterDropdown ? 'rotate-180' : ''}`} />
-                </button>
-
                 {/* Mobile Results Count */}
-                <div className="px-3 sm:px-4 py-2.5 sm:py-3 bg-gradient-to-r from-blue-100 to-blue-50 text-blue-800 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-bold font-arabic border border-blue-200">
+                <div className="px-2.5 sm:px-3 py-2 sm:py-2.5 bg-gradient-to-r from-blue-100 to-blue-50 text-blue-800 rounded-lg sm:rounded-xl text-[10px] sm:text-xs font-bold font-arabic border border-blue-200">
                   <span className="hidden sm:inline">{filteredFactChecks.length} نتيجة</span>
                   <span className="sm:hidden">{filteredFactChecks.length}</span>
                 </div>
+              </div>
+              
+              {/* Compact Filter Tags for Sticky Bar */}
+              <div className="flex flex-wrap gap-1 mt-2 items-center">
+                {/* Show active filters only */}
+                {(filters.category !== 'جميع الفئات' || filters.verdict !== 'جميع التصنيفات') && (
+                  <>
+                    <span className="text-[9px] text-gray-500 font-arabic ml-1">الفلترة:</span>
+                    {filters.category !== 'جميع الفئات' && (
+                      <button
+                        onClick={() => setFilters(prev => ({ ...prev, category: 'جميع الفئات' }))}
+                        className="px-2 py-0.5 bg-blue-600 text-white rounded-full text-[9px] font-arabic font-medium flex items-center gap-1"
+                      >
+                        {filters.category}
+                        <X className="w-2.5 h-2.5" />
+                      </button>
+                    )}
+                    {filters.verdict !== 'جميع التصنيفات' && (
+                      <button
+                        onClick={() => setFilters(prev => ({ ...prev, verdict: 'جميع التصنيفات' }))}
+                        className={`px-2 py-0.5 text-white rounded-full text-[9px] font-arabic font-medium flex items-center gap-1 ${
+                          filters.verdict === 'صحيح' ? 'bg-green-600' :
+                          filters.verdict === 'احتيال' ? 'bg-red-600' :
+                          filters.verdict === 'عبث' ? 'bg-orange-600' : 'bg-gray-600'
+                        }`}
+                      >
+                        {filters.verdict}
+                        <X className="w-2.5 h-2.5" />
+                      </button>
+                    )}
+                  </>
+                )}
               </div>
             </div>
           </div>
