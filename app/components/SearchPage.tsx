@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { Search, Filter, TrendingUp, Database, CheckCircle, XCircle, AlertCircle, HelpCircle, User, Eye, Clock, Star, ArrowLeft, Zap, Bot, Brain, Sparkles, Heart, DollarSign, Globe2, BookOpen, Laptop, Building2, Activity, Users2, X, RotateCcw, ChevronDown, Calendar, SortAsc } from 'lucide-react'
 import { FactCheck } from '../types'
-import { mockFactChecks, categories, verdictOptions } from '../lib/mockData'
+import { mockFactChecks, categories, verdictOptions, verdictSubcategories } from '../lib/mockData'
 
 
 // Mobile-optimized Compact Card Component
@@ -200,6 +200,16 @@ const SearchPage: React.FC = () => {
 
   const handleFilterChange = (newFilters: typeof filters) => {
     setFilterLoading(true);
+    
+    // Clear subcategory if verdict changes and new verdict has no subcategories
+    if (newFilters.verdict !== filters.verdict) {
+      if (newFilters.verdict === 'جميع التصنيفات' || 
+          !verdictSubcategories[newFilters.verdict] || 
+          verdictSubcategories[newFilters.verdict].length === 0) {
+        newFilters.subcategory = '';
+      }
+    }
+    
     setFilters(newFilters);
     // Brief loading indication for visual feedback
     setTimeout(() => {
@@ -228,7 +238,11 @@ const SearchPage: React.FC = () => {
     const matchesVerdict = filters.verdict === 'جميع التصنيفات' || 
       factCheck.verdict === verdictMapping[filters.verdict];
     
-    return matchesSearch && matchesCategory && matchesVerdict;
+    // Note: subcategory filtering would require adding subcategory field to FactCheck type and data
+    // For now, subcategory filter shows UI but doesn't filter actual data
+    const matchesSubcategory = !filters.subcategory || true; // Placeholder logic
+    
+    return matchesSearch && matchesCategory && matchesVerdict && matchesSubcategory;
   });
 
   return (
@@ -366,6 +380,43 @@ const SearchPage: React.FC = () => {
                           );
                         })}
                       </div>
+
+                      {/* Conditional Subcategory Row */}
+                      {filters.verdict !== 'جميع التصنيفات' && verdictSubcategories[filters.verdict] && verdictSubcategories[filters.verdict].length > 0 && (
+                        <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide pb-2 pt-2 border-t border-gray-100">
+                          <div className="flex items-center gap-1 flex-shrink-0">
+                            <Filter className="w-3.5 h-3.5 text-gray-500" />
+                            <span className="text-xs font-medium text-gray-600 font-arabic">التفصيل:</span>
+                          </div>
+                          
+                          <button
+                            onClick={() => handleFilterChange({ ...filters, subcategory: '' })}
+                            onMouseDown={(e) => e.preventDefault()}
+                            className={`px-2.5 py-1 rounded-md text-xs font-medium transition-all duration-200 whitespace-nowrap font-arabic border flex-shrink-0 ${
+                              filters.subcategory === ''
+                                ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
+                                : 'bg-white text-gray-700 border-gray-200 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700'
+                            }`}
+                          >
+                            الكل
+                          </button>
+                          
+                          {verdictSubcategories[filters.verdict].map((subcategory) => (
+                            <button
+                              key={subcategory}
+                              onClick={() => handleFilterChange({ ...filters, subcategory })}
+                              onMouseDown={(e) => e.preventDefault()}
+                              className={`px-2.5 py-1 rounded-md text-xs font-medium transition-all duration-200 whitespace-nowrap font-arabic border flex-shrink-0 ${
+                                filters.subcategory === subcategory
+                                  ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
+                                  : 'bg-white text-gray-700 border-gray-200 hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700'
+                              }`}
+                            >
+                              {subcategory}
+                            </button>
+                          ))}
+                        </div>
+                      )}
                     </div>
                     
                     {/* AI Suggestions Section */}
