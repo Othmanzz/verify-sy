@@ -1,14 +1,17 @@
 'use client'
 
 import React, { useState, useRef, useEffect } from 'react';
-import { CheckCircle, XCircle, AlertCircle, HelpCircle, User, Calendar, Eye, Clock, Share2, BookmarkPlus, ArrowLeft, Shield, Award, Globe, Play, Pause, Volume2, VolumeX, Twitter, Facebook, MessageCircle, Copy } from 'lucide-react';
+import { CheckCircle, XCircle, AlertCircle, HelpCircle, User, Calendar, Eye, Clock, Share2, BookmarkPlus, ArrowLeft, Shield, Award, Globe, Play, Pause, Volume2, VolumeX, Twitter, Facebook, MessageCircle, Copy, Info } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { subcategoryDefinitions } from '../lib/mockData';
 
 interface FactCheck {
   id: string;
   title: string;
   summary: string;
   verdict: 'true' | 'false' | 'misleading' | 'unproven' | 'confirmed';
+  subVerdict?: string;
+  subVerdictExplanation?: string;
   category: string;
   author: string;
   date: string;
@@ -658,6 +661,26 @@ export default function ArticlePage({ article }: ArticlePageProps) {
                   <p className="text-sm leading-relaxed font-arabic text-gray-700 mb-4">
                     {verdictConfig.description}
                   </p>
+                  
+                  {/* Sub-verdict section */}
+                  {article.subVerdict && (
+                    <div className="bg-white/90 backdrop-blur-sm rounded-lg p-4 mb-4 border border-gray-200/50">
+                      <div className="flex items-start gap-3">
+                        <Info className="w-5 h-5 text-indigo-600 mt-1 flex-shrink-0" />
+                        <div className="flex-1">
+                          <h4 className="font-bold text-gray-900 font-arabic-heading text-sm mb-2">
+                            {article.subVerdict}
+                          </h4>
+                          {article.subVerdictExplanation && (
+                            <p className="text-xs leading-relaxed font-arabic text-gray-600">
+                              {article.subVerdictExplanation}
+                            </p>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                  
                   <div className="space-y-3">
                     <div className="bg-white rounded-lg p-3 shadow-sm">
                       <Award className="w-5 h-5 text-blue-600 mb-2" />
