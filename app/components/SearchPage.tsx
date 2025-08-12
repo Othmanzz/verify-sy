@@ -245,88 +245,6 @@ const SearchPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Horizontal Filter Carousel */}
-      <section className="bg-white border-b border-gray-100 overflow-hidden">
-        <div className="container mx-auto px-3 sm:px-4 py-3 sm:py-4">
-          <div className="flex items-center gap-3 overflow-x-auto scrollbar-hide" style={{scrollbarWidth: 'none', msOverflowStyle: 'none'}}>
-            
-            {/* Category Filters */}
-            <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-              <div className="flex items-center gap-1 sm:gap-2">
-                <Filter className="w-4 h-4 text-gray-500" />
-                <span className="text-xs sm:text-sm font-medium text-gray-700 font-arabic whitespace-nowrap">الفئات:</span>
-              </div>
-              
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => handleFilterChange({ ...filters, category })}
-                  className={`flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 whitespace-nowrap font-arabic border-2 ${
-                    filters.category === category
-                      ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white border-transparent shadow-lg transform scale-105'
-                      : 'bg-gray-50 text-gray-700 border-gray-200 hover:bg-gray-100 hover:border-gray-300 hover:shadow-md'
-                  }`}
-                >
-                  <div className={`w-2 h-2 rounded-full ${
-                    filters.category === category ? 'bg-white' : 'bg-gray-400'
-                  }`} />
-                  {category}
-                </button>
-              ))}
-            </div>
-
-            {/* Separator */}
-            <div className="w-px h-6 bg-gray-200 flex-shrink-0 mx-2" />
-
-            {/* Verdict Filters */}
-            <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
-              <div className="flex items-center gap-1 sm:gap-2">
-                <CheckCircle className="w-4 h-4 text-gray-500" />
-                <span className="text-xs sm:text-sm font-medium text-gray-700 font-arabic whitespace-nowrap">النتائج:</span>
-              </div>
-              
-              {verdictOptions.map((verdict) => {
-                const getVerdictIcon = (verdict: string) => {
-                  switch (verdict) {
-                    case 'صحيح': return <CheckCircle className="w-3 h-3" />;
-                    case 'احتيال': return <XCircle className="w-3 h-3" />;
-                    case 'عبث': return <AlertCircle className="w-3 h-3" />;
-                    case 'إرباك': return <HelpCircle className="w-3 h-3" />;
-                    case 'مؤكد': return <Star className="w-3 h-3" />;
-                    default: return <Filter className="w-3 h-3" />;
-                  }
-                };
-
-                const getVerdictColor = (verdict: string) => {
-                  switch (verdict) {
-                    case 'صحيح': return filters.verdict === verdict ? 'from-green-500 to-emerald-600' : 'hover:border-green-300';
-                    case 'احتيال': return filters.verdict === verdict ? 'from-red-500 to-red-600' : 'hover:border-red-300';
-                    case 'عبث': return filters.verdict === verdict ? 'from-orange-500 to-amber-600' : 'hover:border-orange-300';
-                    case 'إرباك': return filters.verdict === verdict ? 'from-gray-500 to-slate-600' : 'hover:border-gray-300';
-                    case 'مؤكد': return filters.verdict === verdict ? 'from-blue-500 to-indigo-600' : 'hover:border-blue-300';
-                    default: return filters.verdict === verdict ? 'from-purple-500 to-indigo-600' : 'hover:border-purple-300';
-                  }
-                };
-
-                return (
-                  <button
-                    key={verdict}
-                    onClick={() => handleFilterChange({ ...filters, verdict })}
-                    className={`flex items-center gap-1.5 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-200 whitespace-nowrap font-arabic border-2 ${
-                      filters.verdict === verdict
-                        ? `bg-gradient-to-r ${getVerdictColor(verdict)} text-white border-transparent shadow-lg transform scale-105`
-                        : `bg-gray-50 text-gray-700 border-gray-200 hover:bg-gray-100 ${getVerdictColor(verdict)} hover:shadow-md`
-                    }`}
-                  >
-                    {getVerdictIcon(verdict)}
-                    {verdict}
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Mobile-Optimized Search Section */}
       <section className="relative py-4 sm:py-6 overflow-visible" data-search-section>        
@@ -437,13 +355,13 @@ const SearchPage: React.FC = () => {
                           </div>
                         </div>
                         
-                        {/* Categories */}
-                        <div className="mb-8">
-                          <h4 className="text-base font-bold text-gray-900 font-arabic mb-4 flex items-center gap-2">
+                        {/* Categories - First Row */}
+                        <div className="mb-6">
+                          <h4 className="text-sm font-bold text-gray-700 font-arabic mb-3 flex items-center gap-2">
                             <BookOpen className="w-4 h-4 text-blue-600" />
                             الفئات
                           </h4>
-                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                          <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide pb-2">
                             {categories.map((category) => (
                               <button
                                 key={category}
@@ -455,47 +373,48 @@ const SearchPage: React.FC = () => {
                                   };
                                   handleFilterChange(newFilters);
                                 }}
-                                className={`px-4 py-3 rounded-xl text-sm font-arabic font-bold transition-all duration-200 border-2 ${
+                                className={`flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-medium transition-all duration-200 whitespace-nowrap font-arabic border-2 flex-shrink-0 ${
                                   filters.category === category
-                                    ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white border-transparent shadow-lg transform scale-105'
-                                    : 'bg-white text-gray-700 border-gray-200 hover:border-blue-300 hover:bg-blue-50 hover:shadow-md'
+                                    ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white border-transparent shadow-lg transform scale-105'
+                                    : 'bg-gray-50 text-gray-700 border-gray-200 hover:bg-gray-100 hover:border-gray-300 hover:shadow-md'
                                 }`}
                               >
+                                <div className={`w-2 h-2 rounded-full ${
+                                  filters.category === category ? 'bg-white' : 'bg-gray-400'
+                                }`} />
                                 {category}
                               </button>
                             ))}
                           </div>
                         </div>
                         
-                        {/* Verdicts */}
+                        {/* Verdicts - Second Row */}
                         <div className="mb-6">
-                          <h4 className="text-base font-bold text-gray-900 font-arabic mb-4 flex items-center gap-2">
+                          <h4 className="text-sm font-bold text-gray-700 font-arabic mb-3 flex items-center gap-2">
                             <CheckCircle className="w-4 h-4 text-green-600" />
                             حالة التحقق
                           </h4>
-                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                          <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide pb-2">
                             {verdictOptions.map((verdict) => {
-                              const getVerdictStyle = () => {
-                                if (filters.verdict !== verdict) return 'bg-white text-gray-700 border-gray-200 hover:border-blue-300 hover:bg-blue-50 hover:shadow-md';
+                              const getVerdictIcon = (verdict: string) => {
                                 switch (verdict) {
-                                  case 'جميع التصنيفات': return 'bg-gradient-to-r from-gray-600 to-gray-700 text-white border-transparent shadow-lg transform scale-105';
-                                  case 'صحيح': return 'bg-gradient-to-r from-green-600 to-green-700 text-white border-transparent shadow-lg transform scale-105';
-                                  case 'احتيال': return 'bg-gradient-to-r from-red-600 to-red-700 text-white border-transparent shadow-lg transform scale-105';
-                                  case 'عبث': return 'bg-gradient-to-r from-orange-600 to-orange-700 text-white border-transparent shadow-lg transform scale-105';
-                                  case 'إرباك': return 'bg-gradient-to-r from-purple-600 to-purple-700 text-white border-transparent shadow-lg transform scale-105';
-                                  case 'مؤكد': return 'bg-gradient-to-r from-blue-600 to-blue-700 text-white border-transparent shadow-lg transform scale-105';
-                                  default: return 'bg-gradient-to-r from-gray-600 to-gray-700 text-white border-transparent shadow-lg transform scale-105';
+                                  case 'صحيح': return <CheckCircle className="w-3 h-3" />;
+                                  case 'احتيال': return <XCircle className="w-3 h-3" />;
+                                  case 'عبث': return <AlertCircle className="w-3 h-3" />;
+                                  case 'إرباك': return <HelpCircle className="w-3 h-3" />;
+                                  case 'مؤكد': return <Star className="w-3 h-3" />;
+                                  default: return <Filter className="w-3 h-3" />;
                                 }
                               };
-                              
-                              const getVerdictIcon = () => {
+
+                              const getVerdictColor = (verdict: string) => {
                                 switch (verdict) {
-                                  case 'صحيح': return <CheckCircle className="w-4 h-4" />;
-                                  case 'احتيال': return <XCircle className="w-4 h-4" />;
-                                  case 'عبث': return <AlertCircle className="w-4 h-4" />;
-                                  case 'إرباك': return <HelpCircle className="w-4 h-4" />;
-                                  case 'مؤكد': return <CheckCircle className="w-4 h-4" />;
-                                  default: return <Filter className="w-4 h-4" />;
+                                  case 'صحيح': return filters.verdict === verdict ? 'from-green-500 to-emerald-600' : 'hover:border-green-300';
+                                  case 'احتيال': return filters.verdict === verdict ? 'from-red-500 to-red-600' : 'hover:border-red-300';
+                                  case 'عبث': return filters.verdict === verdict ? 'from-orange-500 to-amber-600' : 'hover:border-orange-300';
+                                  case 'إرباك': return filters.verdict === verdict ? 'from-gray-500 to-slate-600' : 'hover:border-gray-300';
+                                  case 'مؤكد': return filters.verdict === verdict ? 'from-blue-500 to-indigo-600' : 'hover:border-blue-300';
+                                  default: return filters.verdict === verdict ? 'from-purple-500 to-indigo-600' : 'hover:border-purple-300';
                                 }
                               };
                               
@@ -510,10 +429,14 @@ const SearchPage: React.FC = () => {
                                     };
                                     handleFilterChange(newFilters);
                                   }}
-                                  className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-arabic font-bold transition-all duration-200 border-2 ${getVerdictStyle()}`}
+                                  className={`flex items-center gap-1.5 px-3 py-2 rounded-full text-xs font-medium transition-all duration-200 whitespace-nowrap font-arabic border-2 flex-shrink-0 ${
+                                    filters.verdict === verdict
+                                      ? `bg-gradient-to-r ${getVerdictColor(verdict)} text-white border-transparent shadow-lg transform scale-105`
+                                      : `bg-gray-50 text-gray-700 border-gray-200 hover:bg-gray-100 ${getVerdictColor(verdict)} hover:shadow-md`
+                                  }`}
                                 >
-                                  {getVerdictIcon()}
-                                  <span>{verdict}</span>
+                                  {getVerdictIcon(verdict)}
+                                  {verdict}
                                 </button>
                               );
                             })}
