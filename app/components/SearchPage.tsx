@@ -417,7 +417,7 @@ const SearchPage: React.FC = () => {
                         {searchQuery && (
                           <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-gray-600 text-white rounded-md text-xs font-arabic">
                             <Search className="w-3 h-3" />
-                            <span>"{searchQuery}"</span>
+                            <span>&quot;{searchQuery}&quot;</span>
                             <button
                               onClick={() => setSearchQuery('')}
                               className="hover:bg-gray-700 rounded-sm p-0.5 transition-colors"
