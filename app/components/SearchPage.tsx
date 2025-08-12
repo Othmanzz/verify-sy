@@ -330,7 +330,7 @@ const SearchPage: React.FC = () => {
                               case 'عبث': return filters.verdict === verdict ? 'bg-orange-600 text-white border-orange-600' : 'hover:bg-orange-50 hover:border-orange-300 hover:text-orange-700';
                               case 'إرباك': return filters.verdict === verdict ? 'bg-gray-600 text-white border-gray-600' : 'hover:bg-gray-50 hover:border-gray-300 hover:text-gray-700';
                               case 'مؤكد': return filters.verdict === verdict ? 'bg-blue-600 text-white border-blue-600' : 'hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700';
-                              default: return filters.verdict === verdict ? 'bg-purple-600 text-white border-purple-600' : 'hover:bg-purple-50 hover:border-purple-300 hover:text-purple-700';
+                              default: return filters.verdict === verdict ? 'bg-blue-700 text-white border-blue-700' : 'hover:bg-blue-50 hover:border-blue-300 hover:text-blue-700';
                             }
                           };
 
@@ -354,7 +354,7 @@ const SearchPage: React.FC = () => {
                     {/* AI Suggestions Section */}
                     {showSearchSuggestions && (
                       <>
-                        <div className="bg-gradient-to-r from-blue-600 to-purple-600 px-6 py-4">
+                        <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4">
                           <div className="flex items-center gap-3">
                             <div className="w-8 h-8 bg-white/20 rounded-xl flex items-center justify-center">
                               <Brain className="w-4 h-4 text-white animate-pulse" />
