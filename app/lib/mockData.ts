@@ -118,6 +118,7 @@ export const mockFactChecks: FactCheck[] = [
     title: 'كيف يضلل نموذج Grok مستخدمي "إكس"؟ منصة "تأكد" تكشف إحدى تجاربها',
     summary: 'مؤخراً، يلجأ مستخدمو مواقع التواصل الاجتماعي بشكل متزايد إلى أدوات الذكاء الاصطناعي للتحقق من مقاطع الفيديو والصور والأخبار المتداولة، لكن هذه الأدوات قد تقدم معلومات مضللة.',
     verdict: 'confirmed',
+    subVerdict: null,
     image: 'https://images.pexels.com/photos/3825539/pexels-photo-3825539.jpeg?auto=compress&cs=tinysrgb&w=800',
     author: 'فريق تأكد',
     date: '2025-08-08',

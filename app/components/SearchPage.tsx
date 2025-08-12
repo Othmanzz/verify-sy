@@ -238,9 +238,8 @@ const SearchPage: React.FC = () => {
     const matchesVerdict = filters.verdict === 'جميع التصنيفات' || 
       factCheck.verdict === verdictMapping[filters.verdict];
     
-    // Note: subcategory filtering would require adding subcategory field to FactCheck type and data
-    // For now, subcategory filter shows UI but doesn't filter actual data
-    const matchesSubcategory = !filters.subcategory || true; // Placeholder logic
+    // Subcategory filtering now works with subVerdict field from articles
+    const matchesSubcategory = !filters.subcategory || factCheck.subVerdict === filters.subcategory;
     
     return matchesSearch && matchesCategory && matchesVerdict && matchesSubcategory;
   });
@@ -461,7 +460,7 @@ const SearchPage: React.FC = () => {
                 )}
 
                 {/* Enhanced Active Filters Display */}
-                {(filters.category !== 'جميع الفئات' || filters.verdict !== 'جميع التصنيفات' || searchQuery) && (
+                {(filters.category !== 'جميع الفئات' || filters.verdict !== 'جميع التصنيفات' || filters.subcategory || searchQuery) && (
                   <div className="bg-blue-50/50 border border-blue-100 rounded-lg p-3 mt-3">
                     <div className="flex flex-wrap items-center gap-2 justify-between">
                       <div className="flex flex-wrap items-center gap-2">
@@ -506,13 +505,26 @@ const SearchPage: React.FC = () => {
                             <span className="font-medium">حالة:</span>
                             <span>{filters.verdict}</span>
                             <button
-                              onClick={() => setFilters(prev => ({ ...prev, verdict: 'جميع التصنيفات' }))}
+                              onClick={() => setFilters(prev => ({ ...prev, verdict: 'جميع التصنيفات', subcategory: '' }))}
                               className={`rounded-sm p-0.5 transition-colors ${
                                 filters.verdict === 'احتيال' ? 'hover:bg-red-700' :
                                 filters.verdict === 'عبث' ? 'hover:bg-orange-700' :
                                 filters.verdict === 'إرباك' ? 'hover:bg-gray-700' :
                                 filters.verdict === 'مؤكد' ? 'hover:bg-blue-700' : 'hover:bg-gray-700'
                               }`}
+                            >
+                              <X className="w-2.5 h-2.5" />
+                            </button>
+                          </div>
+                        )}
+                        
+                        {filters.subcategory && (
+                          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-purple-600 text-white rounded-md text-xs font-arabic">
+                            <span className="font-medium">تفصيل:</span>
+                            <span>{filters.subcategory}</span>
+                            <button
+                              onClick={() => setFilters(prev => ({ ...prev, subcategory: '' }))}
+                              className="hover:bg-purple-700 rounded-sm p-0.5 transition-colors"
                             >
                               <X className="w-2.5 h-2.5" />
                             </button>
@@ -527,6 +539,7 @@ const SearchPage: React.FC = () => {
                           setFilters({
                             category: 'جميع الفئات',
                             verdict: 'جميع التصنيفات',
+                            subcategory: '',
                             dateRange: 'جميع التواريخ',
                             sortBy: 'الأحدث'
                           });
