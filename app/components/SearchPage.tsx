@@ -190,8 +190,8 @@ const SearchPage: React.FC = () => {
     // Brief loading indication for visual feedback
     setTimeout(() => {
       setFilterLoading(false);
-      setShowAllFilters(false);
     }, 300);
+    // Keep dropdown open when filtering for better UX
   };
 
   // Filter functionality
@@ -266,10 +266,13 @@ const SearchPage: React.FC = () => {
                       onFocus={() => {
                         setShowSearchSuggestions(true);
                       }}
-                      onBlur={() => {
-                        setTimeout(() => {
-                          setShowSearchSuggestions(false);
-                        }, 200);
+                      onBlur={(e) => {
+                        // Don't close if clicking on filter buttons or dropdown content
+                        if (!e.relatedTarget || !e.currentTarget.parentElement?.contains(e.relatedTarget as Node)) {
+                          setTimeout(() => {
+                            setShowSearchSuggestions(false);
+                          }, 200);
+                        }
                       }}
                       className="w-full pl-12 sm:pl-16 pr-3 sm:pr-4 py-3 sm:py-4 text-sm sm:text-base bg-transparent focus:outline-none text-right text-gray-900 font-arabic border-0"
                       dir="rtl"
@@ -304,6 +307,7 @@ const SearchPage: React.FC = () => {
                           <button
                             key={category}
                             onClick={() => handleFilterChange({ ...filters, category })}
+                            onMouseDown={(e) => e.preventDefault()}
                             className={`px-2.5 py-1 rounded-md text-xs font-medium transition-all duration-200 whitespace-nowrap font-arabic border flex-shrink-0 ${
                               filters.category === category
                                 ? 'bg-blue-600 text-white border-blue-600 shadow-sm'
@@ -338,6 +342,7 @@ const SearchPage: React.FC = () => {
                             <button
                               key={verdict}
                               onClick={() => handleFilterChange({ ...filters, verdict })}
+                              onMouseDown={(e) => e.preventDefault()}
                               className={`px-2.5 py-1 rounded-md text-xs font-medium transition-all duration-200 whitespace-nowrap font-arabic border flex-shrink-0 ${
                                 filters.verdict === verdict
                                   ? getVerdictColor(verdict)
