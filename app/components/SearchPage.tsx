@@ -359,34 +359,31 @@ const SearchPage: React.FC = () => {
                     {/* AI Suggestions Section */}
                     {showSearchSuggestions && (
                       <>
-                        <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-6 py-4">
-                          <div className="flex items-center gap-3">
-                            <div className="w-8 h-8 bg-white/20 rounded-xl flex items-center justify-center">
-                              <Brain className="w-4 h-4 text-white animate-pulse" />
+                        <div className="bg-gradient-to-r from-blue-600 to-blue-700 px-4 py-2.5">
+                          <div className="flex items-center gap-2">
+                            <div className="w-6 h-6 bg-white/20 rounded-lg flex items-center justify-center">
+                              <Brain className="w-3.5 h-3.5 text-white" />
                             </div>
-                            <div>
-                              <h3 className="text-white font-bold text-lg font-arabic">بحث ذكي</h3>
-                              <p className="text-white/80 text-sm font-arabic">اقتراحات مدعومة بالذكاء الاصطناعي</p>
-                            </div>
+                            <h3 className="text-white font-bold text-sm font-arabic">اقتراحات ذكية</h3>
                           </div>
                         </div>
                         
-                        <div className="p-4 border-b border-gray-100">
-                          <div className="space-y-2">
+                        <div className="p-3">
+                          <div className="space-y-1">
                             {searchSuggestions.map((suggestion, index) => (
                               <button
                                 key={index}
                                 onClick={() => handleSuggestionClick(suggestion)}
-                                className="w-full text-right px-4 py-3 text-gray-900 hover:bg-blue-50 hover:text-blue-800 transition-all duration-200 rounded-xl flex items-center gap-3 group border border-gray-100 hover:border-blue-200 hover:shadow-md"
+                                className="w-full text-right px-3 py-2 text-gray-900 hover:bg-blue-50 hover:text-blue-800 transition-all duration-200 rounded-lg flex items-center gap-2 group"
                                 dir="rtl"
                               >
-                                <div className="w-8 h-8 bg-blue-100 group-hover:bg-blue-200 rounded-xl flex items-center justify-center transition-all duration-200">
-                                  <Search className="w-4 h-4 text-blue-700" />
+                                <div className="w-5 h-5 bg-blue-100 group-hover:bg-blue-200 rounded-md flex items-center justify-center transition-all duration-200 flex-shrink-0">
+                                  <Search className="w-3 h-3 text-blue-700" />
                                 </div>
-                                <span className="font-arabic font-medium flex-1 text-gray-900 group-hover:text-blue-800 transition-colors duration-200">
+                                <span className="font-arabic text-sm flex-1 text-gray-900 group-hover:text-blue-800 transition-colors duration-200 text-right">
                                   {suggestion}
                                 </span>
-                                <div className="text-xs text-blue-600 bg-blue-100 group-hover:bg-blue-200 px-3 py-1 rounded-full font-arabic font-bold">
+                                <div className="text-xs text-blue-600 bg-blue-100 group-hover:bg-blue-200 px-2 py-0.5 rounded-md font-arabic font-medium flex-shrink-0">
                                   AI
                                 </div>
                               </button>
