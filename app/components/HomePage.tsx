@@ -263,22 +263,21 @@ const HomePage: React.FC = () => {
           {/* Horizontal Scroll Container */}
           <div 
             id="trending-scroll-container"
-            className="flex gap-4 sm:gap-6 overflow-x-auto py-4 px-1 sm:px-2 scroll-smooth"
+            className="flex gap-4 sm:gap-6 overflow-x-auto py-4 px-1 sm:px-2 scroll-smooth snap-x snap-mandatory"
             style={{
               scrollbarWidth: 'none',
               msOverflowStyle: 'none',
+              WebkitOverflowScrolling: 'touch',
             }}
           >
             {mockFactChecks.slice(0, 12).map((factCheck, index) => (
               <div 
                 key={`trending-${factCheck.id}`}
-                className="flex-none w-72 sm:w-80"
+                className="flex-none w-72 sm:w-80 snap-start"
               >
                 <article 
                   className={`group relative bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 cursor-pointer transform hover:scale-[1.02] hover:-translate-y-1 overflow-hidden h-full ${getVerdictInfo(factCheck.verdict).cardBorder}`}
-                  onClick={() => {
-                    console.log('Selected article:', factCheck.id);
-                  }}
+                  onClick={() => router.push(`/article/${factCheck.id}`)}
                 >
 
                   {/* Image with Modern Overlay */}
@@ -893,7 +892,10 @@ const HomePage: React.FC = () => {
                   {/* Enhanced Premium CTA Button */}
                   <button 
                     onClick={() => {
-                      console.log('Featured article button clicked');
+                      const featuredArticle = mockFactChecks.find(fc => fc.featured);
+                      if (featuredArticle) {
+                        router.push(`/article/${featuredArticle.id}`);
+                      }
                     }}
                     className="group w-full bg-gradient-to-r from-yellow-500 via-amber-500 to-orange-500 text-white px-10 py-5 rounded-3xl hover:from-yellow-600 hover:via-amber-600 hover:to-orange-600 transition-all duration-300 font-bold text-lg flex items-center justify-center gap-4 shadow-2xl hover:shadow-3xl transform hover:scale-105 font-arabic border border-yellow-400/20 relative overflow-hidden"
                   >
