@@ -1,9 +1,11 @@
 'use client'
 
 import React, { useState, useRef, useEffect } from 'react';
-import { CheckCircle, XCircle, AlertCircle, HelpCircle, User, Calendar, Eye, Clock, Share2, BookmarkPlus, ArrowLeft, Shield, Award, Globe, Play, Pause, Volume2, VolumeX, Twitter, Facebook, MessageCircle, Copy, Info } from 'lucide-react';
+import { CheckCircle, XCircle, AlertCircle, HelpCircle, User, Calendar, Eye, Clock, Share2, BookmarkPlus, ArrowLeft, Shield, Award, Globe, Play, Pause, Volume2, VolumeX, Twitter, Facebook, MessageCircle, Copy, Info, ExternalLink, FileText, Users, MapPin, Clock as ClockIcon, Database } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { subcategoryDefinitions } from '../lib/mockData';
+import { getArticleContent, ArticleContent } from '../lib/articleContent';
+import { mockFactChecks } from '../lib/mockData';
 
 interface FactCheck {
   id: string;
@@ -368,6 +370,13 @@ export default function ArticlePage({ article }: ArticlePageProps) {
   const router = useRouter();
   const [showStickySocial, setShowStickySocial] = useState(false);
   const [activeSection, setActiveSection] = useState('overview');
+  const [articleContent, setArticleContent] = useState<ArticleContent | null>(null);
+
+  // Get detailed article content
+  useEffect(() => {
+    const content = getArticleContent(article.id);
+    setArticleContent(content);
+  }, [article.id]);
 
   // Handle scroll to show/hide sticky social bar and track active section
   useEffect(() => {
@@ -455,6 +464,20 @@ export default function ArticlePage({ article }: ArticlePageProps) {
 
   const verdictConfig = getVerdictConfig(article.verdict);
 
+  // Get related articles
+  const getRelatedArticles = () => {
+    if (articleContent?.relatedArticles) {
+      return mockFactChecks.filter(fc => 
+        articleContent.relatedArticles.includes(fc.id)
+      ).slice(0, 3);
+    }
+    return mockFactChecks
+      .filter(fc => fc.category === article.category && fc.id !== article.id)
+      .slice(0, 3);
+  };
+
+  const relatedArticles = getRelatedArticles();
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50/30 to-indigo-50/50" dir="rtl">
       {/* Regular Header (Non-sticky) */}
@@ -470,17 +493,38 @@ export default function ArticlePage({ article }: ArticlePageProps) {
                 <p className="text-sm text-gray-500 font-arabic">{article.category}</p>
               </div>
             </div>
+            <div className="flex items-center gap-3">
+              <button 
+                onClick={() => router.push('/')}
+                className="inline-flex items-center gap-2 px-3 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200 font-arabic font-medium text-sm"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                الرئيسية
+              </button>
+              <span className="text-gray-400">/</span>
+              <button 
+                onClick={() => router.push('/search')}
+                className="inline-flex items-center gap-2 px-3 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200 font-arabic font-medium text-sm"
+              >
+                قاعدة البيانات
+              </button>
+              <span className="text-gray-400">/</span>
+              <span className="px-3 py-2 text-blue-600 bg-blue-50 rounded-lg font-arabic font-medium text-sm">
+                {article.category}
+              </span>
+            </div>
+            
+            {/* Back to Search Button */}
             <button 
-              onClick={() => router.push('/')}
-              className="inline-flex items-center gap-2 px-4 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200 font-arabic font-medium"
+              onClick={() => router.push('/search')}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white hover:bg-blue-700 rounded-lg transition-all duration-200 font-arabic font-medium text-sm shadow-md hover:shadow-lg"
             >
-              <ArrowLeft className="w-4 h-4" />
-              العودة للرئيسية
+              <Database className="w-4 h-4" />
+              العودة للبحث
             </button>
           </div>
         </div>
       </div>
-
 
       {/* Main Content Container */}
       <div className="container mx-auto px-4 py-6">
@@ -594,55 +638,98 @@ export default function ArticlePage({ article }: ArticlePageProps) {
             {/* Main Content Column */}
             <div className="lg:col-span-2 space-y-4">
               
-              {/* Article Content - Compact */}
+              {/* Article Content - Enhanced with Full Content */}
               <div id="details" className="bg-white rounded-xl shadow-md p-6">
                 <h2 className="text-2xl font-black mb-6 font-arabic-heading text-gray-900">تفاصيل التحقق</h2>
                 
-                <div className="text-lg leading-relaxed space-y-6 font-arabic text-gray-700">
-                  <div>
-                    <h3 className="text-xl font-bold text-gray-900 font-arabic-heading mb-3">الادعاء المنتشر</h3>
-                    <p>
-                      انتشر عبر وسائل التواصل الاجتماعي ادعاء يفيد بأن شرب الماء الدافئ مع الليمون في الصباح يساعد بشكل كبير في إنقاص الوزن وحرق الدهون، وأنه يمكن الاعتماد عليه كحل سحري للتخسيس.
-                    </p>
-                  </div>
+                {articleContent ? (
+                  <div 
+                    className="text-lg leading-relaxed space-y-6 font-arabic text-gray-700 prose prose-lg max-w-none"
+                    dangerouslySetInnerHTML={{ __html: articleContent.fullContent }}
+                  />
+                ) : (
+                  <div className="text-lg leading-relaxed space-y-6 font-arabic text-gray-700">
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 font-arabic-heading mb-3">الادعاء المنتشر</h3>
+                      <p>
+                        انتشر عبر وسائل التواصل الاجتماعي ادعاء يفيد بأن شرب الماء الدافئ مع الليمون في الصباح يساعد بشكل كبير في إنقاص الوزن وحرق الدهون، وأنه يمكن الاعتماد عليه كحل سحري للتخسيس.
+                      </p>
+                    </div>
 
-                  <div>
-                    <h3 className="text-xl font-bold text-gray-900 font-arabic-heading mb-3">الحقائق العلمية</h3>
-                    <p>
-                      بعد مراجعة الدراسات العلمية المتاحة، تبين أن شرب الماء الدافئ مع الليمون له فوائد صحية محدودة، ولكنه ليس حلاً سحرياً لإنقاص الوزن كما يُدّعى.
-                    </p>
-                  </div>
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 font-arabic-heading mb-3">الحقائق العلمية</h3>
+                      <p>
+                        بعد مراجعة الدراسات العلمية المتاحة، تبين أن شرب الماء الدافئ مع الليمون له فوائد صحية محدودة، ولكنه ليس حلاً سحرياً لإنقاص الوزن كما يُدّعى.
+                      </p>
+                    </div>
 
-                  <div className="bg-blue-50 border-r-4 border-blue-500 p-4 rounded-r-xl">
-                    <h4 className="font-bold text-blue-900 mb-2 font-arabic-heading">نتيجة التحقق</h4>
-                    <p className="text-blue-800 font-arabic">
-                      الادعاء مضلل جزئياً. رغم وجود بعض الفوائد الصحية لهذا المشروب، إلا أن تأثيره على إنقاص الوزن محدود ولا يمكن الاعتماد عليه وحده للتخسيس.
-                    </p>
-                  </div>
+                    <div className="bg-blue-50 border-r-4 border-blue-500 p-4 rounded-r-xl">
+                      <h4 className="font-bold text-blue-900 mb-2 font-arabic-heading">نتيجة التحقق</h4>
+                      <p className="text-blue-800 font-arabic">
+                        الادعاء مضلل جزئياً. رغم وجود بعض الفوائد الصحية لهذا المشروب، إلا أن تأثيره على إنقاص الوزن محدود ولا يمكن الاعتماد عليه وحده للتخسيس.
+                      </p>
+                    </div>
 
-                  <div>
-                    <h3 className="text-xl font-bold text-gray-900 font-arabic-heading mb-3">التوصيات</h3>
-                    <ul className="space-y-2 font-arabic">
-                      <li className="flex items-center gap-3">
-                        <span className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0"></span>
-                        اتباع نظام غذائي متوازن ومتنوع
-                      </li>
-                      <li className="flex items-center gap-3">
-                        <span className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0"></span>
-                        ممارسة الرياضة بانتظام
-                      </li>
-                      <li className="flex items-center gap-3">
-                        <span className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0"></span>
-                        شرب كمية كافية من الماء يومياً
-                      </li>
-                      <li className="flex items-center gap-3">
-                        <span className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0"></span>
-                        استشارة أخصائي تغذية للحصول على برنامج مناسب
-                      </li>
-                    </ul>
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 font-arabic-heading mb-3">التوصيات</h3>
+                      <ul className="space-y-2 font-arabic">
+                        <li className="flex items-center gap-3">
+                          <span className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0"></span>
+                          اتباع نظام غذائي متوازن ومتنوع
+                        </li>
+                        <li className="flex items-center gap-3">
+                          <span className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0"></span>
+                          ممارسة الرياضة بانتظام
+                        </li>
+                        <li className="flex items-center gap-3">
+                          <span className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0"></span>
+                          شرب كمية كافية من الماء يومياً
+                        </li>
+                        <li className="flex items-center gap-3">
+                          <span className="w-2 h-2 bg-blue-500 rounded-full flex-shrink-0"></span>
+                          استشارة أخصائي تغذية للحصول على برنامج مناسب
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              {/* Related Articles Section */}
+              {relatedArticles.length > 0 && (
+                <div className="bg-white rounded-xl shadow-md p-6">
+                  <h2 className="text-2xl font-black mb-6 font-arabic-heading text-gray-900">مقالات ذات صلة</h2>
+                  <div className="grid gap-4">
+                    {relatedArticles.map((relatedArticle) => (
+                      <div 
+                        key={relatedArticle.id}
+                        className="border border-gray-200 rounded-lg p-4 hover:border-blue-300 hover:shadow-md transition-all duration-200 cursor-pointer"
+                        onClick={() => router.push(`/article/${relatedArticle.id}`)}
+                      >
+                        <div className="flex gap-4">
+                          <img 
+                            src={relatedArticle.image} 
+                            alt={relatedArticle.title}
+                            className="w-20 h-20 object-cover rounded-lg"
+                          />
+                          <div className="flex-1">
+                            <h3 className="font-bold text-gray-900 font-arabic-heading mb-2 line-clamp-2">
+                              {relatedArticle.title}
+                            </h3>
+                            <p className="text-sm text-gray-600 font-arabic line-clamp-2 mb-2">
+                              {relatedArticle.summary}
+                            </p>
+                            <div className="flex items-center gap-4 text-xs text-gray-500">
+                              <span className="font-arabic">{relatedArticle.date}</span>
+                              <span className="font-arabic">{relatedArticle.readTime}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              </div>
+              )}
             </div>
 
             {/* Sidebar Column */}
@@ -700,6 +787,63 @@ export default function ArticlePage({ article }: ArticlePageProps) {
                   </div>
                 </div>
               </div>
+
+              {/* Sources Section - Enhanced */}
+              {articleContent?.sources && (
+                <div className="bg-white rounded-xl shadow-md p-4">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-8 h-8 bg-green-100 rounded-lg flex items-center justify-center">
+                      <FileText className="w-5 h-5 text-green-600" />
+                    </div>
+                    <h3 className="text-lg font-bold font-arabic-heading text-gray-900">المصادر</h3>
+                  </div>
+                  <div className="space-y-3">
+                    {articleContent.sources.map((source) => (
+                      <div key={source.id} className="bg-gray-50 rounded-lg p-3">
+                        <div className="flex items-start gap-2">
+                          <div className={`w-2 h-2 rounded-full mt-2 flex-shrink-0 ${
+                            source.reliability === 'high' ? 'bg-green-500' :
+                            source.reliability === 'medium' ? 'bg-yellow-500' : 'bg-red-500'
+                          }`}></div>
+                          <div className="flex-1">
+                            <h4 className="font-bold text-gray-900 font-arabic-heading text-sm mb-1">
+                              {source.title}
+                            </h4>
+                            <p className="text-xs text-gray-600 font-arabic mb-2">
+                              {source.description}
+                            </p>
+                            <div className="flex items-center gap-2">
+                              <span className={`px-2 py-1 rounded text-xs font-medium ${
+                                source.type === 'official' ? 'bg-blue-100 text-blue-700' :
+                                source.type === 'expert' ? 'bg-green-100 text-green-700' :
+                                source.type === 'media' ? 'bg-purple-100 text-purple-700' :
+                                source.type === 'document' ? 'bg-orange-100 text-orange-700' :
+                                'bg-gray-100 text-gray-700'
+                              }`}>
+                                {source.type === 'official' ? 'رسمي' :
+                                 source.type === 'expert' ? 'خبير' :
+                                 source.type === 'media' ? 'إعلامي' :
+                                 source.type === 'document' ? 'وثيقة' : 'اجتماعي'}
+                              </span>
+                              {source.url && (
+                                <a 
+                                  href={source.url} 
+                                  target="_blank" 
+                                  rel="noopener noreferrer"
+                                  className="text-blue-600 hover:text-blue-800 text-xs flex items-center gap-1"
+                                >
+                                  <ExternalLink className="w-3 h-3" />
+                                  رابط
+                                </a>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               {/* Compact Tags Section */}
               <div className="bg-white rounded-xl shadow-md p-4">

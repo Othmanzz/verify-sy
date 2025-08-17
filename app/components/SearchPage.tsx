@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { useSearchParams } from 'next/navigation'
+import { useSearchParams, useRouter } from 'next/navigation'
 import { Search, Filter, TrendingUp, Database, CheckCircle, XCircle, AlertCircle, HelpCircle, User, Eye, Clock, Star, ArrowLeft, Zap, Bot, Brain, Sparkles, Heart, DollarSign, Globe2, BookOpen, Laptop, Building2, Activity, Users2, X, RotateCcw, ChevronDown, Calendar, SortAsc } from 'lucide-react'
 import { FactCheck } from '../types'
 import { mockFactChecks, categories, verdictOptions, verdictSubcategories } from '../lib/mockData'
@@ -122,6 +122,7 @@ const CompactCard: React.FC<{ factCheck: FactCheck; onClick: () => void; feature
 };
 
 const SearchPage: React.FC = () => {
+  const router = useRouter()
   const searchParams = useSearchParams()
   const [searchQuery, setSearchQuery] = useState('');
   const [showSearchSuggestions, setShowSearchSuggestions] = useState(false);
@@ -204,8 +205,8 @@ const SearchPage: React.FC = () => {
     // Clear subcategory if verdict changes and new verdict has no subcategories
     if (newFilters.verdict !== filters.verdict) {
       if (newFilters.verdict === 'جميع التصنيفات' || 
-          !verdictSubcategories[newFilters.verdict] || 
-          verdictSubcategories[newFilters.verdict].length === 0) {
+          !verdictSubcategories[newFilters.verdict as keyof typeof verdictSubcategories] || 
+          verdictSubcategories[newFilters.verdict as keyof typeof verdictSubcategories]?.length === 0) {
         newFilters.subcategory = '';
       }
     }
@@ -381,7 +382,7 @@ const SearchPage: React.FC = () => {
                       </div>
 
                       {/* Conditional Subcategory Row */}
-                      {filters.verdict !== 'جميع التصنيفات' && verdictSubcategories[filters.verdict] && verdictSubcategories[filters.verdict].length > 0 && (
+                      {filters.verdict !== 'جميع التصنيفات' && verdictSubcategories[filters.verdict as keyof typeof verdictSubcategories] && verdictSubcategories[filters.verdict as keyof typeof verdictSubcategories]?.length > 0 && (
                         <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide pb-2 pt-2 border-t border-gray-100">
                           <div className="flex items-center gap-1 flex-shrink-0">
                             <Filter className="w-3.5 h-3.5 text-gray-500" />
@@ -400,7 +401,7 @@ const SearchPage: React.FC = () => {
                             الكل
                           </button>
                           
-                          {verdictSubcategories[filters.verdict].map((subcategory) => (
+                          {verdictSubcategories[filters.verdict as keyof typeof verdictSubcategories]?.map((subcategory) => (
                             <button
                               key={subcategory}
                               onClick={() => handleFilterChange({ ...filters, subcategory })}
@@ -704,7 +705,7 @@ const SearchPage: React.FC = () => {
                     key={factCheck.id}
                     factCheck={factCheck}
                     onClick={() => {
-                      console.log('Selected article:', factCheck.id);
+                      router.push(`/article/${factCheck.id}`);
                     }}
                     featured={index === 0}
                   />
@@ -743,6 +744,7 @@ const SearchPage: React.FC = () => {
                       setFilters({
                         category: 'جميع الفئات',
                         verdict: 'جميع التصنيفات',
+                        subcategory: '',
                         dateRange: 'جميع التواريخ',
                         sortBy: 'الأحدث'
                       });

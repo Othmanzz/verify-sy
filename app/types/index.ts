@@ -3,6 +3,8 @@ export interface FactCheck {
   title: string;
   summary: string;
   verdict: 'true' | 'false' | 'misleading' | 'unproven' | 'confirmed';
+  subVerdict?: string;
+  subVerdictExplanation?: string;
   image: string;
   author: string;
   date: string;
